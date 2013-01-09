@@ -1,0 +1,92 @@
+#summary A projekt rendszerterve a tervezési fázisban
+#labels Featured
+
+= Rendszerterv =
+
+
+== A rendszer felépítése ==
+
+A program 8 osztályból áll, ezek részletezése:
+
+ * A program funkcióinak elérése a _Menu_ osztályon keresztül történik. A főmenüből lehet elérni a főbb funkciókat, valamint ezek használatával almenükben történik a további funkciók elérése
+
+ * A _Menu_ osztály létrehozásakor, annak konstruktora tölti be az adatokat a memóriába a megfelelő fájlokból. (Ezek részletezése lentebb) Az adatok egy-egy vektorba kerülnek beolvasásra, a fájlok sértetlensége esetén erről a _LoadData()_ metódus gondoskodik
+
+ * A Menu főbb pontjai, és leírásai 
+   * LoadData: az adatok beolvasása a fájlokból
+   * SaveData: az összes memóriában tárolt adat kimentése
+   * Login: a könyvtáros beléptetése, majd utána a főmenü megjelenítése
+   * SearchBook: a keresést végző almenüt meghívó metódus
+   * ModifyBook: a könyvek kezelését végző almenüt meghívó metódus
+   * ModifyMember: a tagok kezelését végző almenüt meghívó metódus
+   * Loan: a kölcsönzést végző almenü meghívása
+   * Return: a visszavételt végző almenü meghívása
+ * A keresés almenüben nyílik lehetőség a könyvek közötti keresésre szerző, cím, azonosító, vagy ISBN szám szerint.
+ * A könyv-kezelés almenüben nyílik lehetőség új könyv felvételére, könyvek listázására, szerkesztésére, illetve törlésére.
+ * A tag-kezelés almenüben nyílik lehetőség új tag felvételére, tagok listázására, adott tag adatainak szerkesztésére, kölcsönzéseinek listázása, illetve tag törlésére.
+ * A kölcsönzés/visszavétel-almenüben lehetőség nyílik egy könyv kölcsönzésére/visszavételére adott tag által
+
+
+
+ * A program a könyvek adatait a _Books_ osztályban, a tagok adatait a _Members_ osztályban tárolja
+ * A különböző tagtípusok a _Members_ osztályból vannak származtatva, ezen osztályok: _Student_, _Prof_, _Oth_citizen_, és _Others_. (Amik megfelelnek (sorrendben): Egyetem hallgatói, egyetem tanárai, más egyetem polgára, egyéb ember)
+ * A _Members_ osztály gyerekei tehát a tagtípusokat jelölik, ezekben az osztályokban valójában csak a _Loan_ (kölcsönző) és a _Return_ (visszahozó) metódusok vannak felüldefiniálva, hogy a feladat leírásának megfelelően működjön a kölcsönzés illetve a visszavétel ( minden típusra a maximum ideig, és a maximum könyvmennyiséget engedjük kölcsönözni)
+
+
+http://konyvtar-adminisztracio.googlecode.com/files/Class%20View2.png
+_<p align="center">A működést bemutató osztálydiagram</p>_
+
+<br>
+
+=== Dinamikus tervezés: ===
+
+
+ * A program futása során a menü hajtja végre a tényleges tevékenységeket a különböző metódusok (menüpontok) futtatásával
+ * Mivel a metódusok futtatása jellemzi a program különböző állapotait, így az állapotokat a tevékenységekhez kötjük
+ * Megjegyzés: a menüfuttatás előtt a program betölti, valamit a program terminálás előtt kimenti az adatokat, ezt külön nem részletezzük
+
+
+http://konyvtar-adminisztracio.googlecode.com/files/Allapot.png
+_<p align="center">A menü lehetséges állapotváltozásai</p>_
+
+<br>
+
+ A program indítása után a metódusok a következőképp követhetik egymást.
+  * A program indítása után bekérjük a felhasználó nevét és jelszavát, ha sikeres a belépés, betöltjük a memóriába az adatokat. Sikertelen belépés esetén 3-szor újra lehet próbálkozni, majd a program kilép.
+  * Ha sikeres volt a bejelentkezés, és az adatok betöltése megtörtént, akkor megjelenik a menü.
+  * Ha még nincs könyv, vagy újat kívánunk létrehozni, akkor a ModifyBooks(create) paranccsal ezt megtehetjük
+  * Hasonlóan ez a tagokra is igaz
+  * Ezek után lehetőség van kölcsönzésre, és könyv visszavételére (kölcsönzésnél vizsgáljuk hogy a tagnak van e még lehetősége)
+  * Ekkor van lehetőség a törlésre is
+
+http://konyvtar-adminisztracio.googlecode.com/files/seq2.png
+_<p align="center">A program szekvencia diagramja</p>_
+
+
+<br>
+
+=== A program kommunikációs csatornái ===
+
+A program az adatkezeléshez három fájlt használ, ezek legyenek a következők: _konyvtaros.dat_, _konyvek.dat_ és _tagok.dat_
+Ezek felépítése a következő:
+
+A könyvtárosok adatait tartalmazó fájl
+<u>*konyvtaros.dat*</u> felépítése:
+<pre>
+<név>;<jelszó>
+...
+</pre>
+
+A könyvek adatait tartalmazó fájl
+<u>*konyvek.dat*</u> felépítése:
+<pre>
+<id>;<szerző>;<cím>;<kiadó>;<kiadási évszám>;<kiadás száma>;<isbn>;<kölcsönzött-e>
+...
+</pre>
+
+A tagokat tartalmazó fájl
+<u>*tagok.dat*</u> felépítése:
+<pre>
+<tipus>;<nev>;<lakcim>;<elerhetoseg>;<kivett könyvek szama>;<kivett könyv 1>;<kivett könyv 2>; ... ;<kivett könyv N>
+...
+</pre>
