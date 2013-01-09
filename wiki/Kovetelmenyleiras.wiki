@@ -1,0 +1,94 @@
+#summary Követelményleírás a projekthez
+#labels Phase-Requirements,Featured
+= Követelményleírás = 
+
+== A szoftver == 
+
+=== A szoftver leírása ===
+Készítsünk egy egyetemi könyvtár kölcsönzéseit nyilvántartó rendszert. A rendszer feladata a könyvtár tagjainak, könyveinek, illetve könyvtárosainak nyilvántartása.
+
+A rendszer négyféle könyvtári tagot tart nyilván:
+
+ * egyetemi hallgató: két hónapra kölcsönözhet könyvet, egyszerre legfeljebb 5 könyvet kölcsönözhet
+
+ * egyetemi oktató: egy évre kölcsönözhet könyvet, egyszerre tetszőlegesen sok könyvet kölcsönözhet
+
+ * másik egyetem polgára, vagy oktatója: egy hónapra kölcsönözhet könyvet, egyszerre legfeljebb 4 könyvet kölcsönözhet
+
+ * mindenki más: két hétre kölcsönözhet könyvet, egyszerre legfeljebb 2 könyvet kölcsönözhet.
+
+
+=== Környezeti követelmény === 
+
+A szoftver Linuxos környezetre optimalizált, de a kód Windows kompatibilissé tehető. A futtatáshoz egyszerű személyi számítógép elegendő, semmilyen egyéb szoftverrel nem kell együttműködni. 
+
+=== Szerkezeti felépítés ===
+
+A szoftver egyetlen komponensből áll, amely a konzol felületet, az adatkezelést és a fájlkezelést is magában foglalja.
+
+
+=== Feltételek ===
+Egy programozó alkalmazásával közel 60 munkaórányi fejlesztési idő várható, költségként felszámolható erre az időszakra megfelelő sörmennyiség. Ellentmondás és bizonytalanság nem merül fel.
+
+
+=== Funkciók, szolgáltatások === 
+
+    * Új könyv felvétele _(szerző, cím, kiadó, évszám, kiadás, ISBN szám, kölcsönözhető-e)_. A könyvhöz alkalmas, könnyen megjegyezhető azonosítót generál a program.
+    * Könyvek listázása _(a tulajdonságok mellett a kintlévőség)_, könyv törlése, illetve a könyvek közötti keresés. A kereséskor meg kell adni a keresési feltételt _(szerző, cím, azonosító, vagy ISBN szám)_, majd a keresési szöveget.
+    * Könyvtári tag felvétele _(név, lakcím, típus, elérhetőség)_ és törlése.
+    * Tagok listájának, illetve adott tag adatainak megtekintése, módosítása, a tag kölcsönzéseinek listázása _(dátum, könyv, visszahozás dátuma)_.
+    * Könyv kölcsönzése adott dátumú kezdettel, adott tag által _(a tagtípus alapján automatikusan generálja a visszahozás dátumát)_, ügyelve arra, hogy a könyv kölcsönözhető, és a tag még kölcsönözhet könyvet.
+    * Könyv vissza hozatala, amikor is a rendszer figyelmeztet az esetleges késésre.
+
+
+=== Fejlesztési modell === 
+A program fejlesztése a vízesés modellnek megfelelően, *C++ nyelven* zajlik le, valamint az objektumorientált paradigma kerül alkalmazásra.
+
+=== Kommunikáció és adatkezelés ===
+A program konzolos felületen, szöveges bevitel segítségével kommunikál a felhasználóval. Az adatok betöltése valamint mentése egyszerű szöveges fájlokba történik.
+
+=== Minőségi mutatók === 
+ * A program garantáltan hibátlan funkciókat biztosít, az adatfájlok sértetlensége esetén.
+ * Az adatfájl sérülése esetén azonban a korábbi adatok elvesznek, de a további funkciók biztosítottak
+ * A program memória és tárhely szükséglete a teljes adatmennyiséggel arányos
+ * A program csak a helyi gépen lesz elérhető, további karbantartást nem igényel
+ * Az átadás a teljes program elkészültével történik meg
+
+
+== Határidők, mérföldkövek  == 
+A szoftver egységei a terv szerint hetente készülnek el, így a szoftverfejlesztés heti ciklusokban valósul meg
+ 
+ # * 2012. október 17.*: A feladat pontos leírása, elemzése; a funkciók illetve költségek rögzítése
+  * _Munkaidő_: 5 emberóra
+  * _Eredmény_: Követelményleírás
+ # * 2012. november 28.*: A program specifikációjának leírása, a teljes rendszer felépítése, statikus szerkezet, az osztályok leírása (funkciók, felépítés); a rendszer működési folyamatának jellemző részeinek felsorolása
+  * _Munkaidő_: 20 emberóra
+  * _Eredmény_: Rendszerterv (tervezési fázis)
+ # * 2012. december 5.*: A program első teszt verziójának elkészítése, a rendszerterv frissítése, felhasználói dokumentáció elkezdése
+  * _Munkaidő_: 30 emberóra
+  * _Eredmény_: A program alfa verziója
+ # * 2012. december 23.*: A program béta verziója
+  * _Munkaidő_: 30 emberóra
+  * _Eredmény_: A program béta verziója, felhasználói dokumentáció béta verziója
+ # * 2013. január 16.*: A program véglegesítése, utolsó hibajavítások; rendszerterv és felhasználói dokumentáció véglegesítése
+  * _Munkaidő_: 15 emberóra
+  * _Eredmény_: A program végleges verziója, rendszerterv (implementációs fázis), felhasználói dokumentáció
+
+== Felhasználói esetek == 
+
+ * Könyvek kezelése - A felhasználó kezelheti a könyveket. Az alábbi műveleteket végezheti el:
+   * létrehozás
+   * törlés
+   * lekérdezés
+   * keresés
+
+ * Könyvtári tagok kezelése - A felhasználó menedzselheti a könyvtári tagokat. Az alábbi műveleteket végezheti el
+   * létrehozás
+   * törlés
+   * adott tag adatainak megtekintése, módosítása
+   * tagok listájának megtekintése, módosítása
+   * tag kölcsönzéseinek listázása
+ * Könyv kölcsönzése - A kezelő adott tag által, adott dátumtól kezdve könyvet kölcsönöz - figyelve arra hogy a tag még kölcsönözhet-e?
+ * Kölcsön visszavétele - A kezelő egy kikölcsönzött könyvet vissza tud venni, a program figyelmeztet az esetleges késésre
+
+http://konyvtar-adminisztracio.googlecode.com/files/uml.png
