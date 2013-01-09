@@ -32,6 +32,24 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Admin.cpp" />
+		<Unit filename="Admin.h" />
+		<Unit filename="Egyeb.cpp" />
+		<Unit filename="Egyeb.h" />
+		<Unit filename="Hallgato.cpp" />
+		<Unit filename="Hallgato.h" />
+		<Unit filename="Konyv.cpp" />
+		<Unit filename="Konyv.h" />
+		<Unit filename="Members.cpp" />
+		<Unit filename="Members.h" />
+		<Unit filename="Menu.cpp" />
+		<Unit filename="Menu.h" />
+		<Unit filename="Oktato.cpp" />
+		<Unit filename="Oktato.h" />
+		<Unit filename="Others.cpp" />
+		<Unit filename="Others.h" />
+		<Unit filename="Tag_tipus.cpp" />
+		<Unit filename="Tag_tipus.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

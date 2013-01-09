@@ -8,6 +8,7 @@
 #if !defined(EA_4325E5CE_61C4_45dd_A673_98C8DBFD5AEA__INCLUDED_)
 #define EA_4325E5CE_61C4_45dd_A673_98C8DBFD5AEA__INCLUDED_
 
+#include <list>
 #include "Konyv.h"
 #include "Members.h"
 
