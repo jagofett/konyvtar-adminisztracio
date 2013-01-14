@@ -12,35 +12,42 @@ class Books
 {
 
 public:
-	void Books();
-	virtual void ~Books();
+	Books(std::string szerzo, std::string cim, std::string kiado, int evszam, int kiadas, int isbn) :  _szerzo(szerzo), _cim(cim), _kiado(kiado), _evszam(evszam), _kiadas(kiadas), _isbn(isbn)
+	{
+		_szabad = true;
+		_id = nextId++;
+	}
+	virtual ~Books() {}
+	void list();
 	void Loan();
 	void Edit();
 
 private:
+	static int nextId;
+	//k√∂vetkezo azonosito
 	/**
-	 * konyvet azonosÌtÛ mezı
+	 * konyvet azonos√≠t√≥ mez√µ
 	 */
-	string id;
-	string szerzo;
-	string cim;
-	string kiado;
+    int _id;
+	std::string _szerzo;
+	std::string _cim;
+	std::string _kiado;
 	/**
-	 * kiad·si Èvsz·m
+	 * kiad√°si √©vsz√°m
 	 */
-	int evszam;
+	int _evszam;
 	/**
-	 * kiad·s sz·ma
+	 * kiad√°s sz√°ma
 	 */
-	int kiadas;
+	int _kiadas;
 	/**
-	 * ISBN azonosÌtÛ sz·m
+	 * ISBN azonos√≠t√≥ sz√°m
 	 */
-	int isbn;
+	int _isbn;
 	/**
-	 * az adott kˆnyv kˆlcsˆnˆzhetı-e?
+	 * az adott k√∂nyv k√∂lcs√∂n√∂zhet√µ-e?
 	 */
-	bool kolcsonozheto;
+	bool _szabad;
 
 };
 #endif // !defined(EA_2BB6CA00_4C83_4045_A5DC_49A10EC72849__INCLUDED_)

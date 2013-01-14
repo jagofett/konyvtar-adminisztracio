@@ -22,10 +22,10 @@ public:
 	void Run();
 	void LoadData();
 	void SaveData();
-	void WriteMenu(string type);
-	void ModifyBook(string type = add);
+	void WriteMenu(std::string type);
+	void ModifyBook(std::string type = add);
 	void SearchBook();
-	void ModifyMember(string type);
+	void ModifyMember(std::string type);
 	void Loan();
 	bool Return();
 	void Login();

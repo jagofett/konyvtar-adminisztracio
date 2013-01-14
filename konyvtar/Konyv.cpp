@@ -5,18 +5,19 @@
 //  Original author: Akos
 ///////////////////////////////////////////////////////////
 
+#include <iostream>
 #include "Konyv.h"
 
+using namespace std;
+
+int Books::nextId = 1;
 
 
 
-void Books::Books(){
+void Books::list(){
+//cout<< "ID\t" <<  "SZERZO\t" <<  "CIM\t" <<  "KIADO\t" <<  "EVSZAM\t" << "KIADAS\t" <<  "ISBN"<< endl;
 
-}
-
-
-void Books::~Books(){
-
+cout<< _id << "\t" <<  _szerzo<< "\t" <<  _cim << "\t" <<  _kiado << "\t" <<  _evszam << "\t" <<  _kiadas << ". kiadas\t" <<  _isbn << endl;
 }
 
 

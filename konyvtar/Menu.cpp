@@ -43,7 +43,7 @@ void Menu::WriteMenu(string type){
 /**
  * könyvek módosítása, paraméterként, hogy milyen mûveletet végezzünk.
  */
-void Menu::ModifyBook(string type){
+void Menu::ModifyBook(std::string type){
 
 }
 
@@ -59,7 +59,7 @@ void Menu::SearchBook(){
 /**
  * tagok kezelése, paraméterként a mûvelet típusa
  */
-void Menu::ModifyMember(string type){
+void Menu::ModifyMember(std::string type){
 
 }
 
