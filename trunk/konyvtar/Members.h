@@ -24,12 +24,12 @@ public:
 	void Edit();
 
 private:
-	string nev;
-	string lakcim;
+	std::string nev;
+	std::string lakcim;
 	/**
 	 * mobilszam vagy email
 	 */
-	string elerhetoseg;
+	std::string elerhetoseg;
 	/**
 	 * a kikölcsönzött könyvek listája
 	 */
