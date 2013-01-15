@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1358293389 source:e:\project\test\konyv.cpp
+	<iostream>
+	"Konyv.h"
+
+1358293374 e:\project\test\konyv.h
+	<string>
+	"Members.h"
+
+1358293224 source:e:\project\test\main.cpp
+	<iostream>
+	<fstream>
+	<vector>
+	<cstdlib>
+	"Date.hpp"
+	"Konyv.h"
+	"Admin.h"
+	"Members.h"
+
+1358205027 source:e:\project\test\admin.cpp
+	"Admin.h"
+	<fstream>
+
+1358259873 e:\project\test\admin.h
+	<vector>
+	<iostream>
+
+1358293016 e:\project\test\members.h
+	<vector>
+	<string>
+	"Konyv.h"
+
+1358285978 source:e:\project\test\members.cpp
+	<iostream>
+	"Members.h"
+
+1358293428 e:\project\test\date.hpp
+	<iostream>
+	<string>
+	<stdio.h>
+	<time.h>
+	"Members.h"
+
