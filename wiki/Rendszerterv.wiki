@@ -87,6 +87,6 @@ A könyvek adatait tartalmazó fájl
 A tagokat tartalmazó fájl
 <u>*tagok.dat*</u> felépítése:
 <pre>
-<tipus>;<nev>;<lakcim>;<elerhetoseg>;<kivett könyvek szama>;<kivett könyv 1>;<kivett könyv 2>; ... ;<kivett könyv N>
+<tipus>;<nev>;<lakcim>;<elerhetoseg>;<kivett könyvek szama>;<kivett könyv 1>;<könyv 1 kivételi dátuma>;<kivett könyv 2>;<könyv 2 kivételi dátuma>; ... ;<kivett könyv N>;<könyv N kivételi dátuma>
 ...
 </pre>
