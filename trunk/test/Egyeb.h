@@ -19,8 +19,9 @@ public:
     _kolcs_hossz=30;	 // kölcsönzés max hossza hossza napokban
 	_max_konyv = 4;
 	_tipus = "Egyetemi polgár";
+	_tid = 3;
 	}
-	virtual ~Citizen();
+	virtual ~Citizen(){}
 		void spec() {std::cout << "Típus: " << _tipus << " Kölcs. hossza: " << _kolcs_hossz << ", maximális könyvszám: " <<_max_konyv << std::endl;}
 	bool Loan(Books* mit, std::string datumtol){std::cout << "Kölcsönzés történt!\n";Members::Loan(mit, datumtol);}
 	bool Return(Books mit);

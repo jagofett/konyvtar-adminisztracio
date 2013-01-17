@@ -4,8 +4,8 @@
 //  Created on:      28-dec.-2012 19:42:13
 //  Original author: Akos
 ///////////////////////////////////////////////////////////
-#if !defined(ADMIN_H)
-#define ADMIIN_H
+#ifndef ADMIN_H
+#define ADMIN_H
 
 #include <vector>
 #include <iostream>

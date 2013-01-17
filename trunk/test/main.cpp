@@ -1,4 +1,7 @@
 #include <iostream>
+#include "Menu.h"
+
+/*
 #include <fstream>
 #include <vector>
 #include <cstdlib>
@@ -11,7 +14,7 @@
 #include "Hallgato.h"
 #include "Oktato.h"
 #include "Others.h"
-
+*/
 
 
 
@@ -26,24 +29,41 @@ enum Exception {MISSING_FILE,BAD_INPUT};
 int main()
 {
     setlocale (LC_ALL,"HUN");
+
+    try{
+    Menu m;
+    m.Run();
+    }catch(Menu::Exception ex)
+    {
+        if (ex == Menu::MISSING_FILE){std::cout << "Nem sikerult megnyitni egy fajlt, a program leall!";}
+        else if (ex == Menu::BAD_INPUT){std::cout << "Az egyik adatokat tartalmazo fajl hibas adatokat tartalmaz, a program leall!";}
+        else if (ex == Menu::AUTH_FALIURE){std::cout << "A bejelentkezés nem sikerült, a program leáll!";}
+        else if (ex == Menu::BAD_AUTHFILE){std::cout << "A bejelentkezési fájl sérült, a bejelentkezés nem hajtható végre, a program leáll!";}
+        else{std::cout << "Ismeretlen hiba tortent a futas kozben, a program leall!";}
+        return 1;
+    }
+
+    /*
     bool ok = false;
     try{
     Admin p;
     //ok = p.Login();
-    /**/ ok = true; /**/
+    /* ok = true; /*
     if (ok){
 	LoadData();
-	t.push_back(new Citizen("Egyetemi Polgár", "ELTE", "elte@inf.com"));
+	//t.push_back(new Citizen("Egyetemi Polgár", "ELTE", "elte@inf.com"));
 
 	//kölcsönzés visszavétel
-    Books* p= idToPoint(7);
+    Books* p= idToPoint(5);
+    vector<Members*>::iterator it;
+    it = t.begin();
     if (p==0){throw BAD_INPUT;} //ha nincs olyan konyv, kivetel dobasa
-    //t[t.size()-1]->Loan_L(p, "2013.01.10");
+    (*(it+1))->Loan_L(p, "2013.01.10");
 
     //t[t.size()-1]->Return(7);
 
 	cout << "Tagok: " << t.size() << endl;
-    for(unsigned int i=0;i<t.size();++i){t[i]->list();} //
+    for(unsigned int i=0;i<t.size();++i){t[i]->spec();} //
 
 
     //cout << a << endl;
@@ -54,7 +74,7 @@ cout << endl<<endl;
 	k.push_back(new Books("Nagy Gábor", "C++ haladoknak", "Petofi", 2012, 3, 123445));
 	*/
 //k.push_back(new Books("Nagy Gábor", "Almafase", "Gangsta", 22001, 13, 111111111));
-
+/*
     cout << "KONYVEK"<< endl;
 	for(unsigned int i=0;i<k.size();++i){k[i]->list();}
     cout<< endl;
@@ -121,12 +141,12 @@ void LoadData(){
 
         f.close();
     }
-    else throw MISSING_FILE;  //ha nem sikerült a fájlt megnyitni kivétel dobása*/
+    else throw MISSING_FILE;  //ha nem sikerült a fájlt megnyitni kivétel dobása*//*
     }
     //tagok betöltése
     {
-    string nev, cim, eler, db_s, kolcs, date;
-    int db, id; //id=kolcsonzott konyv id-je, db az osszes kolcsonzes db-szama
+    string tipus, nev, cim, eler, db_s, kolcs, date;
+    int db, id, tp; //id=kolcsonzott konyv id-je, db az osszes kolcsonzes db-szama
     f.open("tagok.dat");
     if (f.is_open()) //fajl megnyitasa sikeres?
     {
@@ -137,12 +157,21 @@ void LoadData(){
         getline(f,tmp_sor);
         sor << tmp_sor;
 //            f>>id;
-            //getline(f, tipus, ';' ); //tipus
+            getline(sor, tipus, ';' ); //tipus
             getline(sor, nev, ';' ); //nev
             getline(sor, cim, ';' ); //cim
             getline(sor, eler, ';' ); //elerhetoseg
             getline(sor, db_s, ';' ); //kolcsonzesek szama
-            Others *tmp = new Others(nev, cim, eler);
+
+            tp = atoi(tipus.c_str());
+            Members* tmp;
+            if (tp == 1){ tmp = new Student(nev, cim, eler);}
+            else if (tp == 2){ tmp = new Prof(nev, cim, eler);}
+            else if (tp == 3){ tmp = new Citizen(nev, cim, eler);}
+            else{ tmp = new Others(nev, cim, eler);}
+
+
+            //Others *tmp = new Others(nev, cim, eler);
             db = atoi(db_s.c_str());
             for(int i=1;i<=db;i++)
             {
@@ -174,7 +203,7 @@ void SaveData(){
 	for(unsigned int i=0;i<k.size();i++){f<<(*k[i]);}
 	f.close();
     }
-    else throw MISSING_FILE;  //ha nem kivétel dobása*/
+    else throw MISSING_FILE;  //ha nem kivétel dobása*//*
 
     //tagok kimentese
     f.open("tagok.dat");

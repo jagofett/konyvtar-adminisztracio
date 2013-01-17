@@ -8,31 +8,33 @@
 #if !defined(EA_4325E5CE_61C4_45dd_A673_98C8DBFD5AEA__INCLUDED_)
 #define EA_4325E5CE_61C4_45dd_A673_98C8DBFD5AEA__INCLUDED_
 
-#include <list>
+#include <vector>
 #include "Konyv.h"
 #include "Members.h"
+#include "Admin.h"
 
 class Menu
 {
 
 public:
 	Admin *m_Admin;
-	void Menu();
-	virtual void ~Menu();
+	Menu();
+	virtual ~Menu();
 	void Run();
 	void LoadData();
 	void SaveData();
 	void WriteMenu(std::string type);
-	void ModifyBook(std::string type = add);
+	void ManageBook(std::string type = "list");
 	void SearchBook();
-	void ModifyMember(std::string type);
+	void ManageMember(std::string type ="list");
 	void Loan();
 	bool Return();
-	void Login();
-
+	bool Login();
+	Books* idToPoint(int id);
+    enum Exception {MISSING_FILE,BAD_INPUT,AUTH_FALIURE,BAD_AUTHFILE};
 private:
-	list<Konyv*> _books;
-	list <Members*> _members;
+    std::vector<Books*> _books;
+    std::vector<Members*> _members;
 
 };
 #endif // !defined(EA_4325E5CE_61C4_45dd_A673_98C8DBFD5AEA__INCLUDED_)

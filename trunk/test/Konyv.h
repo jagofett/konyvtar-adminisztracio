@@ -14,8 +14,8 @@ public:
 	bool Loan(std::string datum, Members* ki);
 	void Return(){_ki = 0; _szabad= true;_datum="0";}
 	void Edit();
-	int GetId(){return _id;}
-	std::string GetDate(){return _datum;}
+	int GetId()const{return _id;}
+	std::string GetDate()const{return _datum;}
 
 	friend std::ostream& operator<<(std::ostream&,const Books&);
 private:
