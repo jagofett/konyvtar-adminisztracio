@@ -10,7 +10,7 @@
 
 
 
-
+/*
 
 
  Student::~Student(){
@@ -28,3 +28,4 @@ bool Student::Return(Books mit){
 
 	return false;
 }
+*/

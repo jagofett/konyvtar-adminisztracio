@@ -8,6 +8,9 @@
 #include "Admin.h"
 #include "Members.h"
 #include "Egyeb.h"
+#include "Hallgato.h"
+#include "Oktato.h"
+#include "Others.h"
 
 
 
@@ -30,7 +33,7 @@ int main()
     /**/ ok = true; /**/
     if (ok){
 	LoadData();
-	//t.push_back(new Citizen("Egyetemi Polgár", "ELTE", "elte@inf.com"));
+	t.push_back(new Citizen("Egyetemi Polgár", "ELTE", "elte@inf.com"));
 
 	//kölcsönzés visszavétel
     Books* p= idToPoint(7);
@@ -139,7 +142,7 @@ void LoadData(){
             getline(sor, cim, ';' ); //cim
             getline(sor, eler, ';' ); //elerhetoseg
             getline(sor, db_s, ';' ); //kolcsonzesek szama
-            Members *tmp = new Members(nev, cim, eler);
+            Others *tmp = new Others(nev, cim, eler);
             db = atoi(db_s.c_str());
             for(int i=1;i<=db;i++)
             {

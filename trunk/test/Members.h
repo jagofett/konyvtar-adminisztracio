@@ -28,14 +28,15 @@ public:
 	virtual int Return(int id);
 	virtual void list();
 	void Edit();
-	void spec() {std::cout << "Típus: " << _tipus << " Kölcs. hossza: " << _kolcs_hossz << ", maximális könyvszám: " <<_max_konyv << std::endl;}
+	virtual void spec() =0;
 	enum Exception {INVALID_RETURN,INVALID_LOAN};
 	friend std::ostream& operator<<(std::ostream&,const Members*);
 protected:
     static int nextId; //automatikus novelesu id.
     //ugyfeleket azonosito mezok
     int _id; //egyeni azonosito
-	std::string _tipus;
+	std::string _tipus; //tag tipusanak leirasa
+	int _tid;           //tag tipus id-je. (adatbetolteskor hasznalt) 1-Student, 2-Prof, 3-Citizen, 4-Others
 	std::string _nev;
 	std::string _lakcim;
 	std::string _eler;
