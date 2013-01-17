@@ -81,11 +81,11 @@ void Members::list(){
     cout <<date << endl;
 
  }
-spec();
+//spec();
 }
 
 ostream& operator<<(ostream &os,const Members *m){
-os << m->_nev << ";" <<  m->_lakcim<< ";" <<  m->_eler << ";" << m->_kivett.size();
+os << m->GetType() << ";" << m->_nev << ";" <<  m->_lakcim<< ";" <<  m->_eler << ";" << m->_kivett.size();
 if (m->_kivett.size()!=0) {
 os <<";";
 for(unsigned int i=0;i<m->_kivett.size();i++)

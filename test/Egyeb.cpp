@@ -13,10 +13,10 @@
 
 
 
- Citizen::~Citizen(){
+/* Citizen::~Citizen(){
 
 }
-/*
+
 
 bool Citizen::Loan(Books mit, int datumtol){
 

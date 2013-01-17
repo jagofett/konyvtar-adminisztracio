@@ -43,6 +43,8 @@
 		<Unit filename="Konyv.h" />
 		<Unit filename="Members.cpp" />
 		<Unit filename="Members.h" />
+		<Unit filename="Menu.cpp" />
+		<Unit filename="Menu.h" />
 		<Unit filename="Oktato.cpp" />
 		<Unit filename="Oktato.h" />
 		<Unit filename="Others.cpp" />

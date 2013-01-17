@@ -20,6 +20,7 @@ public:
     _kolcs_hossz=14;	 // kölcsönzés max hossza hossza napokban
 	_max_konyv = 2;
 	_tipus = "Egyéb";
+	_tid = 4;
 	}
 	~Others(){}
 	bool Loan(Books* mit, std::string datumtol){std::cout << "Kölcsönzés történt!\n";Members::Loan(mit, datumtol);}
