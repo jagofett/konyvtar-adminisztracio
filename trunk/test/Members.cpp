@@ -61,8 +61,23 @@ void Members::list(){
 
  cout<< _id << "\t" <<  _nev<< "\t" <<  _lakcim << "\t" <<  _eler  << endl;
  for(unsigned int i=0;i<_kivett.size();i++){
-   cout << i << "-nek kölcsönzött könyv ID-je: " << _kivett[i]->GetId() << "\t Dátuma: " << _kivett[i]->GetDate() << endl;
+    MyDate date(_kivett[i]->GetDate());
+    cout << i+1 << "-nek kölcsönzött könyv ID-je: " << _kivett[i]->GetId() << "\t Dátuma: " << date << "\tVisszahozás dátuma: ";
+    switch(_kolcs_hossz){
+    case 365:
+        date = date + 365;
+        break;
+    case 30:
+        date.addMonth();
+        break;
+    default:
+        date = date + _kolcs_hossz;
+        break;
+    }
+    cout <<date << endl;
+
  }
+spec();
 }
 
 ostream& operator<<(ostream &os,const Members *m){

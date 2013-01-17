@@ -30,25 +30,20 @@ int main()
     /**/ ok = true; /**/
     if (ok){
 	LoadData();
-	t.push_back(new Members("Nagy Gábor", "Petofi utca 12.", "nagy.gabor@gmail.com"));
+	//t.push_back(new Citizen("Egyetemi Polgár", "ELTE", "elte@inf.com"));
 
 	//kölcsönzés visszavétel
-    Books* p= idToPoint(6);
+    Books* p= idToPoint(7);
     if (p==0){throw BAD_INPUT;} //ha nincs olyan konyv, kivetel dobasa
-    //t[2]->Loan_L(p, "20130110");
+    //t[t.size()-1]->Loan_L(p, "2013.01.10");
 
-    //t[2]->Return(6);
+    //t[t.size()-1]->Return(7);
 
 	cout << "Tagok: " << t.size() << endl;
     for(unsigned int i=0;i<t.size();++i){t[i]->list();} //
-    MyDate a("2013.01.10");
-    MyDate b(1992,1,15);
-    cout << a.toDate(a.getNapok()) << endl;
-    a.addMonth();
-    a.addMonth();
-    a.addMonth();
 
-    cout << a << endl;
+
+    //cout << a << endl;
 
 
 cout << endl<<endl;

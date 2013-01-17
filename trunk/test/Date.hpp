@@ -32,7 +32,7 @@ MyDate(string td) //EEEE.HH.NN formatumu stringbol datumot keszit
    // napok = napok;
    // cout << td << endl;
 int ev, hnap, nap;
-    if (td.size()!=10) throw BAD_DATE_FORMAT; else {
+    if (td.size()!=10) {cout << "hossz!";throw BAD_DATE_FORMAT;} else {
     _ev = atoi(td.substr(0,4).c_str());
     _hnap = atoi(td.substr(5,2).c_str());
     _nap = atoi(td.substr(8,2).c_str());
@@ -94,7 +94,6 @@ int maElter(){
 }
 
 void addMonth(){
-int hnapszam, hnap;
 if (_hnap != 12){*this = MyDate(_ev,_hnap+1, _nap );}
 else {*this = MyDate(_ev +1,1, _nap );}
 
@@ -122,7 +121,7 @@ friend ostream& operator<<(ostream &os,const MyDate &b)
     string h1, h2;
     h1 = (b._hnap < 10) ? "0":""; //kitöltõ 0-ák
     h2 = (b._nap < 10) ? "0":"";
-    return os << b._ev << "." << h1 << b._hnap << "." << h2 << b._nap << endl;
+    return os << b._ev << "." << h1 << b._hnap << "." << h2 << b._nap;
 }
 };
 
