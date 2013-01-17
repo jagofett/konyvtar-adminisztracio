@@ -17,10 +17,11 @@ public:
 	Citizen(std::string nev, std::string cim, std::string eler): Members(nev, cim, eler){
 
     _kolcs_hossz=30;	 // kölcsönzés max hossza hossza napokban
-	_max_konyv = 4;
+	_max_konyv = 0;
+	_tipus = "Egyetemi polgár";
 	}
 	virtual ~Citizen();
-	bool Loan(Books mit, int datumtol);
+	bool Loan(Books* mit, std::string datumtol){std::cout << "Kölcsönzés történt!\n";Members::Loan(mit, datumtol);}
 	bool Return(Books mit);
 
 };
