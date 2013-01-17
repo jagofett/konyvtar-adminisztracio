@@ -10,12 +10,10 @@
 
 
 
-void Student::Student(){
-
-}
 
 
-void Student::~Student(){
+
+ Student::~Student(){
 
 }
 

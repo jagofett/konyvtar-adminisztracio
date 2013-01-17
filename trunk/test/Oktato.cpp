@@ -10,9 +10,7 @@
 
 
 
-Prof::Prof(){
 
-}
 
 
 Prof::~Prof(){
@@ -20,7 +18,7 @@ Prof::~Prof(){
 }
 
 
-book Prof::Loan(Books mit, int datumtol){
+bool Prof::Loan(Books mit, int datumtol){
 
 	return  NULL;
 }

@@ -10,12 +10,9 @@
 
 
 
-void Others::Others(){
-
-}
 
 
-void Others::~Others(){
+ Others::~Others(){
 
 }
 

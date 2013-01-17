@@ -7,15 +7,17 @@
 	<string>
 	"Members.h"
 
-1358293224 source:e:\project\test\main.cpp
+1358443868 source:e:\project\test\main.cpp
 	<iostream>
 	<fstream>
 	<vector>
 	<cstdlib>
+	<sstream>
 	"Date.hpp"
 	"Konyv.h"
 	"Admin.h"
 	"Members.h"
+	"Egyeb.h"
 
 1358205027 source:e:\project\test\admin.cpp
 	"Admin.h"
@@ -25,19 +27,46 @@
 	<vector>
 	<iostream>
 
-1358293016 e:\project\test\members.h
+1358436638 e:\project\test\members.h
+	<iostream>
 	<vector>
 	<string>
 	"Konyv.h"
 
-1358285978 source:e:\project\test\members.cpp
+1358436731 source:e:\project\test\members.cpp
 	<iostream>
+	<cstdlib>
 	"Members.h"
+	"Date.hpp"
 
-1358293428 e:\project\test\date.hpp
+1358444355 e:\project\test\date.hpp
 	<iostream>
 	<string>
-	<stdio.h>
+	<cstdlib>
 	<time.h>
+	<sstream>
+
+1358296858 source:e:\project\test\egyeb.cpp
+	"Egyeb.h"
+
+1358296152 e:\project\test\egyeb.h
+	"Members.h"
+
+1358295588 source:e:\project\test\hallgato.cpp
+	"Hallgato.h"
+
+1358295578 e:\project\test\hallgato.h
+	"Members.h"
+
+1358295609 source:e:\project\test\oktato.cpp
+	"Oktato.h"
+
+1358295597 e:\project\test\oktato.h
+	"Members.h"
+
+1358295622 source:e:\project\test\others.cpp
+	"Others.h"
+
+1358295616 e:\project\test\others.h
 	"Members.h"
 

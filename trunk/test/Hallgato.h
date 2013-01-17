@@ -14,8 +14,8 @@ class Student : public Members
 {
 
 public:
-	void Student();
-	virtual void ~Student();
+	 Student();
+	virtual  ~Student();
 	bool Loan(Books mit, int mikortol);
 	bool Return(Books mit);
 
