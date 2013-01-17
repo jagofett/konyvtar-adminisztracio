@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////
 //  Egyeb.h
-//  Implementation of the Class Oth_citizen
+//  Implementation of the Class Citizen
 //  Created on:      28-nov.-2012 18:55:42
 //  Original author: Akos
 ///////////////////////////////////////////////////////////
@@ -10,13 +10,17 @@
 
 #include "Members.h"
 
-class Oth_citizen : public Members
+class Citizen : public Members
 {
 
 public:
-	void Oth_citizen();
-	virtual void ~Oth_citizen();
-	book Loan(Books mit, int datumtol);
+	Citizen(std::string nev, std::string cim, std::string eler): Members(nev, cim, eler){
+
+    _kolcs_hossz=30;	 // kölcsönzés max hossza hossza napokban
+	_max_konyv = 4;
+	}
+	virtual ~Citizen();
+	bool Loan(Books mit, int datumtol);
 	bool Return(Books mit);
 
 };

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////
 //  Egyeb.cpp
-//  Implementation of the Class Oth_citizen
+//  Implementation of the Class Citizen
 //  Created on:      28-nov.-2012 18:55:42
 //  Original author: Akos
 ///////////////////////////////////////////////////////////
@@ -10,23 +10,22 @@
 
 
 
-void Oth_citizen::Oth_citizen(){
+
+
+
+ Citizen::~Citizen(){
 
 }
+/*
 
-
-void Oth_citizen::~Oth_citizen(){
-
-}
-
-
-book Oth_citizen::Loan(Books mit, int datumtol){
+bool Citizen::Loan(Books mit, int datumtol){
 
 	return  NULL;
 }
 
 
-bool Oth_citizen::Return(Books mit){
+bool Citizen::Return(Books mit){
 
 	return false;
 }
+*/

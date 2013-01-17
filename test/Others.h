@@ -14,8 +14,8 @@ class Others : public Members
 {
 
 public:
-	void Others();
-	virtual void ~Others();
+	 Others();
+	virtual  ~Others();
 	bool Loan(Books mit, int datumtol);
 	bool Return(Books mit);
 

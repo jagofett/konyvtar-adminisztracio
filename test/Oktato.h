@@ -16,7 +16,7 @@ class Prof : public Members
 public:
 	Prof();
 	virtual ~Prof();
-	book Loan(Books mit, int datumtol);
+	bool Loan(Books mit, int datumtol);
 	bool Return(Books mit);
 
 };

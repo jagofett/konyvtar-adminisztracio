@@ -1,9 +1,9 @@
 #include <iostream>
-#include <stdio.h>
+#include <cstdlib>
 #include "Members.h"
-//#include "Date.hpp"
+#include "Date.hpp"
 using namespace std;
-class MyDate;
+
 int Members::nextId = 1;
  Members::~Members(){
 
@@ -17,12 +17,15 @@ int Members::nextId = 1;
  * tagtípusonként változik a kölcsönzõ mûvelet
  */
 bool Members::Loan_L(Books* mit, string datumtol){ //a para
-
 if(((mit)->Loan(datumtol, this))){_kivett.push_back(mit);return true;} //ha nincs még kikölcsönözve, felvesszük a listába
-else{return  false;}
+else{throw INVALID_LOAN;}
 
 }
+bool Members::Loan(Books* mit, string datumtol){
+if (_kivett.size()>=_max_konyv){throw INVALID_LOAN;}
+Loan_L(mit, datumtol);
 
+}
 
 /**
  * ha történt késés, igaz értéket ad vissza
@@ -37,12 +40,14 @@ for(it=_kivett.begin();it!=_kivett.end();++it)
     if ((*it)->GetId()==id){ talal = true; break;}
 }
 if(talal){
-//MyDate d((*it)->GetDate());
-//kul = d.maElter();
-cout <<kul << " napja vetted ki!\n";
+MyDate d((*it)->GetDate());
+kul = d.maElter();
+kul = _kolcs_hossz-kul;
 _kivett.erase(it);
 (*it)->Return();
+return kul;
 }else{throw INVALID_RETURN;}
+
 }
 
 
@@ -60,18 +65,17 @@ void Members::list(){
  }
 }
 
-ostream& operator<<(ostream &os,const Members &m){
-os << m._nev << ";" <<  m._lakcim<< ";" <<  m._eler << ";" << m._kivett.size();
-if (m._kivett.size()!=0) {
+ostream& operator<<(ostream &os,const Members *m){
+os << m->_nev << ";" <<  m->_lakcim<< ";" <<  m->_eler << ";" << m->_kivett.size();
+if (m->_kivett.size()!=0) {
 os <<";";
-for(unsigned int i=0;i<m._kivett.size();i++)
+for(unsigned int i=0;i<m->_kivett.size();i++)
     {
-        //cout << "Utolso: " << !(m._kivett.size()==i) <<" ";
-        os << m._kivett[i]->GetId()<<";"<<m._kivett[i]->GetDate();
-        if (i+1<m._kivett.size()){os <<";";}
+        //cout << "Utolso: " << !(m->_kivett.size()==i) <<" ";
+        os << m->_kivett[i]->GetId()<<";"<<m->_kivett[i]->GetDate();
+        if (i+1<m->_kivett.size()){os <<";";}
     }
 }
-    os << endl;
 
 return os;
 }

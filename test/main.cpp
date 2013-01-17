@@ -2,10 +2,12 @@
 #include <fstream>
 #include <vector>
 #include <cstdlib>
+#include <sstream>
 #include "Date.hpp"
 #include "Konyv.h"
 #include "Admin.h"
 #include "Members.h"
+#include "Egyeb.h"
 
 
 
@@ -28,12 +30,26 @@ int main()
     /**/ ok = true; /**/
     if (ok){
 	LoadData();
-	//t.push_back(new Members("Nagy Gábor", "Petofi utca 12.", "nagy.gabor@gmail.com"));
+	t.push_back(new Members("Nagy Gábor", "Petofi utca 12.", "nagy.gabor@gmail.com"));
+
+	//kölcsönzés visszavétel
+    Books* p= idToPoint(6);
+    if (p==0){throw BAD_INPUT;} //ha nincs olyan konyv, kivetel dobasa
+    //t[2]->Loan_L(p, "20130110");
+
+    //t[2]->Return(6);
+
 	cout << "Tagok: " << t.size() << endl;
-    for(unsigned int i=0;i<t.size();++i){t[i]->list();}
-    MyDate a("20130110");
-    MyDate b(2012,1,15);
-    cout <<b.maElter() << " nap";
+    for(unsigned int i=0;i<t.size();++i){t[i]->list();} //
+    MyDate a("2013.01.10");
+    MyDate b(1992,1,15);
+    cout << a.toDate(a.getNapok()) << endl;
+    a.addMonth();
+    a.addMonth();
+    a.addMonth();
+
+    cout << a << endl;
+
 
 cout << endl<<endl;
 	/*k.push_back(new Books("Kis Pista", "Ez a cime:", "Kossuth", 2012, 3, 123445));
@@ -45,10 +61,9 @@ cout << endl<<endl;
 	for(unsigned int i=0;i<k.size();++i){k[i]->list();}
     cout<< endl;
 
-    Books* p= idToPoint(6);
-    if (p==0){throw BAD_INPUT;} //ha nincs olyan konyv, kivetel dobasa
-    t[1]->Loan_L(p, "20130116");
 
+
+    //t[1]->Return(6);
    // k.erase(k.begin()+1); //törles
     SaveData();
 
@@ -119,19 +134,22 @@ void LoadData(){
     {
         while(f.good()) //fajlbeolvasas
         {
+        stringstream sor;
+        string tmp_sor;
+        getline(f,tmp_sor);
+        sor << tmp_sor;
 //            f>>id;
             //getline(f, tipus, ';' ); //tipus
-            getline(f, nev, ';' ); //nev
-            getline(f, cim, ';' ); //cim
-            getline(f, eler, ';' ); //elerhetoseg
-            getline(f, db_s, ';' ); //kolcsonzesek szama
+            getline(sor, nev, ';' ); //nev
+            getline(sor, cim, ';' ); //cim
+            getline(sor, eler, ';' ); //elerhetoseg
+            getline(sor, db_s, ';' ); //kolcsonzesek szama
             Members *tmp = new Members(nev, cim, eler);
             db = atoi(db_s.c_str());
             for(int i=1;i<=db;i++)
             {
-                getline(f, kolcs, ';' ); //adott kolcsonzes
-                if (i==db){getline(f, date, '\n' );} //adott kolcsonzes datuma
-                else {getline(f, date, ';' );} //adott kolcsonzes datuma
+                getline(sor, kolcs, ';' ); //adott kolcsonzes
+                getline(sor, date, ';' ); //adott kolcsonzes datuma
 
                 id = atoi(kolcs.c_str());
                 Books* p= idToPoint(id);
@@ -164,7 +182,11 @@ void SaveData(){
     f.open("tagok.dat");
     if (f.is_open()) //fajl megnyitasa sikeres?
     {
-	for(unsigned int i=0;i<t.size();i++){f<<(*t[i]);}
+	for(unsigned int i=0;i<t.size();i++){
+    f<<(t[i]);
+    if(i+1<t.size()){f<<std::endl;}
+    }
+
 	f.close();
     }
     else throw MISSING_FILE;  //ha nem kivétel dobása*/
