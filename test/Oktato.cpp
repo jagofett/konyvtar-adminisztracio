@@ -12,7 +12,7 @@
 
 
 
-
+/*
 Prof::~Prof(){
 
 }
@@ -28,3 +28,4 @@ bool Prof::Return(Books mit){
 
 	return false;
 }
+*/

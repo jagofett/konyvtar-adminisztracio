@@ -70,6 +70,10 @@ void Members::list(){
     case 30:
         date.addMonth();
         break;
+    case 60:
+        date.addMonth();
+        date.addMonth();
+        break;
     default:
         date = date + _kolcs_hossz;
         break;

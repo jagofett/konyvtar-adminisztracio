@@ -10,7 +10,7 @@
 
 
 
-
+/*
 
  Others::~Others(){
 
@@ -27,3 +27,4 @@ bool Others::Return(Books mit){
 
 	return false;
 }
+*/

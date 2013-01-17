@@ -81,10 +81,10 @@
 1358296858 source:e:\project\konyvtar-adminisztracio\trunk\test\egyeb.cpp
 	"Egyeb.h"
 
-1358450190 e:\project\konyvtar-adminisztracio\trunk\test\egyeb.h
+1358451100 e:\project\konyvtar-adminisztracio\trunk\test\egyeb.h
 	"Members.h"
 
-1358450190 e:\project\konyvtar-adminisztracio\trunk\test\members.h
+1358458646 e:\project\konyvtar-adminisztracio\trunk\test\members.h
 	<iostream>
 	<vector>
 	<string>
@@ -94,17 +94,17 @@
 	<string>
 	"Members.h"
 
-1358295588 source:e:\project\konyvtar-adminisztracio\trunk\test\hallgato.cpp
+1358450984 source:e:\project\konyvtar-adminisztracio\trunk\test\hallgato.cpp
 	"Hallgato.h"
 
-1358295578 e:\project\konyvtar-adminisztracio\trunk\test\hallgato.h
+1358451100 e:\project\konyvtar-adminisztracio\trunk\test\hallgato.h
 	"Members.h"
 
 1358293389 source:e:\project\konyvtar-adminisztracio\trunk\test\konyv.cpp
 	<iostream>
 	"Konyv.h"
 
-1358450264 source:e:\project\konyvtar-adminisztracio\trunk\test\main.cpp
+1358458512 source:e:\project\konyvtar-adminisztracio\trunk\test\main.cpp
 	<iostream>
 	<fstream>
 	<vector>
@@ -115,6 +115,9 @@
 	"Admin.h"
 	"Members.h"
 	"Egyeb.h"
+	"Hallgato.h"
+	"Oktato.h"
+	"Others.h"
 
 1358445184 e:\project\konyvtar-adminisztracio\trunk\test\date.hpp
 	<iostream>
@@ -123,19 +126,19 @@
 	<time.h>
 	<sstream>
 
-1358295609 source:e:\project\konyvtar-adminisztracio\trunk\test\oktato.cpp
+1358451025 source:e:\project\konyvtar-adminisztracio\trunk\test\oktato.cpp
 	"Oktato.h"
 
-1358295597 e:\project\konyvtar-adminisztracio\trunk\test\oktato.h
+1358451100 e:\project\konyvtar-adminisztracio\trunk\test\oktato.h
 	"Members.h"
 
-1358295622 source:e:\project\konyvtar-adminisztracio\trunk\test\others.cpp
+1358451036 source:e:\project\konyvtar-adminisztracio\trunk\test\others.cpp
 	"Others.h"
 
-1358295616 e:\project\konyvtar-adminisztracio\trunk\test\others.h
+1358458444 e:\project\konyvtar-adminisztracio\trunk\test\others.h
 	"Members.h"
 
-1358450298 source:e:\project\konyvtar-adminisztracio\trunk\test\members.cpp
+1358450752 source:e:\project\konyvtar-adminisztracio\trunk\test\members.cpp
 	<iostream>
 	<cstdlib>
 	"Members.h"
