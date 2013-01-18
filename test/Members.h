@@ -31,11 +31,13 @@ public:
     void list_det();//részletes lista
 	void Space(const int db, const std::string &mit) const; //db szóköz a kimenetre
 	virtual std::string DateWhen(std::string datum) =0; //tagtipustol fuggoen kiszamolja, hogy egy adott datumu kolcsonzest mikor kell visszahozni
-	void Edit();
+	void Edit(int func, std::string &mire);
 	virtual void spec() =0;
 	int GetType() const {return _tid;}
 	std::string GetNev() const {return _nev;}
 	int GetId() const {return _id;}
+	std::string GetEler() const {return _eler;}
+	std::string GetCim() const {return _lakcim;}
 	int GetKolcs()const{return _kivett.size();}
 	enum Exception {INVALID_RETURN,INVALID_LOAN};
 	friend std::ostream& operator<<(std::ostream&,const Members*);

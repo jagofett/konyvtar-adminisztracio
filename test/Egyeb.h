@@ -24,7 +24,7 @@ public:
 	}
 	virtual ~Citizen(){}
 		void spec() {std::cout << "Típus: " << _tipus << " Kölcs. hossza: " << _kolcs_hossz << ", maximális könyvszám: " <<_max_konyv << std::endl;}
-	bool Loan(Books* mit, std::string datumtol){std::cout << "Kölcsönzés történt!\n";Members::Loan(mit, datumtol);}
+
 	bool Return(Books mit);
     std::string DateWhen(std::string datum){MyDate date(datum);date.addMonth();return date.getDate();}
 

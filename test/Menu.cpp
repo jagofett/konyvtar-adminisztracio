@@ -186,7 +186,7 @@ if (type == "det"){
 	cout << "Tag adatainak kezelése" << endl;
     cout << "\t-----------------" << endl;
 	cout << "\t1 - Tag adatainak lekérdezése" << endl;
-	cout << "\t1 - Tag szerkesztése" << endl;
+	cout << "\t2 - Tag szerkesztése" << endl;
 	cout << "\t-----------------" << endl;
 	cout << "\t0 - Vissza" << endl;
 
@@ -250,8 +250,7 @@ if (type=="new") //új könyv hozzáadása
     string szerz, cim, kiado;
     char vsz;
     int kiadas, ev, isbn;
-    cin.clear(); //cin tisztitasa, hogy rendesen müködjön a beolvasas (getline és >> keverése miatt van rá szükség)
-    cin.sync();
+Clear();
     cout << "Adja meg a könyv adatait! (ebben a verzióban az ékezetes betük nem támogatottak!)" << endl; //TODO ékezetes beolvasás!
 
     cout << "Szerzö: "; getline(cin, szerz);
@@ -271,27 +270,18 @@ if (type=="new") //új könyv hozzáadása
     else {_books.push_back(tmp);cout << "A könyv létrehozva!" << endl;}
 }
 if(type=="delete"){
-    int id;
-    bool van = false;
+
+
     char vsz;
     cout << "-- Könyv törlése --" << endl;
     ManageBook("list");
-    cin.clear(); //cin tisztitasa, hogy rendesen müködjön a beolvasas (getline és >> keverése miatt van rá szükség)
-    cin.sync();
+Clear();
 
     cout << "Válasszon könyvet a törléshez! Ehhez adja meg a könyvhez tartozó ID-t!" << endl;
-    id = GetInteger("A választott ID: ");
+    _id = GetInteger("A választott ID: ");
     int i;
-//    iCnt ind;
-    for(i=0;i<_books.size();++i){
-        if (id==(_books[i])->GetId()){van=true;break;}
-       // cout << _books[i]->GetId() << "==" << id << " ";
-//        ind = id;
-//        ++i;
-    }
-    cout << endl << i << endl;
-   // i = ind-1;
-    if(i<_books.size()){
+
+    if(BookId(i)){
         _books[i]->list_f(); _books[i]->list();
         //a könyv kintlévöségének ellenörzése!
         if(!_books[i]->GetSzabad()){
@@ -300,7 +290,7 @@ if(type=="delete"){
             if(tolower(vsz)=='i'){
                 try{
 
-                (_books[i]->GetKi())->Return(id); //finomitas a return muvelet alapján
+                (_books[i]->GetKi())->Return(_id); //finomitas a return muvelet alapján
                 }catch(Members::Exception ex){cout << "A visszavétel nem sikerült, a törlés nem folytatható!" << endl;}
             }
         }
@@ -330,7 +320,24 @@ void Menu::SearchBook(){
 
 }
 
+void Menu::Clear()const{
+    cin.clear(); //cin tisztitasa, hogy rendesen müködjön a beolvasas (getline és >> keverése miatt van rá szükség)
+    cin.sync();
+}
 
+bool Menu::MemberId(int& i){
+_id = GetInteger("A választott ID: ");
+i = 0;
+for(i=0;i<_members.size();++i){if (_id==(_members[i])->GetId()){break;}}
+return i<_members.size();
+}
+
+bool Menu::BookId(int& i){
+_id = GetInteger("A választott ID: ");
+i = 0;
+for(i=0;i<_books.size();++i){if (_id==(_books[i])->GetId()){break;}}
+return i<_books.size();
+}
 /**
  * tagok kezelése, paraméterként a muvelet típusa
  */
@@ -346,7 +353,124 @@ if (type=="list"){ //tagok listázása
     Space(120, "-");
     cout << endl;
 
+} // listázás vége
+if (type=="delete")
+{
+    char vsz;
+    cout << "-- Tag törlése --" << endl;
+    ManageMember("list");
+
+
+    cout << "Válasszon tagot a törléshez! Ehhez adja meg a taghoz tartozo ID-t!" << endl;
+//    _id = GetInteger("A választott ID: ");
+    int i;
+//    for(i=0;i<_members.size();++i){if (_id==(_members[i])->GetId()){break;}}   //a felh. által megadott id keresése
+    if(MemberId(i)){
+        _members[i]->list_det(); //a törlésre kijelölt tag listázása
+        //a tag kölcsönzéseinek ellenörzése!
+        if(!_members[i]->GetKolcs()==0){
+            cout << "A tagnak élö kölcsönzései vannak, ezeket meg kell szüntetni, mielött törölné!" << endl; //TODO ha a visszavétl kész, ezt megoldani
+        }
+        if(_members[i]->GetKolcs()==0){ // ha  felszabadítottuk a tagot, akkor folytatjuk
+        cout << "Biztos törli ezt a tagot? (i - igen, minden más - nem)" << endl;
+        cin >> vsz;
+        if (tolower(vsz)!='i'){cout << "A müvelet visszavonva!" << endl;}
+        else {
+
+            delete _members[i];
+            _members.erase(_members.begin()+i);
+            cout << "A tag törölve!" << endl;}
+        }
+    }else{cout << "Hiba! Nincs ilyen ID, a törlés nem lehetséges!" << endl;}
+
+} //törlés vége
+if(type=="edit"){ //részletes listázás
+    cout << "-- Választott tag adatainak listázása --" << endl;
+
+    ManageMember("list"); //összes tag listázása, hogy lássuk, miböl lehet választani
+    cout << "Kérem válasszon egy tagot, akinek további adataira kíváncsi! Az ID-jét adja meg!" << endl;
+    Clear();
+
+//    _id = GetInteger("A választott ID: ");
+    int i;
+//    for(i=0;i<_members.size();++i){if (_id==(_members[i])->GetId()){break;}}   //a felh. által megadott id keresése
+
+    if(MemberId(i)){
+    _members[i]->list_det();
+    _id = i; //eltároljuk a privát tagban, hogy hanyadik elemet vizsgáltuk
+    }else{cout << "Hiba! Nincs ilyen ID, a listázás nem lehetséges!" << endl;}
 }
+if(type=="write"){
+    if(!(_id<_members.size())){cout << "Kérlek válassz egy ID-t!" << endl;ManageMember("edit");}else{ //helyes ID választás kikényszerítése
+    int vsz = 0;
+    char v;
+    string mod, nev, cim, eler;
+    nev = _members[_id]->GetNev();
+    cim = _members[_id]->GetCim();
+    eler = _members[_id]->GetEler();
+    Clear();
+    cout << "-- Választott tag adatainak szerkesztése --" << endl;
+    _members[_id]->list_det();
+    cout << "Melyik adattagot módosítja? 1 - Név, 2 - Lakcím, 3 - Elérhetöség, 4 - Típus" << endl;
+    vsz = GetInteger("A választott adattag: ");
+    Clear();
+    switch(vsz){
+    case 1:
+
+        cout << "Mi legyen a tag új neve? ";
+        getline(cin, mod);
+        Clear();
+        cout << "Rögzíti a módosítást? (" << nev << "->" << mod << ") i - igen, minden más - nem" << endl;
+        cin >> v;
+        Clear();
+
+        break;
+    case 2:
+        cout << "Mi legyen a tag új lakcíme? ";
+        getline(cin, mod);
+        Clear();
+        cout << "Rögzíti a módosítást? (" << cim<< "->" << mod << ") i - igen, minden más - nem" << endl;
+        cin >>v;
+        Clear();
+        break;
+    case 3:
+        cout << "Mi legyen a tag új elérhetösége? ";
+        getline(cin, mod);
+        Clear();
+        cout << "Rögzíti a módosítást? (" <<eler << "->" << mod << ") i - igen, minden más - nem" << endl;
+        cin >>v;
+        Clear();
+        break;
+    case 4:
+        cout << "Mi legyen a tag új típusa?" << endl << "(1 - Egyetemi Hallgato, 2 - Egyetemi Oktato, 3 - Egyéb Egyetemhez tartozo személy, minden más - Mindenki más)" << endl;
+        getline(cin, mod);
+        Clear();
+        cout << "Rögzíti a módosítást? i - igen, minden más - nem" << endl;
+        cin >> v;
+        Clear();
+        break;
+    }
+if(vsz>=1 && vsz<=4 && tolower(v)=='i'){ //ha érvéseset választott, és elfogadta a változásokat
+    if(vsz!=4){
+    _members[_id]->Edit(vsz, mod);
+    }
+    else{ //ha tipust kell változtatni: új példány, a régit ráiránítjuk, és a mögöttes adatét töröljük
+        Members* tmp;
+        int tp = atoi(mod.c_str());
+        if (tp == 1){ tmp = new Student(nev, cim, eler);} //hallgato
+        else if (tp == 2){ tmp = new Prof(nev, cim, eler);} // tanár
+        else if (tp == 3){ tmp = new Citizen(nev, cim, eler);} //egyéb egyetem
+        else{ tmp = new Others(nev, cim, eler);} //mindenki más
+        _members.erase(_members.begin()+_id);
+        _members[_id] = tmp;
+    }
+    cout << "A módosítás sikerült!" << endl;
+}else{cout << "Nem történt módosítás!" << endl;}
+_members[_id]->list_det();
+    }//létezö id vége
+} // módossítás vége
+}else {cout << "Nincs egy tag sem az adatbázisban, kérlek vegyél fel párat!" << endl;} //ha nincs tag
+
 if (type=="new") //új könyv hozzáadása
 {
     cout << "-- Új tag felvétele --" << endl;
@@ -362,7 +486,7 @@ if (type=="new") //új könyv hozzáadása
     cout << "Név: "; getline(cin, nev);
     cout  << "Lakcím: "; getline(cin, cim);
     cout  << "Elérhetoség (email/telefon): "; getline(cin , eler) ;
-    cout << "Adja meg, milyen típusu a tag! (1 - Egyetemi Hallgato, 2 - Egyetemi Oktato, 3 - Egyéb Egyetemhez tartozo személy, 4 - Mindenki más" << endl;
+    cout << "Adja meg, milyen típusu a tag! (1 - Egyetemi Hallgato, 2 - Egyetemi Oktato, 3 - Egyéb Egyetemhez tartozo személy, 4 - Mindenki más)" << endl;
     cout << "Ha nem megfelelo számot ad meg, 4-es típus fog érvényesülni!"<< endl;
     tp = GetInteger("A választott típus: ");
     Members* tmp;
@@ -381,68 +505,7 @@ if (type=="new") //új könyv hozzáadása
     if (tolower(vsz)!='i'){cout << "A müvelet visszavonva!" << endl;delete tmp;}
     else {_members.push_back(tmp);cout << "A tag felvéve!" << endl;}
 }//új tag vége
-if (type=="delete")
-{
-    int id;
-    bool van = false;
-    char vsz;
-    cout << "-- Tag törlése --" << endl;
-    ManageMember("list");
-    cin.clear(); //cin tisztitasa, hogy rendesen müködjön a beolvasas (getline és >> keverése miatt van rá szükség)
-    cin.sync();
 
-    cout << "Válasszon tagot a törléshez! Ehhez adja meg a taghoz tartozo ID-t!" << endl;
-    id = GetInteger("A választott ID: ");
-    int i;
-    for(i=0;i<_members.size();++i){if (id==(_members[i])->GetId()){van=true;break;}}   //a felh. által megadott id keresése
-    if(i<_members.size()){
-        _members[i]->list_det(); //a törlésre kijelölt tag listázása
-        //a tag kölcsönzéseinek ellenörzése!
-        if(!_members[i]->GetKolcs()==0){
-            cout << "A tagnak élö kölcsönzései vannak, ezeket meg kell szüntetni, mielött törölné!" << endl; //TODO ha a visszavétl kész, ezt megoldani
-            /*cin >> vsz;
-            //if(tolower(vsz)=='i'){
-                try{
-
-                (_books[i]->GetKi())->Return(id); //finomitas a return muvelet alapján
-                }catch(Members::Exception ex){cout << "A visszavétel nem sikerült, a törlés nem folytatható!" << endl;}
-            }*/
-        }
-        if(_members[i]->GetKolcs()==0){ // ha  felszabadítottuk a tagot, akkor folytatjuk
-        cout << "Biztos törli ezt a tagot? (i - igen, minden más - nem)" << endl;
-        cin >> vsz;
-        if (tolower(vsz)!='i'){cout << "A müvelet visszavonva!" << endl;}
-        else {
-
-            delete _members[i];
-            _members.erase(_members.begin()+i);
-            cout << "A tag törölve!" << endl;}
-        }
-    }else{cout << "Hiba! Nincs ilyen ID, a törlés nem lehetséges!" << endl;}
-
-}
-if(type=="edit"){
-    int id;
-    cout << "-- Választott tag adatainak listázása --" << endl;
-
-    ManageMember("list"); //összes tag listázása, hogy lássuk, miböl lehet választani
-    cout << "Kérem válasszon egy tagot, akinek további adataira kíváncsi! Az ID-jét adja meg!" << endl;
-    cin.clear(); //cin tisztitasa, hogy rendesen müködjön a beolvasas (getline és >> keverése miatt van rá szükség)
-    cin.sync();
-
-    id = GetInteger("A választott ID: ");
-    int i;bool van=false;
-    for(i=0;i<_members.size();++i){if (id==(_members[i])->GetId()){van=true;break;}}   //a felh. által megadott id keresése
-    if(i<_members.size()){
-    _members[i]->list_det();
-    }
-
-
-
-}
-
-
-}else {cout << "Nincs egy tag sem az adatbázisban, kérlek vegyél fel párat!" << endl;} //ha nincs tag
 }
 
 
@@ -450,9 +513,27 @@ if(type=="edit"){
  * kölcsönzés
  */
 void Menu::Loan(){
+cout << "-- Könyv kölcsönzése --" << endl;
+int i, j; //j - tagazonosito, i - könyvazon
 
+cout << "Kérlek válaszd a tagot, aki kölcsönözni akar! Az ID-jét add meg!" << endl;
+ManageMember("list");
+if(MemberId(j)){ //ha valós tag
+
+cout << "Kérlek válaszd ki a kölcsönzendö könyvet! Az ID-jét add meg!" << endl;
+ManageBook("list");
+
+if(BookId(i)){ //valós ID-t adott meg
+    if (_books[i]->GetSzabad()){ //ha szabad a könyv
+        MyDate* ma = new MyDate();
+        string dat = ma->getDate();
+        if(!(_members[i]->Loan(_books[i], dat))){cout << "Sikertelen kölcsönzés, a tag nem kölcsönözhet több könyvet!";} //ha nem sikerült a kölcsönzés, túllépte a keretet.
+        else{ManageBook("list");}
+    }
+
+}//book Id check vége
+}//member ID check vége
 }
-
 
 /**
  * visszahozatal
@@ -538,7 +619,7 @@ void Menu::LoadData(){
             getline(sor, cim, ';' ); //cim
             getline(sor, eler, ';' ); //elerhetoseg
             getline(sor, db_s, ';' ); //kolcsonzesek szama
-
+        if (tipus!=""){ //ha véletlen nem egy üres sor lenne
             tp = atoi(tipus.c_str());
             Members* tmp;
             if (tp == 1){ tmp = new Student(nev, cim, eler);}
@@ -557,9 +638,9 @@ void Menu::LoadData(){
                 id = atoi(kolcs.c_str());
                 Books* p= idToPoint(id);
                 if (p==0){throw BAD_INPUT;} //ha nincs olyan konyv, kivetel dobasa
-                tmp->Loan_L(p, date);
+                if (!tmp->Loan_L(p, date)){throw BAD_INPUT;}
             }
-            if (nev!=""){
+
             _members.push_back(tmp);
             }
 

@@ -45,6 +45,9 @@ int ev, hnap, nap;
 
     }
 }
+MyDate(){//dátum a mai nappal
+*this = MyDate(toDate(maiDatum()));
+}
 bool checkDate(int ev, int hnap, int nap){ //adott év, hónap nap megfelelõ formájú.e?
     if ((ev==0 || hnap==0 || nap==0) ||
             (hnap==2 && nap>28) ||
