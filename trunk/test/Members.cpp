@@ -52,32 +52,27 @@ void Members::Edit(){
 
 }
 
+
+void Members::Space(const int db, const string &mit) const{
+for(int i=0;i<db;i++) {cout <<" ";}}
 void Members::list(){
 //cout<< "ID\t" <<  "SZERZO\t" <<  "CIM\t" <<  "KIADO\t" <<  "EVSZAM\t" << "KIADAS\t" <<  "ISBN"<< endl;
 
- cout<< _id << "\t" <<  _nev<< "\t" <<  _lakcim << "\t" <<  _eler  << "\t" << _tipus << endl;
- for(unsigned int i=0;i<_kivett.size();i++){
+ cout<< _id << "\t" <<  _nev;
+ Space(30-_nev.length(), " ");
+ cout  <<  _lakcim;
+ Space(30-_lakcim.length(), " ");
+ cout <<  _eler;
+ Space(30-_eler.length(), " ");
+ cout << _tipus << endl;
+ /*for(unsigned int i=0;i<_kivett.size();i++){
     string date =_kivett[i]->GetDate();
     cout << i+1 << "-nek kölcsönzött könyv ID-je: " << _kivett[i]->GetId() << "\t Dátuma: " << date << "\tVisszahozás dátuma: ";
     date = DateWhen(date);
-    /*switch(_kolcs_hossz){
-    case 365:
-        date = date + 365;
-        break;
-    case 30:
-        date.addMonth();
-        break;
-    case 60:
-        date.addMonth();
-        date.addMonth();
-        break;
-    default:
-        date = date + _kolcs_hossz;
-        break;
-    }*/
+
     cout <<date << endl;
 
- }
+ }*/
 //spec();
 }
 

@@ -37,7 +37,13 @@ void Books::list()
 {
 //cout<< "ID\t" <<  "SZERZO\t" <<  "CIM\t" <<  "KIADO\t" <<  "EVSZAM\t" << "KIADAS\t" <<  "ISBN"<< endl;
 string kol = (_szabad)? "igen":"nem";
-    cout<< _id << "\t" <<  _szerzo<< "\t" <<  _cim << "\t\t" <<  _kiado << "\t\t" <<  _evszam << "\t" <<  _kiadas << ". kiadas\t" <<  _isbn << "\t " << kol;
+    cout<< _id << "\t" <<  _szerzo;
+    Space(30-_szerzo.size(), " ");
+    cout <<  _cim;
+    Space(40-_cim.size(), " ");
+    cout <<  _kiado;
+    Space(30-_kiado.size(), " ");
+    cout  <<  _evszam << "\t" <<  _kiadas << ".\t" <<  _isbn << "\t " << kol;
     if (_ki != 0){cout << " (" << _ki->GetNev() << ", id=" << _ki->GetId() <<")";}
     cout << endl;
 }

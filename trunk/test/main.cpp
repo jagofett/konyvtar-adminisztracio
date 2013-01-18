@@ -28,7 +28,7 @@ vector<Members*> t;
 enum Exception {MISSING_FILE,BAD_INPUT};
 int main()
 {
-    setlocale (LC_ALL,"HUN");
+    setlocale (LC_ALL,"");
 
     try{
     Menu m;
