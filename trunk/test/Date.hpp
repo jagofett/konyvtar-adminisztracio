@@ -92,7 +92,7 @@ return sor.str();
     struct tm  tstruct;
     char       buf[80];
     tstruct = *localtime(&now);
-    strftime(buf, sizeof(buf), "%Y%m%d", &tstruct);
+    strftime(buf, sizeof(buf), "%Y.%m.%d", &tstruct);
     MyDate tmp(buf);
     return tmp.napok;
 }

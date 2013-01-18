@@ -36,8 +36,8 @@ for(it=_kivett.begin();it!=_kivett.end();++it)
     if ((*it)->GetId()==id){ talal = true; break;}
 }
 if(talal){
-//MyDate d(DateWhen((*it)->GetDate()));
-//kul = d.maElter();
+MyDate d(DateWhen((*it)->GetDate()));
+kul = d.maElter();
 //kul = _kolcs_hossz-kul;
 //delete *it;
 (*it)->Return();
@@ -68,9 +68,10 @@ cout << endl;
 }
 
 void Members::Space(const int db, const string &mit) const{
-for(int i=0;i<db;i++) {cout <<" ";}}
+for(int i=0;i<db;i++) {cout <<mit;}}
+
+
 void Members::list(){
-//cout<< "ID\t" <<  "SZERZO\t" <<  "CIM\t" <<  "KIADO\t" <<  "EVSZAM\t" << "KIADAS\t" <<  "ISBN"<< endl;
 
  cout<< _id << "\t" <<  _nev;
  Space(30-_nev.length(), " ");
@@ -87,11 +88,31 @@ void Members::list(){
     cout <<date << endl;
 
  }*/
-//spec();
 }
 
+void Members::list_det(){
+cout << "-- Tag részletes adatai: --" << endl << endl;
+Space(40, "-");cout << endl;
+cout << "Típus:\t\t" << _tipus << endl;
+cout << "Név:\t\t" <<  _nev << endl;
+cout << "Lakcím:\t\t"<<  _lakcim << endl;
+cout << "Elérhetöség:\t"<<  _eler << endl;
+cout << "Kölcsönzések:\t";
+if(_kivett.size()==0){cout << "NINCS KÖLCSÖNZÖTT KÖNYV" << endl;}
+else{
+    cout << endl;
+    _kivett[0]->list_f_det();
+    for(unsigned int i=0;i<_kivett.size();i++){
+    string date =_kivett[i]->GetDate();
+    cout << i+1 << "\t";
+    _kivett[i]->list_det();
+     cout << date << "\t";
+    date = DateWhen(date);
+    cout <<date << endl;
 
-
+ }
+}
+}
 ostream& operator<<(ostream &os,const Members *m){
 os << m->GetType() << ";" << m->_nev << ";" <<  m->_lakcim<< ";" <<  m->_eler << ";" << m->_kivett.size();
 if (m->_kivett.size()!=0) {

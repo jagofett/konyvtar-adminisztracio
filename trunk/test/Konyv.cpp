@@ -46,6 +46,7 @@ bool Books::Loan(string datum, Members* ki) {
     if(this->_szabad) {_szabad = false; _datum=datum; _ki = ki;return true;} //ha szabad a könyv, kölcsönzés beállítása, egyébként hamissal visszatérés
     else {return false;}
 } //kolcsonzes, datum beallitasa
+
 void Books::list()
 {
 //cout<< "ID\t" <<  "SZERZO\t" <<  "CIM\t" <<  "KIADO\t" <<  "EVSZAM\t" << "KIADAS\t" <<  "ISBN"<< endl;
@@ -70,6 +71,30 @@ void Books::list_f(){
     cout <<  "ÉVSZÁM\t" << "KIADÁS\t" <<  "ISBN\t\t"<< "KÖLCSÖNÖZHETÖ" <<  endl;
     Space(130, "-");
     cout << endl;
+
+}
+
+void Books::list_f_det(){
+    cout<< "No.\t" <<  "SZERZO";
+    Space(_sz_len-4, " ");
+    cout <<  "CÍM";
+    Space(_c_len-1, " ");
+    cout <<  "KIADÓ";
+    Space(_k_len-4, " ");
+    cout <<  "ÉVSZÁM\t" << "KIADÁS\t" <<  "ISBN\t\t"<< "KIVÉTEL" << "\t\t" << "VISSZAHOZÁS" <<  endl;
+    Space(130, "-");
+    cout << endl;
+
+}
+
+void Books::list_det(){
+    cout  <<  _szerzo;
+    Space(_sz_len-_szerzo.size()+2, " ");
+    cout <<  _cim;
+    Space(_c_len-_cim.size()+2, " ");
+    cout <<  _kiado;
+    Space(_k_len-_kiado.size()+2, " ");
+    cout  <<  _evszam << "\t" <<  _kiadas << ".\t" <<  _isbn << "\t ";
 
 }
 
