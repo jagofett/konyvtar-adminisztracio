@@ -145,7 +145,7 @@ if (type=="main")
 }
 if(type=="book")
 {
-    cout << "\t-----------------" << endl;
+//    cout << "\t-----------------" << endl;
 	cout << "Könyvek kezelése:" << endl;
     cout << "\t-----------------" << endl;
 	cout << "\t1 - Könyvek listázása" << endl;
@@ -157,7 +157,7 @@ if(type=="book")
 }
 if (type == "member")
 {
-    cout << "\t-----------------" << endl;
+//    cout << "\t-----------------" << endl;
 	cout << "Tagok kezelése" << endl;
     cout << "\t-----------------" << endl;
 	cout << "\t1 - Tagok listázása" << endl;
@@ -192,17 +192,61 @@ int Menu::GetInteger(const string& msg) const
 	return number;
 }
 
+string Menu::prot(string &str){ //user input javítása ;->"," cserélésével
+unsigned tal;
+
+string mit (";");
+string mire (",");
+tal = str.find( mit );
+  while (tal!=string::npos){
+    str.replace( tal, mit.size(), mire );
+    tal = str.find( mit );
+  };
+return str;
+}
 
 /**
  * könyvek módosítása, paraméterként, hogy milyen muveletet végezzünk.
  */
 void Menu::ManageBook(string type){
-if (type=="list"){
+if (type=="list"){ //könyek listázása
 //    cout << "KÖNYVEK"<< endl;
     cout<< "ID\t" <<  "SZERZO\t\t" <<  "CÍM\t\t\t" <<  "KIADÓ\t\t" <<  "ÉVSZÁM\t" << "KIADÁS\t\t" <<  "ISBN\t\t"<< "KÖLCSÖNÖZHETÖ\t" <<  endl;
+    Space(130, "-");
+    cout << endl;
     for(unsigned int i=0;i<_books.size();++i){_books[i]->list();}
+    Space(130, "-");
     cout<< endl;
 }
+if (type=="new") //új könyv hozzáadása
+{
+    cout << "-- Új könyv felvétele --" << endl;
+    string szerz, cim, kiado;
+    char vsz;
+    int kiadas, ev, isbn;
+    cin.clear();
+    cin.sync();
+    cout << "Adja meg a könyv adatai! (ebben a verzióban az ékezetes betük nem támogatottak!)" << endl; //TODO ékezetes beolvasás!
+
+    cout << "Szerzö: "; getline(cin, szerz);
+    cout << endl << "A könyv címe: "; getline(cin, cim);
+    cout << endl << "A kiadó neve: "; getline(cin , kiado) ;
+    cout << endl; ev = GetInteger("A kiadás dátuma: ");
+    cout << endl; kiadas = GetInteger("Hányadik kiadás? ");
+    cout << endl; isbn = GetInteger("A könyv ISBN száma: ");
+    Books* tmp = new Books(prot(szerz), prot(cim), prot(kiado), ev, kiadas, isbn); //prot lecseréli a ;-ket , re fájlhiba elkerülése érdekében
+    cout << endl;
+    (tmp)->list();
+    cout << endl;
+    cout << "Helyesek az adatok, létrehozza a könyet? (i - igen) ";
+    cin >> vsz;
+    if (vsz!='i'){cout << "A müvelet visszavonva!" << endl;delete tmp;}
+    else {_books.push_back(tmp);cout << "A könyv létrehozva!" << endl;}
+
+
+    //k.push_back(new Books("Nagy Gábor", "C++ haladoknak", "Petofi", 2012, 3, 123445));
+}
+
 
 }
 
@@ -219,12 +263,26 @@ void Menu::SearchBook(){
  * tagok kezelése, paraméterként a muvelet típusa
  */
 void Menu::ManageMember(string type){
-if (type=="list"){
-
-	cout << "Tagok: " <<endl;
-    for(unsigned int i=0;i<_members.size();++i){_members[i]->list();}
-
+if (type=="list"){ //tagok listázása
+//formázás, fejléc kiírása
+cout << "ID\t" <<  "NÉV";
+Space(27, " ");
+cout <<  "LAKCÍM";
+Space(24, " ");
+cout << "ELÉRHETÖSÉG";
+Space(19, " ");
+cout  << "TAGTÍPUS" << endl;
+Space(120, "-");
+cout << endl;
+//az adott adatok kiírása
+for(unsigned int i=0;i<_members.size();++i){_members[i]->list();}
+Space(120, "-");
+cout << endl;
 }
+
+
+
+
 }
 
 
@@ -269,6 +327,7 @@ Books *p = 0;
 if(talal){p=*it;}
 return p;
 }
+
 
 
 void Menu::LoadData(){
