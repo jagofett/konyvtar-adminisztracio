@@ -211,12 +211,12 @@ return str;
 void Menu::ManageBook(string type){
 if (type=="list"){ //könyek listázása
 //    cout << "KÖNYVEK"<< endl;
-    cout<< "ID\t" <<  "SZERZO\t\t" <<  "CÍM\t\t\t" <<  "KIADÓ\t\t" <<  "ÉVSZÁM\t" << "KIADÁS\t\t" <<  "ISBN\t\t"<< "KÖLCSÖNÖZHETÖ\t" <<  endl;
-    Space(130, "-");
-    cout << endl;
+    if (_books.size()>0){
+    _books[0]->list_f();
     for(unsigned int i=0;i<_books.size();++i){_books[i]->list();}
     Space(130, "-");
     cout<< endl;
+    }else{cout << "Nincs egy könyv se az adatbázisban!" << endl;}
 }
 if (type=="new") //új könyv hozzáadása
 {
@@ -226,25 +226,24 @@ if (type=="new") //új könyv hozzáadása
     int kiadas, ev, isbn;
     cin.clear();
     cin.sync();
-    cout << "Adja meg a könyv adatai! (ebben a verzióban az ékezetes betük nem támogatottak!)" << endl; //TODO ékezetes beolvasás!
+    cout << "Adja meg a könyv adatait! (ebben a verzióban az ékezetes betük nem támogatottak!)" << endl; //TODO ékezetes beolvasás!
 
     cout << "Szerzö: "; getline(cin, szerz);
-    cout << endl << "A könyv címe: "; getline(cin, cim);
-    cout << endl << "A kiadó neve: "; getline(cin , kiado) ;
-    cout << endl; ev = GetInteger("A kiadás dátuma: ");
-    cout << endl; kiadas = GetInteger("Hányadik kiadás? ");
-    cout << endl; isbn = GetInteger("A könyv ISBN száma: ");
+    cout  << "A könyv címe: "; getline(cin, cim);
+    cout  << "A kiadó neve: "; getline(cin , kiado) ;
+    ev = GetInteger("A kiadás dátuma: ");
+    kiadas = GetInteger("Hányadik kiadás? ");
+    isbn = GetInteger("A könyv ISBN száma: "); //TODO min hossz ISBN. számnak
     Books* tmp = new Books(prot(szerz), prot(cim), prot(kiado), ev, kiadas, isbn); //prot lecseréli a ;-ket , re fájlhiba elkerülése érdekében
     cout << endl;
+    tmp->list_f();
     (tmp)->list();
     cout << endl;
-    cout << "Helyesek az adatok, létrehozza a könyet? (i - igen) ";
+    cout << "Helyesek az adatok, létrehozza a könyet? (i - igen, minden más - nem) ";
     cin >> vsz;
     if (vsz!='i'){cout << "A müvelet visszavonva!" << endl;delete tmp;}
     else {_books.push_back(tmp);cout << "A könyv létrehozva!" << endl;}
 
-
-    //k.push_back(new Books("Nagy Gábor", "C++ haladoknak", "Petofi", 2012, 3, 123445));
 }
 
 
@@ -264,20 +263,50 @@ void Menu::SearchBook(){
  */
 void Menu::ManageMember(string type){
 if (type=="list"){ //tagok listázása
-//formázás, fejléc kiírása
-cout << "ID\t" <<  "NÉV";
-Space(27, " ");
-cout <<  "LAKCÍM";
-Space(24, " ");
-cout << "ELÉRHETÖSÉG";
-Space(19, " ");
-cout  << "TAGTÍPUS" << endl;
-Space(120, "-");
-cout << endl;
-//az adott adatok kiírása
-for(unsigned int i=0;i<_members.size();++i){_members[i]->list();}
-Space(120, "-");
-cout << endl;
+    if(_members.size()!=0) //ha van tag
+    {
+    //fejléc
+    _members[0]->list_f();
+    //az adott adatok kiírása
+    for(unsigned int i=0;i<_members.size();++i){_members[i]->list();}
+    Space(120, "-");
+    cout << endl;
+    }else {cout << "Nincs egy tag sem az adatbázisban, kérlek vegyél fel párat!" << endl;}
+}
+if (type=="new") //új könyv hozzáadása
+{
+    cout << "-- Új tag felvétele --" << endl;
+    string nev, cim, eler;
+    char vsz;
+    int tp;
+    cin.clear();
+    cin.sync();
+    cout << "Adja meg az új tag adatait! (ebben a verzióban az ékezetes betük nem támogatottak!)" << endl; //TODO ékezetes beolvasás!
+
+//t.push_back(new Citizen("Egyetemi Polgár", "ELTE", "elte@inf.com"));
+
+    cout << "Név: "; getline(cin, nev);
+    cout  << "Lakcím: "; getline(cin, cim);
+    cout  << "Elérhetoség (email/telefon): "; getline(cin , eler) ;
+    cout << "Adja meg, milyen típusu a tag! (1 - Egyetemi Hallgato, 2 - Egyetemi Oktato, 3 - Egyéb Egyetemhez tartozo személy, 4 - Mindenki más" << endl;
+    cout << "Ha nem megfelelo számot ad meg, 4-es típus fog érvényesülni!"<< endl;
+    tp = GetInteger("A választott típus: ");
+    Members* tmp;
+    prot(nev);prot(cim);prot(eler); //szabálytalan karakter (;) kizárása
+    if (tp == 1){ tmp = new Student(nev, cim, eler);} //hallgato
+    else if (tp == 2){ tmp = new Prof(nev, cim, eler);} // tanár
+    else if (tp == 3){ tmp = new Citizen(nev, cim, eler);} //egyéb egyetem
+    else{ tmp = new Others(nev, cim, eler);} //mindenki más
+    //Books* tmp = new Books(prot(szerz), prot(cim), prot(kiado), ev, kiadas, isbn); //prot lecseréli a ;-ket , re fájlhiba elkerülése érdekében
+    cout << endl;
+    tmp->list_f();
+    (tmp)->list();
+    cout << endl;
+    cout << "Helyesek az adatok, felveszi a tagot? (i - igen, minden más - nem) ";
+    cin >> vsz;
+    if (tolower(vsz)!='i'){cout << "A müvelet visszavonva!" << endl;delete tmp;}
+    else {_members.push_back(tmp);cout << "A tag felvéve!" << endl;}
+
 }
 
 

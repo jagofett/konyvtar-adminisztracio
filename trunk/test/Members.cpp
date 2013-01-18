@@ -52,6 +52,19 @@ void Members::Edit(){
 
 }
 
+void Members::list_f(){
+//formázás, fejléc kiírása
+cout << "ID\t" <<  "NÉV";
+Space(27, " ");
+cout <<  "LAKCÍM";
+Space(24, " ");
+cout << "ELÉRHETÖSÉG";
+Space(19, " ");
+cout  << "TAGTÍPUS" << endl;
+Space(120, "-");
+cout << endl;
+
+}
 
 void Members::Space(const int db, const string &mit) const{
 for(int i=0;i<db;i++) {cout <<" ";}}
@@ -75,6 +88,8 @@ void Members::list(){
  }*/
 //spec();
 }
+
+
 
 ostream& operator<<(ostream &os,const Members *m){
 os << m->GetType() << ";" << m->_nev << ";" <<  m->_lakcim<< ";" <<  m->_eler << ";" << m->_kivett.size();

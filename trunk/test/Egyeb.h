@@ -19,7 +19,7 @@ public:
 
     _kolcs_hossz=30;	 // kölcsönzés max hossza hossza napokban
 	_max_konyv = 4;
-	_tipus = "Egyetemi polgár";
+	_tipus = "Más egytem polgára";
 	_tid = 3;
 	}
 	virtual ~Citizen(){}

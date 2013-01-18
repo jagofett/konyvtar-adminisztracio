@@ -11,6 +11,7 @@ public:
 	Books(int id, std::string szerzo, std::string cim, std::string kiado, int evszam, int kiadas, int isbn);
 	virtual ~Books() {}
 	void list();
+    void list_f(); //fejléc
 	bool Loan(std::string datum, Members* ki);
 	void Return(){_ki = 0; _szabad= true;_datum="0";}
 	void Edit();
@@ -18,6 +19,7 @@ public:
 	std::string GetDate()const{return _datum;};
 	void Space(const int db, const std::string &mit) const{for(int i=0;i<db;i++) {std::cout <<" ";}} //addot karakter addot darabszor
 	friend std::ostream& operator<<(std::ostream&,const Books&);
+
 private:
 	static int nextId;	//következo azonositot tartalmazo valtozo
 
@@ -26,8 +28,12 @@ private:
 	 */
     int _id;
 	std::string _szerzo;
+	static int _sz_len; //szerzohoz tartozo max hossz
 	std::string _cim;
+	static int _c_len; //cimhez tartozo max hossz
 	std::string _kiado;
+	static int _k_len; //kiadohoz tartozo max hossz
+
 
 	int _evszam; //kiadási évszám
 	int _kiadas; // kiadás száma

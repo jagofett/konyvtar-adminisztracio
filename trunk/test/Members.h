@@ -27,6 +27,7 @@ public:
 	virtual bool Loan(Books* mit, std::string datumtol); //kölcsönzés a könyvre mutató pointerrel, mikortol. ezt felhasznaloi kolcsonzeskor alkalmazzuk ellenorizzuk a tagspecifikus adatokat.
 	virtual int Return(int id);
 	virtual void list();
+    void list_f(); //fejléc
 	void Space(const int db, const std::string &mit) const; //db szóköz a kimenetre
 	virtual std::string DateWhen(std::string datum) =0; //tagtipustol fuggoen kiszamolja, hogy egy adott datumu kolcsonzest mikor kell visszahozni
 	void Edit();
