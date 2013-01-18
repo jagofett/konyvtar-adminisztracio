@@ -28,13 +28,10 @@ cout << "Név:\t\tMagasvári Ákos" << endl << "ETR-kód:\tMAATACI.ELTE" << endl << 
 cout << "Feladat összefoglalva:" << endl << "Készítsünk egy egyetemi könyvtár kölcsönzéseit nyilvántartó rendszert." << endl;
 cout << "A rendszer feladata a könyvtár tagjainak, könyveinek," << endl <<"illetve  könyvtárosainak nyilvántartása." << endl << endl << "-----------------------------------------------------------------" << endl << endl;
 cout << "Üdvözlöm a Könyvtári Adminisztrációs Rendszerben!" << endl;
-if(Login()){
-LoadData();
-cout << "Az adatok betöltése sikeres!" << endl;
+if(!Login()){
+throw Menu::AUTH_FALIURE;
 }
-else throw Menu::AUTH_FALIURE;
 }
-
 Menu::~Menu(){
 SaveData();
 }
@@ -43,8 +40,11 @@ SaveData();
 
 
 void Menu::Run(string type){
+
 int option = 0;
 if (type=="main"){
+LoadData();
+cout << "Az adatok betöltése sikeres!" << endl;
 do
 {
     WriteMenu(); //fömenü kiírása
@@ -209,22 +209,23 @@ return str;
  * könyvek módosítása, paraméterként, hogy milyen muveletet végezzünk.
  */
 void Menu::ManageBook(string type){
+if (_books.size()>0){
 if (type=="list"){ //könyek listázása
 //    cout << "KÖNYVEK"<< endl;
-    if (_books.size()>0){
+
     _books[0]->list_f();
     for(unsigned int i=0;i<_books.size();++i){_books[i]->list();}
     Space(130, "-");
     cout<< endl;
-    }else{cout << "Nincs egy könyv se az adatbázisban!" << endl;}
 }
+
 if (type=="new") //új könyv hozzáadása
 {
     cout << "-- Új könyv felvétele --" << endl;
     string szerz, cim, kiado;
     char vsz;
     int kiadas, ev, isbn;
-    cin.clear();
+    cin.clear(); //cin tisztitasa, hogy rendesen müködjön a beolvasas (getline és >> keverése miatt van rá szükség)
     cin.sync();
     cout << "Adja meg a könyv adatait! (ebben a verzióban az ékezetes betük nem támogatottak!)" << endl; //TODO ékezetes beolvasás!
 
@@ -243,10 +244,57 @@ if (type=="new") //új könyv hozzáadása
     cin >> vsz;
     if (vsz!='i'){cout << "A müvelet visszavonva!" << endl;delete tmp;}
     else {_books.push_back(tmp);cout << "A könyv létrehozva!" << endl;}
+}
+if(type=="delete"){
+    int id;
+    bool van = false;
+    char vsz;
+    cout << "-- Könyv törlése --" << endl;
+    ManageBook("list");
+    cin.clear(); //cin tisztitasa, hogy rendesen müködjön a beolvasas (getline és >> keverése miatt van rá szükség)
+    cin.sync();
+
+    cout << "Válasszon könyvet a törléshez! Ehhez adja meg a könyvhez tartozó ID-t!" << endl;
+    id = GetInteger("A választott ID: ");
+    int i=0;
+    int ind;
+    for(;i<_books.size();++i){
+        if (id==(_books[i])->GetId()){van=true;break;}
+       // cout << _books[i]->GetId() << "==" << id << " ";
+//        ind = id;
+//        ++i;
+    }
+    cout << endl << i << endl;
+   // i = ind-1;
+    if(i<_books.size()){
+        _books[i]->list_f(); _books[i]->list();
+        //a könyv kintlévöségének ellenörzése!
+        if(!_books[i]->GetSzabad()){
+            cout << "A könyv kölcsönözve van, a törlés elött vissza kell venni! Megteszi ezt most? (i - igen, minden más - nem)" << endl;
+            cin >> vsz;
+            if(tolower(vsz)=='i'){
+                try{
+
+                (_books[i]->GetKi())->Return(id); //finomitas a return muvelet alapján
+                }catch(Members::Exception ex){cout << "A visszavétel nem sikerült, a törlés nem folytatható!" << endl;}
+            }
+        }
+        if(_books[i]->GetSzabad()){ //azért nem else, mert közbe visszavihettük a könyvet! ha közben felszabadult, akkor folytatjuk
+        cout << "Biztos törli ezt a könyvet? (i - igen, minden más - nem)" << endl;
+        cin >> vsz;
+        if (tolower(vsz)!='i'){cout << "A müvelet visszavonva!" << endl;}
+        else {
+
+            delete _books[i];
+            _books.erase(_books.begin()+i);
+            cout << "A könyv törölve!" << endl;}
+        }
+    }else{cout << "Hiba! Nincs ilyen ID, a törlés nem lehetséges!" << endl;}
+
 
 }
 
-
+}else{cout << "Nincs egy könyv se az adatbázisban, ezért nem hajtható végre müvelet!" << endl;}
 }
 
 
@@ -446,7 +494,7 @@ void Menu::SaveData(){
     f.open("konyv.dat");
     if (f.is_open()) //fajl megnyitasa sikeres?
     {
-	for(unsigned int i=0;i<_books.size();i++){f<<(*_books[i]);}
+	for(unsigned int i=0;i<_books.size();i++){f<<(_books[i]);}
 	f.close();
     }
     else throw MISSING_FILE;  //ha nem kivétel dobása*/

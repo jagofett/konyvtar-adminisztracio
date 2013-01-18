@@ -16,9 +16,12 @@ public:
 	void Return(){_ki = 0; _szabad= true;_datum="0";}
 	void Edit();
 	int GetId()const{return _id;}
+	bool GetSzabad()const{return _szabad;}
+	Members* GetKi() const {return _ki;}
+
 	std::string GetDate()const{return _datum;};
 	void Space(const int db, const std::string &mit) const{for(int i=0;i<db;i++) {std::cout <<" ";}} //addot karakter addot darabszor
-	friend std::ostream& operator<<(std::ostream&,const Books&);
+	friend std::ostream& operator<<(std::ostream&,const Books*);
 
 private:
 	static int nextId;	//következo azonositot tartalmazo valtozo
