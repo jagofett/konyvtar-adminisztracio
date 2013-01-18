@@ -22,20 +22,23 @@ Books::Books(std::string szerzo, std::string cim, std::string kiado, int evszam,
     _szabad = true;
     _id = ++nextId;
     _datum = "0"; //nincs kölcsönözve
+    _ki = 0;
     _sz_len = (szerzo.size()>_sz_len && szerzo.size()<=40)? szerzo.size():_sz_len;
     _k_len = (kiado.size()>_k_len && kiado.size()<=40)? kiado.size():_k_len;
     _c_len = (cim.size()>_c_len && cim.size()<=40)? cim.size():_c_len;
 }
-Books::Books(int id, std::string szerzo, std::string cim, std::string kiado, int evszam, int kiadas, int isbn)
+Books::Books(int id, std::string szerzo, std::string cim, std::string kiado, int evszam, int kiadas, int isbn) : _id(id), _szerzo(szerzo), _cim(cim), _kiado(kiado), _evszam(evszam), _kiadas(kiadas), _isbn(isbn)
 {
-    *this = Books(szerzo, cim, kiado, evszam, kiadas, isbn);
-    _id = id;
     if (id>nextId)
     {
         nextId=id;
     }
     _szabad = true; //a tagok betoltesekor allitjuk be
     _datum = "0"; //nincs kölcsönözve
+    _ki = 0;
+    _sz_len = (szerzo.size()>_sz_len && szerzo.size()<=40)? szerzo.size():_sz_len;
+    _k_len = (kiado.size()>_k_len && kiado.size()<=40)? kiado.size():_k_len;
+    _c_len = (cim.size()>_c_len && cim.size()<=40)? cim.size():_c_len;
 } //betolteskor meghivott konstruktors
 
 
@@ -78,9 +81,9 @@ void Books::Edit()
 
 }
 
-ostream& operator<<(ostream &os,const Books &b)
+ostream& operator<<(ostream &os,const Books *b)
 {
-    os << b._id << ";" <<  b._szerzo<< ";" <<  b._cim << ";" <<  b._kiado << ";" <<  b._evszam << ";" <<  b._kiadas << ";" <<  b._isbn  << endl;
+    os << b->_id << ";" <<  b->_szerzo<< ";" <<  b->_cim << ";" <<  b->_kiado << ";" <<  b->_evszam << ";" <<  b->_kiadas << ";" <<  b->_isbn << endl;
 
     return os;
 }

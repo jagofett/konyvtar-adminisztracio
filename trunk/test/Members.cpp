@@ -36,11 +36,12 @@ for(it=_kivett.begin();it!=_kivett.end();++it)
     if ((*it)->GetId()==id){ talal = true; break;}
 }
 if(talal){
-MyDate d((*it)->GetDate());
-kul = d.maElter();
-kul = _kolcs_hossz-kul;
-_kivett.erase(it);
+//MyDate d(DateWhen((*it)->GetDate()));
+//kul = d.maElter();
+//kul = _kolcs_hossz-kul;
+//delete *it;
 (*it)->Return();
+_kivett.erase(it);
 return kul;
 }else{throw INVALID_RETURN;}
 
