@@ -91,13 +91,10 @@ do
         case 4:
             SearchBook();
             break;
-/*        case 5:
-            //testPrint();
-            break;*/
     }
 }while(option != 0);
 }
-if (type=="member")
+if (type=="member") //tagok menu
 {
 do
 {
@@ -117,13 +114,30 @@ do
             break;
         case 4:
             ManageMember("edit");
+            Run("det");
             break;
-/*        case 5:
-            //testPrint();
-            break;*/
     }
 }while(option != 0);
 }
+if (type=="det"){
+do{
+    WriteMenu("det"); //könyvek kiírása
+    option = GetInteger("Valasztott menupont: ");
+
+    switch(option)
+    {
+        case 1:
+            ManageMember("edit");
+            break;
+        case 2:
+            ManageMember("write");
+            break;
+    }
+}while(option != 0);
+
+
+}
+
 //ManageMember();
 //ManageBook();
 }
@@ -145,7 +159,7 @@ if (type=="main")
 }
 if(type=="book")
 {
-//    cout << "\t-----------------" << endl;
+    cout << endl << endl;
 	cout << "Könyvek kezelése:" << endl;
     cout << "\t-----------------" << endl;
 	cout << "\t1 - Könyvek listázása" << endl;
@@ -157,7 +171,7 @@ if(type=="book")
 }
 if (type == "member")
 {
-//    cout << "\t-----------------" << endl;
+    cout << endl << endl;
 	cout << "Tagok kezelése" << endl;
     cout << "\t-----------------" << endl;
 	cout << "\t1 - Tagok listázása" << endl;
@@ -166,6 +180,17 @@ if (type == "member")
 	cout << "\t4 - Tag adatainak listázása, szerkesztése" << endl;
 	cout << "\t-----------------" << endl;
 	cout << "\t0 - Vissza a fömenübe" << endl;
+}
+if (type == "det"){
+    cout << endl << endl;
+	cout << "Tag adatainak kezelése" << endl;
+    cout << "\t-----------------" << endl;
+	cout << "\t1 - Tag adatainak lekérdezése" << endl;
+	cout << "\t1 - Tag szerkesztése" << endl;
+	cout << "\t-----------------" << endl;
+	cout << "\t0 - Vissza" << endl;
+
+
 }
 
 }
@@ -208,7 +233,7 @@ return str;
 /**
  * könyvek módosítása, paraméterként, hogy milyen muveletet végezzünk.
  */
-void Menu::ManageBook(string type){
+void Menu::ManageBook(string type){ //kesz (TODO kölcsönzés frissiteni!)
 if (_books.size()>0){
 if (type=="list"){ //könyek listázása
 //    cout << "KÖNYVEK"<< endl;
@@ -256,9 +281,9 @@ if(type=="delete"){
 
     cout << "Válasszon könyvet a törléshez! Ehhez adja meg a könyvhez tartozó ID-t!" << endl;
     id = GetInteger("A választott ID: ");
-    int i=0;
-    int ind;
-    for(;i<_books.size();++i){
+    int i;
+//    iCnt ind;
+    for(i=0;i<_books.size();++i){
         if (id==(_books[i])->GetId()){van=true;break;}
        // cout << _books[i]->GetId() << "==" << id << " ";
 //        ind = id;
@@ -310,16 +335,17 @@ void Menu::SearchBook(){
  * tagok kezelése, paraméterként a muvelet típusa
  */
 void Menu::ManageMember(string type){
+if(_members.size()!=0) //ha van tag
+{
 if (type=="list"){ //tagok listázása
-    if(_members.size()!=0) //ha van tag
-    {
+
     //fejléc
     _members[0]->list_f();
     //az adott adatok kiírása
     for(unsigned int i=0;i<_members.size();++i){_members[i]->list();}
     Space(120, "-");
     cout << endl;
-    }else {cout << "Nincs egy tag sem az adatbázisban, kérlek vegyél fel párat!" << endl;}
+
 }
 if (type=="new") //új könyv hozzáadása
 {
@@ -354,12 +380,69 @@ if (type=="new") //új könyv hozzáadása
     cin >> vsz;
     if (tolower(vsz)!='i'){cout << "A müvelet visszavonva!" << endl;delete tmp;}
     else {_members.push_back(tmp);cout << "A tag felvéve!" << endl;}
+}//új tag vége
+if (type=="delete")
+{
+    int id;
+    bool van = false;
+    char vsz;
+    cout << "-- Tag törlése --" << endl;
+    ManageMember("list");
+    cin.clear(); //cin tisztitasa, hogy rendesen müködjön a beolvasas (getline és >> keverése miatt van rá szükség)
+    cin.sync();
+
+    cout << "Válasszon tagot a törléshez! Ehhez adja meg a taghoz tartozo ID-t!" << endl;
+    id = GetInteger("A választott ID: ");
+    int i;
+    for(i=0;i<_members.size();++i){if (id==(_members[i])->GetId()){van=true;break;}}   //a felh. által megadott id keresése
+    if(i<_members.size()){
+        _members[i]->list_det(); //a törlésre kijelölt tag listázása
+        //a tag kölcsönzéseinek ellenörzése!
+        if(!_members[i]->GetKolcs()==0){
+            cout << "A tagnak élö kölcsönzései vannak, ezeket meg kell szüntetni, mielött törölné!" << endl; //TODO ha a visszavétl kész, ezt megoldani
+            /*cin >> vsz;
+            //if(tolower(vsz)=='i'){
+                try{
+
+                (_books[i]->GetKi())->Return(id); //finomitas a return muvelet alapján
+                }catch(Members::Exception ex){cout << "A visszavétel nem sikerült, a törlés nem folytatható!" << endl;}
+            }*/
+        }
+        if(_members[i]->GetKolcs()==0){ // ha  felszabadítottuk a tagot, akkor folytatjuk
+        cout << "Biztos törli ezt a tagot? (i - igen, minden más - nem)" << endl;
+        cin >> vsz;
+        if (tolower(vsz)!='i'){cout << "A müvelet visszavonva!" << endl;}
+        else {
+
+            delete _members[i];
+            _members.erase(_members.begin()+i);
+            cout << "A tag törölve!" << endl;}
+        }
+    }else{cout << "Hiba! Nincs ilyen ID, a törlés nem lehetséges!" << endl;}
+
+}
+if(type=="edit"){
+    int id;
+    cout << "-- Választott tag adatainak listázása --" << endl;
+
+    ManageMember("list"); //összes tag listázása, hogy lássuk, miböl lehet választani
+    cout << "Kérem válasszon egy tagot, akinek további adataira kíváncsi! Az ID-jét adja meg!" << endl;
+    cin.clear(); //cin tisztitasa, hogy rendesen müködjön a beolvasas (getline és >> keverése miatt van rá szükség)
+    cin.sync();
+
+    id = GetInteger("A választott ID: ");
+    int i;bool van=false;
+    for(i=0;i<_members.size();++i){if (id==(_members[i])->GetId()){van=true;break;}}   //a felh. által megadott id keresése
+    if(i<_members.size()){
+    _members[i]->list_det();
+    }
+
+
 
 }
 
 
-
-
+}else {cout << "Nincs egy tag sem az adatbázisban, kérlek vegyél fel párat!" << endl;} //ha nincs tag
 }
 
 

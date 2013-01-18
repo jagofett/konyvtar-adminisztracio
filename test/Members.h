@@ -26,8 +26,9 @@ public:
 	virtual bool Loan_L(Books* mit, std::string datumtol); //kölcsönzés a könyvre mutató pointerrel, mikortol. ezt az adatok betoltesekor alkalmazzuk, nem ellenorizzuk a tagspecifikus adatokat.
 	virtual bool Loan(Books* mit, std::string datumtol); //kölcsönzés a könyvre mutató pointerrel, mikortol. ezt felhasznaloi kolcsonzeskor alkalmazzuk ellenorizzuk a tagspecifikus adatokat.
 	virtual int Return(int id);
-	virtual void list();
+	virtual void list(); //alapadatok
     void list_f(); //fejléc
+    void list_det();//részletes lista
 	void Space(const int db, const std::string &mit) const; //db szóköz a kimenetre
 	virtual std::string DateWhen(std::string datum) =0; //tagtipustol fuggoen kiszamolja, hogy egy adott datumu kolcsonzest mikor kell visszahozni
 	void Edit();
@@ -35,6 +36,7 @@ public:
 	int GetType() const {return _tid;}
 	std::string GetNev() const {return _nev;}
 	int GetId() const {return _id;}
+	int GetKolcs()const{return _kivett.size();}
 	enum Exception {INVALID_RETURN,INVALID_LOAN};
 	friend std::ostream& operator<<(std::ostream&,const Members*);
 protected:

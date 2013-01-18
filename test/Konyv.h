@@ -10,8 +10,10 @@ public:
 	Books(std::string szerzo, std::string cim, std::string kiado, int evszam, int kiadas, int isbn);
 	Books(int id, std::string szerzo, std::string cim, std::string kiado, int evszam, int kiadas, int isbn);
 	virtual ~Books() {}
-	void list();
+	void list(); //alap lista
+	void list_det(); //részletes lista
     void list_f(); //fejléc
+    void list_f_det(); //fejléc
 	bool Loan(std::string datum, Members* ki);
 	void Return(){_ki = 0; _szabad= true;_datum="0";}
 	void Edit();
@@ -20,7 +22,7 @@ public:
 	Members* GetKi() const {return _ki;}
 
 	std::string GetDate()const{return _datum;};
-	void Space(const int db, const std::string &mit) const{for(int i=0;i<db;i++) {std::cout <<" ";}} //addot karakter addot darabszor
+	void Space(const int db, const std::string &mit) const{for(int i=0;i<db;i++) {std::cout <<mit;}} //addot karakter addot darabszor
 	friend std::ostream& operator<<(std::ostream&,const Books*);
 
 private:
