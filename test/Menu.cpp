@@ -278,7 +278,7 @@ if(type=="delete"){
 Clear();
 
     cout << "Válasszon könyvet a törléshez! Ehhez adja meg a könyvhez tartozó ID-t!" << endl;
-    _id = GetInteger("A választott ID: ");
+    //_id = GetInteger("A választott ID: ");
     int i;
 
     if(BookId(i)){
@@ -317,15 +317,32 @@ Clear();
  * könyvek keresése
  */
 void Menu::SearchBook(){
+cout << "-- Köny keresése --" << endl;
+cout << "Mi alapján keresel? (1 - Szerzö, 2 - Cím, 3 - ISBN, 4 - azonosító)" << endl;
+int vsz;
+Clear();
+vsz = GetInteger("Keresés alapja: ");
+string mit;
+Clear();
+cout << "Írd be a keresendö szöveget! " << endl;
+cin >> mit;
+if(_books.size()>0){
+_books[0]->list_f();
+for(int i = 0;i<_books.size();++i)
+{
+   if (_books[i]->Search(vsz,mit)) {_books[i]->list();};
+}
+}else {cout << "Nincs egy könyv se!" << endl;}//nincs könyv
 
 }
-
 void Menu::Clear()const{
     cin.clear(); //cin tisztitasa, hogy rendesen müködjön a beolvasas (getline és >> keverése miatt van rá szükség)
     cin.sync();
 }
 
 bool Menu::MemberId(int& i){
+Clear();
+_id = 0;
 _id = GetInteger("A választott ID: ");
 i = 0;
 for(i=0;i<_members.size();++i){if (_id==(_members[i])->GetId()){break;}}
@@ -333,6 +350,8 @@ return i<_members.size();
 }
 
 bool Menu::BookId(int& i){
+Clear();
+_id = 0;
 _id = GetInteger("A választott ID: ");
 i = 0;
 for(i=0;i<_books.size();++i){if (_id==(_books[i])->GetId()){break;}}
@@ -514,8 +533,9 @@ if (type=="new") //új könyv hozzáadása
  */
 void Menu::Loan(){
 cout << "-- Könyv kölcsönzése --" << endl;
-int i, j; //j - tagazonosito, i - könyvazon
-
+int i = 0;
+int j = 0; //j - tagazonosito, i - könyvazon
+_id = -1;
 cout << "Kérlek válaszd a tagot, aki kölcsönözni akar! Az ID-jét add meg!" << endl;
 ManageMember("list");
 if(MemberId(j)){ //ha valós tag
@@ -527,21 +547,43 @@ if(BookId(i)){ //valós ID-t adott meg
     if (_books[i]->GetSzabad()){ //ha szabad a könyv
         MyDate* ma = new MyDate();
         string dat = ma->getDate();
-        if(!(_members[i]->Loan(_books[i], dat))){cout << "Sikertelen kölcsönzés, a tag nem kölcsönözhet több könyvet!";} //ha nem sikerült a kölcsönzés, túllépte a keretet.
-        else{ManageBook("list");}
-    }
+        if(!(_members[j]->Loan(_books[i], dat))){cout << "Sikertelen kölcsönzés, a tag nem kölcsönözhet több könyvet!";} //ha nem sikerült a kölcsönzés, túllépte a keretet.
+        else{
+            cout << "Sikeres kölcsönzés" << endl;
+            ManageBook("list");}
+    }else {cout << "Hiba! A könyv már kölcsönözve van! Próbáljon másik könyvet kölcsönözni!" << endl;}
 
 }//book Id check vége
+else{cout << "Hiba! Nincs ilyen Könyv-ID, a kölcsönzés nem lehetséges!" << endl;}
 }//member ID check vége
+else{cout << "Hiba! Nincs ilyen Tag-ID, a kölcsönzés nem lehetséges!" << endl;}
 }
 
 /**
  * visszahozatal
  * visszatérési érték hogy történt-e késés
  */
-bool Menu::Return(){
+void Menu::Return(){
+cout << "-- Könyv visszavétele --" << endl;
+int i = 0;
+int j = 0; //j - tagazonosito, i - könyvazon
+_id = -1;
+cout << "Kérlek válaszd a könyvet, amit visszahoztak! Az ID-jét add meg!" << endl;
+ManageBook("list");
+if(BookId(i)){ //ha valós tag
+    int keses;
+    keses = Return(_books[i]);
+    if (keses>0){cout <<endl << "FIGYELEM!"<< endl << keses << " nap késéssel hozták vissza a könyvet!" << endl;}
+    cout << "A visszavétek sikerült." << endl;
 
-	return false;
+}//member ID check vége
+else{cout << "Hiba! Nincs ilyen Könyv-ID, a kölcsönzés nem lehetséges!" << endl;}
+}
+
+int Menu::Return(Books* mit){
+int mennyi;
+mennyi = ((mit->GetKi())->Return(_id));
+return mennyi;
 }
 
 

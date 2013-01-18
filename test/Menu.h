@@ -33,7 +33,8 @@ public:
 	void SearchBook();
 	void ManageMember(std::string type ="list");
 	void Loan();
-	bool Return();
+	void Return();
+	int Return(Books* mit);
 	bool Login();
 	Books* idToPoint(const int id);
     enum Exception {MISSING_FILE,BAD_INPUT,AUTH_FALIURE,BAD_AUTHFILE};

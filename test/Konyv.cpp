@@ -6,6 +6,7 @@
 ///////////////////////////////////////////////////////////
 
 #include <iostream>
+#include <sstream>
 #include "Konyv.h"
 
 using namespace std;
@@ -50,15 +51,15 @@ bool Books::Loan(string datum, Members* ki) {
 void Books::list()
 {
 //cout<< "ID\t" <<  "SZERZO\t" <<  "CIM\t" <<  "KIADO\t" <<  "EVSZAM\t" << "KIADAS\t" <<  "ISBN"<< endl;
-string kol = (_szabad)? "igen":"nem";
+string kol = (_szabad)? "igen":"";
     cout<< _id << "\t" <<  _szerzo;
     Space(_sz_len-_szerzo.size()+2, " ");
     cout <<  _cim;
     Space(_c_len-_cim.size()+2, " ");
     cout <<  _kiado;
     Space(_k_len-_kiado.size()+2, " ");
-    cout  <<  _evszam << "\t" <<  _kiadas << ".\t" <<  _isbn << "\t " << kol;
-    if (_ki != 0){cout << " (" << _ki->GetNev() << ", id=" << _ki->GetId() <<")";}
+    cout  <<  _evszam << "\t" <<  _kiadas << ".\t" <<  _isbn << "\t" << kol;
+    if (_ki != 0){cout << " (" << _ki->GetNev() << ", meddig:" << _ki->DateWhen(_datum) <<")";}
     cout << endl;
 }
 void Books::list_f(){
@@ -98,11 +99,39 @@ void Books::list_det(){
 
 }
 
-/**
- * könyv szerkesztése
- */
-void Books::Edit()
+string Books::ToLower(string mit){
+for(int i=0;i<mit.size();++i)
 {
+    mit[i] = tolower(mit[i]);
+}
+return mit;
+}
+
+/**
+ * könyv keresése
+ */
+bool Books::Search(int mit, std::string& szoveg)
+{
+stringstream sor;
+bool found;
+switch(mit){
+
+case 1:
+    found = ToLower(_szerzo.substr(0,szoveg.size())) ==(ToLower(szoveg));
+    break;
+case 2:
+    found = ToLower(_cim.substr(0,szoveg.size())) ==(ToLower(szoveg));
+    break;
+case 3:
+    sor << _isbn;
+    found = ToLower(sor.str().substr(0,szoveg.size())) ==(ToLower(szoveg));
+    break;
+case 4:
+    sor << _id;
+    found = ToLower(sor.str().substr(0,szoveg.size())) ==(ToLower(szoveg));
+    break;
+}
+return found; //találtunk-e eredményt
 
 }
 
