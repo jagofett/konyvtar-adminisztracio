@@ -16,7 +16,8 @@ public:
     void list_f_det(); //fejléc
 	bool Loan(std::string datum, Members* ki);
 	void Return(){_ki = 0; _szabad= true;_datum="0";}
-	void Edit();
+	bool Search(int mit, std::string& szoveg) ;
+	std::string ToLower(std::string mit);
 	int GetId()const{return _id;}
 	bool GetSzabad()const{return _szabad;}
 	Members* GetKi() const {return _ki;}

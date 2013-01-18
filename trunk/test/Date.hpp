@@ -101,7 +101,7 @@ return sor.str();
 }
 int maElter(){
     int ma = maiDatum();
-   return ((napok-ma)>0) ? napok-ma:ma-napok;
+   return ma-napok;
 }
 
 void addMonth(){
