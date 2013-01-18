@@ -24,7 +24,7 @@ public:
 	_tid = 4;
 	}
 	~Others(){}
-	bool Loan(Books* mit, std::string datumtol){std::cout << "Kölcsönzés történt!\n";Members::Loan(mit, datumtol);}
+
 
 	void spec() {std::cout << "Típus: " << _tipus << " Kölcs. hossza: " << _kolcs_hossz << ", maximális könyvszám: " <<_max_konyv << std::endl;}
     std::string DateWhen(std::string datum){MyDate date(datum);date +14;return date.getDate();}

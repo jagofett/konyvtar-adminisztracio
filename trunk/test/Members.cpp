@@ -14,12 +14,12 @@ int Members::nextId = 1;
  */
 bool Members::Loan_L(Books* mit, string datumtol){ //a para
 if(((mit)->Loan(datumtol, this))){_kivett.push_back(mit);return true;} //ha nincs még kikölcsönözve, felvesszük a listába
-else{throw INVALID_LOAN;}
+else{return false;}
 
 }
 bool Members::Loan(Books* mit, string datumtol){
-if (_kivett.size()>=_max_konyv){throw INVALID_LOAN;}
-Loan_L(mit, datumtol);
+if (_kivett.size()>=_max_konyv){return false;}
+return Loan_L(mit, datumtol);
 
 }
 
@@ -49,8 +49,18 @@ return kul;
 
 
 
-void Members::Edit(){
-
+void Members::Edit(int func, std::string &mire){
+switch(func){
+    case 1:
+        _nev = mire;
+        break;
+    case 2:
+        _lakcim = mire;
+        break;
+    case 3:
+        _eler = mire;
+        break;
+}
 }
 
 void Members::list_f(){

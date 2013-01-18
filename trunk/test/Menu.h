@@ -20,11 +20,13 @@ class Menu
 public:
 	Admin *m_Admin;
 	Menu();
-
+    void Clear() const; //cin szemét törlése
 	virtual ~Menu();
 	void Run(std::string type = "main");
 	void LoadData();
 	void SaveData();
+	bool MemberId(int& i);
+	bool BookId(int& i);
 	int GetInteger(const std::string &msg)const;
 	void WriteMenu(const std::string type="main") const;
 	void ManageBook(std::string type = "list");
@@ -42,6 +44,7 @@ public:
 private:
     std::vector<Books*> _books;
     std::vector<Members*> _members;
+    int _id; //felhasználó által megadott id
 
 };
 #endif // !defined(EA_4325E5CE_61C4_45dd_A673_98C8DBFD5AEA__INCLUDED_)
