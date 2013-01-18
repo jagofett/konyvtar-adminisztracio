@@ -18,6 +18,7 @@ int getEv(){return _ev;}
 int getHnap(){return _hnap;}
 int getNap(){return _nap;}
 int getNapok(){return napok;}
+
 MyDate(int ev, int hnap, int nap): _ev(ev), _hnap(hnap), _nap(nap)
 {
 
@@ -76,8 +77,15 @@ sor << hkoz << nap;
 return sor.str();
 
 }
+std::string getDate(){
+stringstream sor;
+string hkoz = (_hnap < 10) ? "0":"";
+sor <<_ev <<"." << hkoz << _hnap <<".";
+hkoz = (_nap < 10) ? "0":"";
+sor << hkoz << _nap;
+return sor.str();
 
-
+}
 
  int maiDatum() {
     time_t     now = time(0);

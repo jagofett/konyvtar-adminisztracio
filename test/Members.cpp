@@ -5,10 +5,6 @@
 using namespace std;
 
 int Members::nextId = 1;
- Members::~Members(){
-
-}
-
 
 /**
  * kölcsönzés: figyelni, hogy a könyv kölcsönözhetõ, és a tag még kölcsönözhet, ha
@@ -59,11 +55,12 @@ void Members::Edit(){
 void Members::list(){
 //cout<< "ID\t" <<  "SZERZO\t" <<  "CIM\t" <<  "KIADO\t" <<  "EVSZAM\t" << "KIADAS\t" <<  "ISBN"<< endl;
 
- cout<< _id << "\t" <<  _nev<< "\t" <<  _lakcim << "\t" <<  _eler  << endl;
+ cout<< _id << "\t" <<  _nev<< "\t" <<  _lakcim << "\t" <<  _eler  << "\t" << _tipus << endl;
  for(unsigned int i=0;i<_kivett.size();i++){
-    MyDate date(_kivett[i]->GetDate());
+    string date =_kivett[i]->GetDate();
     cout << i+1 << "-nek kölcsönzött könyv ID-je: " << _kivett[i]->GetId() << "\t Dátuma: " << date << "\tVisszahozás dátuma: ";
-    switch(_kolcs_hossz){
+    date = DateWhen(date);
+    /*switch(_kolcs_hossz){
     case 365:
         date = date + 365;
         break;
@@ -77,7 +74,7 @@ void Members::list(){
     default:
         date = date + _kolcs_hossz;
         break;
-    }
+    }*/
     cout <<date << endl;
 
  }

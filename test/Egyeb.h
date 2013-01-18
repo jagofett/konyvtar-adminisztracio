@@ -9,6 +9,7 @@
 #define EA_EDA710D9_7DA0_45c9_A572_2F7B636FB49A__INCLUDED_
 
 #include "Members.h"
+#include "Date.hpp"
 
 class Citizen : public Members
 {
@@ -25,6 +26,7 @@ public:
 		void spec() {std::cout << "Típus: " << _tipus << " Kölcs. hossza: " << _kolcs_hossz << ", maximális könyvszám: " <<_max_konyv << std::endl;}
 	bool Loan(Books* mit, std::string datumtol){std::cout << "Kölcsönzés történt!\n";Members::Loan(mit, datumtol);}
 	bool Return(Books mit);
+    std::string DateWhen(std::string datum){MyDate date(datum);date.addMonth();return date.getDate();}
 
 };
 #endif // !defined(EA_EDA710D9_7DA0_45c9_A572_2F7B636FB49A__INCLUDED_)

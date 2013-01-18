@@ -20,13 +20,14 @@ public:
 	    _id = nextId++;
 	    _kolcs_hossz= 14;
 	    _max_konyv=2;
-	    _tipus = "SZÜLÖ";
+	    _tipus = "";
 	    } //alapadatok beallitasa
-	virtual ~Members();
+	virtual ~Members(){}
 	virtual bool Loan_L(Books* mit, std::string datumtol); //kölcsönzés a könyvre mutató pointerrel, mikortol. ezt az adatok betoltesekor alkalmazzuk, nem ellenorizzuk a tagspecifikus adatokat.
-	virtual bool Loan(Books* mit, std::string datumtol); //kölcsönzés a könyvre mutató pointerrel, mikortol. ezt az adatok betoltesekor alkalmazzuk, nem ellenorizzuk a tagspecifikus adatokat.
+	virtual bool Loan(Books* mit, std::string datumtol); //kölcsönzés a könyvre mutató pointerrel, mikortol. ezt felhasznaloi kolcsonzeskor alkalmazzuk ellenorizzuk a tagspecifikus adatokat.
 	virtual int Return(int id);
 	virtual void list();
+	virtual std::string DateWhen(std::string datum) =0; //tagtipustol fuggoen kiszamolja, hogy egy adott datumu kolcsonzest mikor kell visszahozni
 	void Edit();
 	virtual void spec() =0;
 	int GetType() const {return _tid;}

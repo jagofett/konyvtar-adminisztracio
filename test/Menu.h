@@ -23,14 +23,15 @@ public:
 	void Run();
 	void LoadData();
 	void SaveData();
-	void WriteMenu(std::string type);
+	int GetInteger(const std::string &msg)const;
+	void WriteMenu(const std::string type="main") const;
 	void ManageBook(std::string type = "list");
 	void SearchBook();
 	void ManageMember(std::string type ="list");
 	void Loan();
 	bool Return();
 	bool Login();
-	Books* idToPoint(int id);
+	Books* idToPoint(const int id) const;
     enum Exception {MISSING_FILE,BAD_INPUT,AUTH_FALIURE,BAD_AUTHFILE};
 private:
     std::vector<Books*> _books;
