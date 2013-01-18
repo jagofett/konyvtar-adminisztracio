@@ -36,8 +36,10 @@ bool Books::Loan(string datum, Members* ki) {
 void Books::list()
 {
 //cout<< "ID\t" <<  "SZERZO\t" <<  "CIM\t" <<  "KIADO\t" <<  "EVSZAM\t" << "KIADAS\t" <<  "ISBN"<< endl;
-
-    cout<< _id << "\t" <<  _szerzo<< "\t" <<  _cim << "\t" <<  _kiado << "\t" <<  _evszam << "\t" <<  _kiadas << ". kiadas\t" <<  _isbn << "\tKolcsonozheto: " << _szabad << endl;
+string kol = (_szabad)? "igen":"nem";
+    cout<< _id << "\t" <<  _szerzo<< "\t" <<  _cim << "\t\t" <<  _kiado << "\t\t" <<  _evszam << "\t" <<  _kiadas << ". kiadas\t" <<  _isbn << "\t " << kol;
+    if (_ki != 0){cout << " (" << _ki->GetNev() << ", id=" << _ki->GetId() <<")";}
+    cout << endl;
 }
 
 

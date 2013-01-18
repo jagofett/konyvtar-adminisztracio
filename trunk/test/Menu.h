@@ -20,7 +20,7 @@ public:
 	Admin *m_Admin;
 	Menu();
 	virtual ~Menu();
-	void Run();
+	void Run(std::string type = "main");
 	void LoadData();
 	void SaveData();
 	int GetInteger(const std::string &msg)const;
@@ -31,7 +31,7 @@ public:
 	void Loan();
 	bool Return();
 	bool Login();
-	Books* idToPoint(const int id) const;
+	Books* idToPoint(const int id);
     enum Exception {MISSING_FILE,BAD_INPUT,AUTH_FALIURE,BAD_AUTHFILE};
 private:
     std::vector<Books*> _books;
