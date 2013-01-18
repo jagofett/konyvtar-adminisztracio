@@ -81,10 +81,11 @@
 1358459922 source:e:\project\konyvtar-adminisztracio\trunk\test\egyeb.cpp
 	"Egyeb.h"
 
-1358459912 e:\project\konyvtar-adminisztracio\trunk\test\egyeb.h
+1358504005 e:\project\konyvtar-adminisztracio\trunk\test\egyeb.h
 	"Members.h"
+	"Date.hpp"
 
-1358460506 e:\project\konyvtar-adminisztracio\trunk\test\members.h
+1358504252 e:\project\konyvtar-adminisztracio\trunk\test\members.h
 	<iostream>
 	<vector>
 	<string>
@@ -97,8 +98,9 @@
 1358450984 source:e:\project\konyvtar-adminisztracio\trunk\test\hallgato.cpp
 	"Hallgato.h"
 
-1358459893 e:\project\konyvtar-adminisztracio\trunk\test\hallgato.h
+1358504026 e:\project\konyvtar-adminisztracio\trunk\test\hallgato.h
 	"Members.h"
+	"Date.hpp"
 
 1358293389 source:e:\project\konyvtar-adminisztracio\trunk\test\konyv.cpp
 	<iostream>
@@ -120,7 +122,7 @@
 	"Oktato.h"
 	"Others.h"
 
-1358445184 e:\project\konyvtar-adminisztracio\trunk\test\date.hpp
+1358503834 e:\project\konyvtar-adminisztracio\trunk\test\date.hpp
 	<iostream>
 	<string>
 	<cstdlib>
@@ -130,22 +132,24 @@
 1358451025 source:e:\project\konyvtar-adminisztracio\trunk\test\oktato.cpp
 	"Oktato.h"
 
-1358459898 e:\project\konyvtar-adminisztracio\trunk\test\oktato.h
+1358504026 e:\project\konyvtar-adminisztracio\trunk\test\oktato.h
 	"Members.h"
+	"Date.hpp"
 
 1358451036 source:e:\project\konyvtar-adminisztracio\trunk\test\others.cpp
 	"Others.h"
 
-1358458837 e:\project\konyvtar-adminisztracio\trunk\test\others.h
+1358504038 e:\project\konyvtar-adminisztracio\trunk\test\others.h
 	"Members.h"
+	"Date.hpp"
 
-1358460506 source:e:\project\konyvtar-adminisztracio\trunk\test\members.cpp
+1358504252 source:e:\project\konyvtar-adminisztracio\trunk\test\members.cpp
 	<iostream>
 	<cstdlib>
 	"Members.h"
 	"Date.hpp"
 
-1358465072 source:e:\project\konyvtar-adminisztracio\trunk\test\menu.cpp
+1358504630 source:e:\project\konyvtar-adminisztracio\trunk\test\menu.cpp
 	"Menu.h"
 	<iostream>
 	<fstream>
@@ -161,7 +165,7 @@
 	"Oktato.h"
 	"Others.h"
 
-1358464942 e:\project\konyvtar-adminisztracio\trunk\test\menu.h
+1358506387 e:\project\konyvtar-adminisztracio\trunk\test\menu.h
 	<vector>
 	"Konyv.h"
 	"Members.h"

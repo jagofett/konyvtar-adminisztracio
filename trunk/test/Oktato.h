@@ -9,6 +9,7 @@
 #define EA_084C2B43_2226_49ab_8443_E6E0289A0BB6__INCLUDED_
 
 #include "Members.h"
+#include "Date.hpp"
 
 class Prof : public Members
 {
@@ -25,5 +26,7 @@ public:
 	bool Loan(Books* mit, std::string datumtol){std::cout << "Kölcsönzés történt!\n";Members::Loan(mit, datumtol);}
 	bool Return(Books mit);
 	void spec() {std::cout << "Típus: " << _tipus << " Kölcs. hossza: " << _kolcs_hossz << ", maximális könyvszám: " <<_max_konyv << std::endl;}
+    std::string DateWhen(std::string datum){MyDate date(datum);date+365;return date.getDate();}
+
 };
 #endif // !defined(EA_084C2B43_2226_49ab_8443_E6E0289A0BB6__INCLUDED_)

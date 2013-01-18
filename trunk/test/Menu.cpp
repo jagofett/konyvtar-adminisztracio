@@ -21,10 +21,16 @@
 #include "Others.h"
 
 
-
+using namespace std;
 Menu::Menu(){
+cout << endl << "----Szoftvertechnologia haladÃ³ csoport beadando feladat----" << endl << endl;
+cout << "NÃ©v:\t\tMagasvÃ¡ri Ãkos" << endl << "ETR-kÃ³d:\tMAATACI.ELTE" << endl << "Neptun-kÃ³d:\tEGB6EB" << endl << "2012-2013-1, 4-es csoport" << endl;
+cout << "Feladat Ã¶sszefoglalva:" << endl << "KÃ©szÃ­tsÃ¼nk egy egyetemi kÃ¶nyvtÃ¡r kÃ¶lcsÃ¶nzÃ©seit nyilvÃ¡ntartÃ³ rendszert." << endl;
+cout << "A rendszer feladata a kÃ¶nyvtÃ¡r tagjainak, kÃ¶nyveinek," << endl <<"illetve  kÃ¶nyvtÃ¡rosainak nyilvÃ¡ntartÃ¡sa." << endl << endl << "-----------------------------------------------------------------" << endl << endl;
+cout << "ÃœdvÃ¶zlÃ¶m a KÃ¶nyvtÃ¡ri AdminisztrÃ¡ciÃ³s Rendszerben!" << endl;
 if(Login()){
 LoadData();
+cout << "Az adatok betÃ¶ltÃ©se sikeres!" << endl;
 }
 else throw Menu::AUTH_FALIURE;
 }
@@ -37,13 +43,63 @@ SaveData();
 
 
 void Menu::Run(){
+int option = 0;
+do
+{
+    WriteMenu(); //fÅ‘menÃ¼ kiÃ­rÃ¡sa
+    option = GetInteger("Valasztott menupont: ");
+
+    switch(option)
+    {
+        case 1:
+            testAppend();
+            break;
+        case 2:
+            testPrepend();
+            break;
+        case 3:
+            testPop();
+            break;
+        case 4:
+            testMax();
+            break;
+        case 5:
+            testPrint();
+            break;
+    }
+}
+while(option != 0);
 ManageMember();
 ManageBook();
 }
 
 
+int Menu::GetInteger(const string& msg) const
+{
+	int number;
+	bool error;
+	do
+	{
+		cout << msg;
+		cin >> number;
+		if(cin.fail())
+		{
+			cin.clear();
+			cin.ignore(256, '\n');
+			cout << "A megadott Ã©rtek nem egÃ©sz szÃ¡m!" << endl;
+			error = true;
+        }
+		else
+            error = false;
+    }
+    while(error);
+	return number;
+}
+
+
+
 void Menu::LoadData(){
-    std::ifstream f; //a konyveket tartalmazo fajl
+    ifstream f; //a konyveket tartalmazo fajl
     //konyvek beolvasasa
     {
     string szer, cim, kia, id, ev, kiadas, isbn, tmp; //ideiglenes adatokat tartalmazo valtozok
@@ -69,9 +125,9 @@ void Menu::LoadData(){
 
         f.close();
     }
-    else throw MISSING_FILE;  //ha nem sikerült a fájlt megnyitni kivétel dobása*/
+    else throw MISSING_FILE;  //ha nem sikerÃ¼lt a fÃ¡jlt megnyitni kivÃ©tel dobÃ¡sa*/
     }
-    //tagok betöltése
+    //tagok betÃ¶ltÃ©se
     {
     string tipus, nev, cim, eler, db_s, kolcs, date;
     int db, id, tp; //id=kolcsonzott konyv id-je, db az osszes kolcsonzes db-szama
@@ -119,22 +175,22 @@ void Menu::LoadData(){
 
         f.close();
     }
-    else throw MISSING_FILE;  //ha nem sikerült a fájlt megnyitni kivétel dobása
+    else throw MISSING_FILE;  //ha nem sikerÃ¼lt a fÃ¡jlt megnyitni kivÃ©tel dobÃ¡sa
     }
 }
 
 
 
 void Menu::SaveData(){
-    std::ofstream f; //a konyveket tartalmazo fajl
-    //könyvek kimentése
+    ofstream f; //a konyveket tartalmazo fajl
+    //kÃ¶nyvek kimentÃ©se
     f.open("konyv.dat");
     if (f.is_open()) //fajl megnyitasa sikeres?
     {
 	for(unsigned int i=0;i<_books.size();i++){f<<(*_books[i]);}
 	f.close();
     }
-    else throw MISSING_FILE;  //ha nem kivétel dobása*/
+    else throw MISSING_FILE;  //ha nem kivÃ©tel dobÃ¡sa*/
 
     //tagok kimentese
     f.open("tagok.dat");
@@ -142,25 +198,36 @@ void Menu::SaveData(){
     {
 	for(unsigned int i=0;i<_members.size();i++){
     f<<(_members[i]);
-    if(i+1<_members.size()){f<<std::endl;}
+    if(i+1<_members.size()){f<<endl;}
     }
 
 	f.close();
     }
-    else throw MISSING_FILE;  //ha nem kivétel dobása*/
+    else throw MISSING_FILE;  //ha nem kivÃ©tel dobÃ¡sa*/
 }
 
 
 
 void Menu::WriteMenu(string type){
-
+if (type=="main")
+{
+    cout << endl << endl;
+	cout << "--- FÃ–MENU ---" << endl;
+	cout << "Valassz az alabbi opciok kozul!" << endl;
+	cout << "\t1 - Elem hozzafuzese a lancolt lista vegere" << endl;
+	cout << "\t2 - Elem hozzafuzese a lancolt lista elejere" << endl;
+	cout << "\t3 - Elem kivetele a lancolt lista elejerol" << endl;
+	cout << "\t4 - Maximalis ertek megkeresese" << endl;
+	cout << "\t5 - Lancolt lista kiirasa" << endl;
+	cout << "\t0 - Kilepes" << endl;
+}
 }
 
 
 /**
- * könyvek módosítása, paraméterként, hogy milyen mûveletet végezzünk.
+ * kÃ¶nyvek mÃ³dosÃ­tÃ¡sa, paramÃ©terkÃ©nt, hogy milyen muveletet vÃ©gezzÃ¼nk.
  */
-void Menu::ManageBook(std::string type){
+void Menu::ManageBook(string type){
 if (type=="list"){
     cout << "KONYVEK"<< endl;
     for(unsigned int i=0;i<_books.size();++i){_books[i]->list();}
@@ -170,7 +237,7 @@ if (type=="list"){
 
 
 /**
- * könyvek keresése
+ * kÃ¶nyvek keresÃ©se
  */
 void Menu::SearchBook(){
 
@@ -178,9 +245,9 @@ void Menu::SearchBook(){
 
 
 /**
- * tagok kezelése, paraméterként a mûvelet típusa
+ * tagok kezelÃ©se, paramÃ©terkÃ©nt a muvelet tÃ­pusa
  */
-void Menu::ManageMember(std::string type){
+void Menu::ManageMember(string type){
 if (type=="list"){
 
 	cout << "Tagok: " <<endl;
@@ -191,7 +258,7 @@ if (type=="list"){
 
 
 /**
- * kölcsönzés
+ * kÃ¶lcsÃ¶nzÃ©s
  */
 void Menu::Loan(){
 
@@ -200,7 +267,7 @@ void Menu::Loan(){
 
 /**
  * visszahozatal
- * visszatérési érték hogy történt-e késés
+ * visszatÃ©rÃ©si Ã©rtÃ©k hogy tÃ¶rtÃ©nt-e kÃ©sÃ©s
  */
 bool Menu::Return(){
 
@@ -210,9 +277,11 @@ bool Menu::Return(){
 
 bool Menu::Login(){
 try{
+cout << "KÃ©rem jelentkezzen be!" << endl;
 bool ok;
-Admin p; //MISSING_FILE,BAD_INPUT kivételek keletkezhetnek, ha az pass.dat hibás!
-ok = p.Login();
+Admin p; //MISSING_FILE,BAD_INPUT kivÃ©telek keletkezhetnek, ha a pass.dat hibÃ¡s!
+//ok = p.Login();
+ok = true;
 return ok;
 }catch(Admin::Exception ex){throw BAD_AUTHFILE;}
 }
