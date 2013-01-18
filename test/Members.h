@@ -31,6 +31,8 @@ public:
 	void Edit();
 	virtual void spec() =0;
 	int GetType() const {return _tid;}
+	std::string GetNev() const {return _nev;}
+	int GetId() const {return _id;}
 	enum Exception {INVALID_RETURN,INVALID_LOAN};
 	friend std::ostream& operator<<(std::ostream&,const Members*);
 protected:
