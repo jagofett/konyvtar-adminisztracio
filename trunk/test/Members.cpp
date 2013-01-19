@@ -65,14 +65,14 @@ switch(func){
 
 void Members::list_f(){
 //formázás, fejléc kiírása
-cout << "ID\t" <<  "NÉV";
+cout << " ID\t" <<  "NÉV";
 Space(27, " ");
 cout <<  "LAKCÍM";
-Space(24, " ");
+Space(44, " ");
 cout << "ELÉRHETÖSÉG";
-Space(19, " ");
-cout  << "TAGTÍPUS" << endl;
-Space(120, "-");
+Space(29, " ");
+cout  << "TAGTÍPUS" << "\t\t" << "KÖLCSÖNZÉSEK" << endl;
+Space(160, "-");
 cout << endl;
 
 }
@@ -83,13 +83,15 @@ for(int i=0;i<db;i++) {cout <<mit;}}
 
 void Members::list(){
 
- cout<< _id << "\t" <<  _nev;
+ cout << "| " << _id << "\t" <<  _nev;
  Space(30-_nev.length(), " ");
  cout  <<  _lakcim;
- Space(30-_lakcim.length(), " ");
+ Space(50-_lakcim.length(), " ");
  cout <<  _eler;
- Space(30-_eler.length(), " ");
- cout << _tipus << endl;
+ Space(40-_eler.length(), " ");
+ cout << _tipus;
+ Space(25-_tipus.length(), " ");
+ cout << _kivett.size() << " db" << endl;
  /*for(unsigned int i=0;i<_kivett.size();i++){
     string date =_kivett[i]->GetDate();
     cout << i+1 << "-nek kölcsönzött könyv ID-je: " << _kivett[i]->GetId() << "\t Dátuma: " << date << "\tVisszahozás dátuma: ";
@@ -110,11 +112,11 @@ cout << "Elérhetöség:\t"<<  _eler << endl;
 cout << "Kölcsönzések:\t";
 if(_kivett.size()==0){cout << "NINCS KÖLCSÖNZÖTT KÖNYV" << endl;}
 else{
-    cout << endl;
+    cout << endl << endl;
     _kivett[0]->list_f_det();
     for(unsigned int i=0;i<_kivett.size();i++){
     string date =_kivett[i]->GetDate();
-    cout << i+1 << "\t";
+    cout << i+1 << "\t\t";
     _kivett[i]->list_det();
      cout << date << "\t";
     date = DateWhen(date);
