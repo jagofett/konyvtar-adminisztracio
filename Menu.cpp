@@ -675,8 +675,8 @@ try{
 cout << "Kérem jelentkezzen be!" << endl;
 bool ok;
 Admin p; //MISSING_FILE,BAD_INPUT kivételek keletkezhetnek, ha a pass.dat hibás!
-//ok = p.Login();
-ok = true;
+ok = p.Login();
+//ok = true;
 return ok;
 }catch(Admin::Exception ex){throw BAD_AUTHFILE;}
 }
