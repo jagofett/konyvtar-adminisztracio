@@ -32,7 +32,7 @@ Admin::Admin() //adatok beolvasása
 
 
         f.close();
-        if(nev.size()!= jelszo.size()) throw BAD_INPUT; //ha nem egyforma a nevek és jelszavak száma
+        if(nev.size()!= jelszo.size() || nev.size()==0) throw BAD_INPUT; //ha nem egyforma a nevek és jelszavak száma
     }
     else throw MISSING_FILE;  //ha nem kivétel dobása
 }
