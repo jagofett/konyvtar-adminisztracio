@@ -118,3 +118,5 @@ A helyes működés biztosítása érdekében a program számos tesztelésen át
   * kölcsönzött könyv nem kölcsönözhető újra, a keresés működik
  * Kölcsönzés
   * csak ha van szabad könyv, akkor jeleníti meg őket, csak pontosa adatok esetén működik, biztosra megy (ellenőrző kérdések)
+ * Visszavétel
+  * megfelelően működik, a metódus csak akkor indul el, ha van egyáltalán kölcsönzött könyv, ha nincs erre figyelmeztet
