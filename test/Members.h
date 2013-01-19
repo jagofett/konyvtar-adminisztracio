@@ -8,42 +8,36 @@
 #include "Konyv.h"
 class Books;
 
-/**
- * tipust a gyerekei közul valasztjuk ki.
- */
-class Members
+
+class Members //tagokat tároló abszrakt osztály (csak a leszármazottakat lehet példányosítani
 {
 
 public:
 
-	Members(std::string nev, std::string cim, std::string eler):  _nev(nev), _lakcim(cim), _eler(eler) {
+	Members(std::string nev, std::string cim, std::string eler):  _nev(nev), _lakcim(cim), _eler(eler) { //megadott adatok beállítása, id növelése
 	    _id = nextId++;
-	    _kolcs_hossz= 14;
-	    _max_konyv=2;
-	    _tipus = "";
 	    } //alapadatok beallitasa
 	virtual ~Members(){}
 	virtual bool Loan_L(Books* mit, std::string datumtol); //kölcsönzés a könyvre mutató pointerrel, mikortol. ezt az adatok betoltesekor alkalmazzuk, nem ellenorizzuk a tagspecifikus adatokat.
 	virtual bool Loan(Books* mit, std::string datumtol); //kölcsönzés a könyvre mutató pointerrel, mikortol. ezt felhasznaloi kolcsonzeskor alkalmazzuk ellenorizzuk a tagspecifikus adatokat.
-	virtual int Return(int id);
-	virtual void list(); //alapadatok
-    void list_f(); //fejléc
-    void list_det();//részletes lista
-	void Space(const int db, const std::string &mit) const; //db szóköz a kimenetre
+	virtual int Return(int id); //könyv visszavitele id alapján. ha nem jó az id, kivétel dobása!
+	virtual void list(); //alapadatok listázása
+    void list_f(); //alap fejléc
+    void list_det();//részletes lista (tag részletezése)
+	void Space(const int db, const std::string &mit) const; //db megadott karakter a kimenetre (megjelenítéshez)
 	virtual std::string DateWhen(std::string datum) =0; //tagtipustol fuggoen kiszamolja, hogy egy adott datumu kolcsonzest mikor kell visszahozni
-	void Edit(int func, std::string &mire);
-	virtual void spec() =0;
-	int GetType() const {return _tid;}
-	std::string GetNev() const {return _nev;}
-	int GetId() const {return _id;}
-	std::string GetEler() const {return _eler;}
-	std::string GetCim() const {return _lakcim;}
-	int GetKolcsSize()const{return _kivett.size();}
-	Books* FirstKolcs() const {return _kivett.front();}
-	virtual bool Kolcs(){return _kivett.size()<=_max_konyv;} //annak megállapítása, hogy a tag kölcsönözhet-e még könyvet
-	int MaxKolcs()const {return _max_konyv;}
-	enum Exception {INVALID_RETURN,INVALID_LOAN};
-	friend std::ostream& operator<<(std::ostream&,const Members*);
+	void Edit(int func, std::string &mire); //tag szerkesztése, adott típust, adott értékre
+	//virtual void spec() =0;
+	int GetType() const {return _tid;} //megfelelö tipus megfelelo id-jával tér vissza = típusid, 1-Hallgató, 2- professzor, 3-más egyetemi polgár, 4- egyéb
+	std::string GetNev() const {return _nev;} //tag nevének lekérdezö metódusa
+	int GetId() const {return _id;} //id lekérdezése
+	std::string GetEler() const {return _eler;} //elérhetöség lekérdezése
+	std::string GetCim() const {return _lakcim;} //lakcím lekérdezése
+	int GetKolcsSize()const{return _kivett.size();} //tag hány könyvet kölcsönzött
+	Books* FirstKolcs() const {return _kivett.front();} //elsö kölcsönzött könyvre mutató pointer visszaadása
+	virtual bool Kolcs(){return _kivett.size()<=_max_konyv;} //annak megállapítása, hogy a tag kölcsönözhet-e még könyvet (oktatónál felüldefiniált, mert ö bármennyit kölycsönözhet
+	enum Exception {INVALID_RETURN,INVALID_LOAN};//kivételek visszahozásra, és kölcsönzésre
+	friend std::ostream& operator<<(std::ostream&,const Members*); //kiíró operátor
 protected:
     static int nextId; //automatikus novelesu id.
     //ugyfeleket azonosito mezok

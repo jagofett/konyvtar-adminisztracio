@@ -70,22 +70,22 @@
 1358295616 e:\project\test\others.h
 	"Members.h"
 
-1358205027 source:e:\project\konyvtar-adminisztracio\trunk\test\admin.cpp
+1358623264 source:e:\project\konyvtar-adminisztracio\trunk\test\admin.cpp
 	"Admin.h"
 	<fstream>
 
-1358463121 e:\project\konyvtar-adminisztracio\trunk\test\admin.h
+1358623315 e:\project\konyvtar-adminisztracio\trunk\test\admin.h
 	<vector>
 	<iostream>
 
 1358459922 source:e:\project\konyvtar-adminisztracio\trunk\test\egyeb.cpp
 	"Egyeb.h"
 
-1358555238 e:\project\konyvtar-adminisztracio\trunk\test\egyeb.h
+1358623315 e:\project\konyvtar-adminisztracio\trunk\test\egyeb.h
 	"Members.h"
 	"Date.hpp"
 
-1358618865 e:\project\konyvtar-adminisztracio\trunk\test\members.h
+1358623264 e:\project\konyvtar-adminisztracio\trunk\test\members.h
 	<iostream>
 	<vector>
 	<string>
@@ -98,11 +98,11 @@
 1358450984 source:e:\project\konyvtar-adminisztracio\trunk\test\hallgato.cpp
 	"Hallgato.h"
 
-1358555238 e:\project\konyvtar-adminisztracio\trunk\test\hallgato.h
+1358623264 e:\project\konyvtar-adminisztracio\trunk\test\hallgato.h
 	"Members.h"
 	"Date.hpp"
 
-1358618738 source:e:\project\konyvtar-adminisztracio\trunk\test\konyv.cpp
+1358623264 source:e:\project\konyvtar-adminisztracio\trunk\test\konyv.cpp
 	<iostream>
 	<sstream>
 	"Konyv.h"
@@ -111,7 +111,7 @@
 	<iostream>
 	"Menu.h"
 
-1358549489 e:\project\konyvtar-adminisztracio\trunk\test\date.hpp
+1358623315 e:\project\konyvtar-adminisztracio\trunk\test\date.hpp
 	<iostream>
 	<string>
 	<cstdlib>
@@ -121,24 +121,24 @@
 1358451025 source:e:\project\konyvtar-adminisztracio\trunk\test\oktato.cpp
 	"Oktato.h"
 
-1358618738 e:\project\konyvtar-adminisztracio\trunk\test\oktato.h
+1358623264 e:\project\konyvtar-adminisztracio\trunk\test\oktato.h
 	"Members.h"
 	"Date.hpp"
 
 1358451036 source:e:\project\konyvtar-adminisztracio\trunk\test\others.cpp
 	"Others.h"
 
-1358555238 e:\project\konyvtar-adminisztracio\trunk\test\others.h
+1358623264 e:\project\konyvtar-adminisztracio\trunk\test\others.h
 	"Members.h"
 	"Date.hpp"
 
-1358618738 source:e:\project\konyvtar-adminisztracio\trunk\test\members.cpp
+1358623558 source:e:\project\konyvtar-adminisztracio\trunk\test\members.cpp
 	<iostream>
 	<cstdlib>
 	"Members.h"
 	"Date.hpp"
 
-1358620066 source:e:\project\konyvtar-adminisztracio\trunk\test\menu.cpp
+1358625529 source:e:\project\konyvtar-adminisztracio\trunk\test\menu.cpp
 	"Menu.h"
 	<iostream>
 	<fstream>
@@ -154,7 +154,7 @@
 	"Oktato.h"
 	"Others.h"
 
-1358620066 e:\project\konyvtar-adminisztracio\trunk\test\menu.h
+1358625132 e:\project\konyvtar-adminisztracio\trunk\test\menu.h
 	<vector>
 	<string>
 	"Konyv.h"

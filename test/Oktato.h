@@ -24,8 +24,7 @@ public:
 	virtual ~Prof(){}
 	bool Kolcs(){return true;} //korlátlan kölcsönözhetöség
 	bool Loan(Books* mit, std::string datumtol){return Members::Loan_L(mit, datumtol);} //nincs korlátozva hogy hány könyvet kölcsönözhet
-	void spec() {std::cout << "Típus: " << _tipus << " Kölcs. hossza: " << _kolcs_hossz << ", maximális könyvszám: " <<_max_konyv << std::endl;}
-    std::string DateWhen(std::string datum){MyDate date(datum);date+365;return date.getDate();}
+    std::string DateWhen(std::string datum){MyDate date(datum);date+365;return date.getDate();}//visszahozási dátum számítása (sztring)
 
 };
 #endif // !defined(EA_084C2B43_2226_49ab_8443_E6E0289A0BB6__INCLUDED_)

@@ -8,7 +8,7 @@
 #include <sstream>
 //#include "Members.h"
 using namespace std;
-class MyDate{
+class MyDate{ //adott dátumot napokra alakít -> különbség kezelés, szököév nincs figyelembe véve
 private:
 int napok;
 int _ev, _hnap, _nap;
@@ -57,7 +57,7 @@ bool checkDate(int ev, int hnap, int nap){ //adott év, hónap nap megfelelõ formá
     else {return true;}
 }
 
-string toDate(const int napszam)const{
+string toDate(const int napszam)const{ //napok számát string alakú dátummá alakítja (ha összeadás volt az év hónap nap nem lenne helyes
 int ev, hnap, nap, hnapszam, maradek;
 const int daysInYear [] = { 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
 
@@ -80,7 +80,7 @@ sor << hkoz << nap;
 return sor.str();
 
 }
-std::string getDate(){
+std::string getDate(){ //dátumot string formában visszadja (helyközökkel)
 stringstream sor;
 string hkoz = (_hnap < 10) ? "0":"";
 sor <<_ev <<"." << hkoz << _hnap <<".";
@@ -90,7 +90,7 @@ return sor.str();
 
 }
 
- int maiDatum() {
+ int maiDatum() { //a mai dátumot alakítja napokká, és a napok számával visszatér
     time_t     now = time(0);
     struct tm  tstruct;
     char       buf[80];
@@ -99,18 +99,18 @@ return sor.str();
     MyDate tmp(buf);
     return tmp.napok;
 }
-int maElter(){
+int maElter(){ //eltérés a mai dátum és a tárolt dátum közt
     int ma = maiDatum();
    return ma-napok;
 }
 
-void addMonth(){
+void addMonth(){ //hónap hozzáadása a tárolt dátumhoz
 if (_hnap != 12){*this = MyDate(_ev,_hnap+1, _nap );}
 else {*this = MyDate(_ev +1,1, _nap );}
 
 }
 
-MyDate operator+(int a)
+MyDate operator+(int a) //tárolt dátumhoz napok hozzáadása, MyDate formában visszatérés
 {
 //cout << napok << endl;
 napok += a;
@@ -120,14 +120,14 @@ napok += a;
 return *this;
 }
 
-MyDate operator-(int a)
+MyDate operator-(int a)//tárolt dátumhoz napok kivonása, MyDate formában visszatérés
 {
 napok -= a;
 *this = MyDate(toDate(napok));
 return *this;
 }
 
-friend ostream& operator<<(ostream &os,const MyDate &b)
+friend ostream& operator<<(ostream &os,const MyDate &b) //kiírés a képernyöre, szinte mint a getDate()
 {
     string h1, h2;
     h1 = (b._hnap < 10) ? "0":""; //kitöltõ 0-ák

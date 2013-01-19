@@ -8,7 +8,7 @@
 #include "Admin.h"
 #include <fstream>
 
-Admin::Admin()
+Admin::Admin() //adatok beolvasása
 {
     std::ifstream f; //a bejelentkezesi adatokat tartalmazo fajl
 
@@ -38,7 +38,7 @@ Admin::Admin()
 }
 
 
-bool Admin::Login(std::string name, std::string pass)
+bool Admin::Login(std::string name, std::string pass) //bejelentkezési kísérlet, a paraméterként átvett értékek megtalálhatók a megfelelö változókban igaz (keresés tul képp)
 {
 bool ok = false;
 for (int i=0;i<nev.size();++i)
@@ -53,24 +53,24 @@ for (int i=0;i<nev.size();++i)
     return ok;
 }
 
-bool Admin::Login()
+bool Admin::Login() //felhasználótól bekéri a bejelentkezési nevet és jelszót
 {
     std::string name, pass;
-    bool ok = false;
-    int i = 0;
+    bool ok = false; //visszatérö változó, ill további üzenet kiírásakor ezt is vizsgáljuk
+    int i = 0; //kísérletek száma
     do{
-    if (ok == false && i != 0)
+    if (ok == false && i != 0) //ha nem elsö próbálkozás, hibaüzenet megjelenítése
     {
-    std::cout << "Hibas felhasznalo nev vagy jelszo. Probalja ujra! Meg " << 3-i << " lehetosege van" << std::endl;
+    std::cout << "Hibás felhasználó név vagy jelszó. Próbálja újra! Még " << 3-i << " lehetösége van" << std::endl;
     }
-    std::cout << "Adja meg felhasznaloi nevet: ";
+    std::cout << "Adja meg felhasznaloi nevet: "; //név bekérése
     getline(std::cin, name);
 
-    std::cout << "Adja meg jelszavat: ";
+    std::cout << "Adja meg jelszavat: "; //jelszó bekérése
     getline(std::cin, pass);
     std::cout << std::endl;
-    ok = Admin::Login(name, pass);
+    ok = Admin::Login(name, pass); //ellenörzés
     i++;
-    }while(!ok && i < 3);
+    }while(!ok && i < 3); //3 lehetöség, vagy amig egy jó párost meg nem ad
     return ok;
 }

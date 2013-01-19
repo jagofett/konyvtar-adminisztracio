@@ -6,20 +6,15 @@ using namespace std;
 
 int Members::nextId = 1;
 
-/**
- * kölcsönzés: figyelni, hogy a könyv kölcsönözhetõ, és a tag még kölcsönözhet, ha
- * sikertelen hamis érték visszaadás
- *
- * tagtípusonként változik a kölcsönzõ mûvelet
- */
-bool Members::Loan_L(Books* mit, string datumtol){ //a para
+
+bool Members::Loan_L(Books* mit, string datumtol){ //kölcsönzés maximális ellenörzés nélkül (beolvasáshoz) könyvre mutató pointer és egy helyes formátumú dátum alapján ha a könyv szabad kölcsönzi, vagy hamis
 if(((mit)->Loan(datumtol, this))){_kivett.push_back(mit);return true;} //ha nincs még kikölcsönözve, felvesszük a listába
 else{return false;}
 
 }
-bool Members::Loan(Books* mit, string datumtol){
-if (_kivett.size()>=_max_konyv){return false;}
-return Loan_L(mit, datumtol);
+bool Members::Loan(Books* mit, string datumtol){ //max ellenörzött kölcsönzés (paraméterek mint elöbb)
+if (_kivett.size()>=_max_konyv){return false;}  //ha már nem kölcsönözhet, hamis érték visszaadása
+return Loan_L(mit, datumtol); //egyébként az elözö müvelet futtatása
 
 }
 
@@ -27,29 +22,29 @@ return Loan_L(mit, datumtol);
  * ha történt késés, igaz értéket ad vissza
  */
 
-int Members::Return(int id){
-int kul;
-bool talal = false;
+int Members::Return(int id){  //adott id-ju könyv visszavétele, visszatér a várható visszahozatal és a mai nap különbségével napokban (késés)
+int kul; //különbség
+bool talal = false; //könyv keresése
 vector<Books*>::iterator it;
-for(it=_kivett.begin();it!=_kivett.end();++it)
+for(it=_kivett.begin();it!=_kivett.end();++it) //végigmegyünk a kölcsönzéseket tartalmazó vektoron, és ha van megadott id-jü könyv megállunk
 {
     if ((*it)->GetId()==id){ talal = true; break;}
 }
-if(talal){
-MyDate d(DateWhen((*it)->GetDate()));
-kul = d.maElter();
+if(talal){ //ha találtunk könyvet, lekérdezzük a dátumát, a max visszahozási idöpontot
+MyDate d(DateWhen((*it)->GetDate())); //saját date osztály használata (napokban tárolja a dátumot)
+kul = d.maElter(); //a késés kiszámítása (késés ha 0<)
 //kul = _kolcs_hossz-kul;
 //delete *it;
-(*it)->Return();
-_kivett.erase(it);
-return kul;
-}else{throw INVALID_RETURN;}
+(*it)->Return(); //a könyv visszvivó fv-ének meghívása, majd törlés a listából
+_kivett.erase(it); //kölcsönzés törlése
+return kul;//visszatérés a késéssel (ha 0<)
+}else{throw INVALID_RETURN;} //ha nincs id, kivétel dobása
 
 }
 
 
 
-void Members::Edit(int func, std::string &mire){
+void Members::Edit(int func, std::string &mire){ //szerkesztés 1-név, 2-cím, 3-elérhetöség, értékek beállítása
 switch(func){
     case 1:
         _nev = mire;
@@ -92,17 +87,10 @@ void Members::list(){
  cout << _tipus;
  Space(25-_tipus.length(), " ");
  cout << _kivett.size() << " db" << endl;
- /*for(unsigned int i=0;i<_kivett.size();i++){
-    string date =_kivett[i]->GetDate();
-    cout << i+1 << "-nek kölcsönzött könyv ID-je: " << _kivett[i]->GetId() << "\t Dátuma: " << date << "\tVisszahozás dátuma: ";
-    date = DateWhen(date);
 
-    cout <<date << endl;
-
- }*/
 }
 
-void Members::list_det(){
+void Members::list_det(){ //adott tag részletes adatainak kiiratása
 cout << "-- Tag részletes adatai: --" << endl << endl;
 Space(40, "-");cout << endl;
 cout << "Típus:\t\t" << _tipus << endl;
@@ -110,32 +98,32 @@ cout << "Név:\t\t" <<  _nev << endl;
 cout << "Lakcím:\t\t"<<  _lakcim << endl;
 cout << "Elérhetöség:\t"<<  _eler << endl;
 cout << "Kölcsönzések:\t";
-if(_kivett.size()==0){cout << "NINCS KÖLCSÖNZÖTT KÖNYV" << endl;}
+if(_kivett.size()==0){cout << "NINCS KÖLCSÖNZÖTT KÖNYV" << endl;} // ha nincs kölcsönzés, akkor ezt írjuk ki, különben felsoroljuk a kivett könyveket
 else{
     cout << endl << endl;
-    _kivett[0]->list_f_det();
+    _kivett[0]->list_f_det(); //fejléc
     for(unsigned int i=0;i<_kivett.size();i++){
-    string date =_kivett[i]->GetDate();
-    cout << i+1 << "\t\t";
-    _kivett[i]->list_det();
-     cout << date << "\t";
-    date = DateWhen(date);
-    cout <<date << endl;
+    string date =_kivett[i]->GetDate(); //kivétel dátuma
+    cout << i+1 << "\t\t"; //kiírjuk a sorszámot
+    _kivett[i]->list_det(); //a konkrét könyvet
+     cout << date << "\t"; //kivétel dátumát,
+    date = DateWhen(date); //visszahozás dátumának számítása
+    cout <<date << endl; //és kiírása
 
  }
 }
 }
-ostream& operator<<(ostream &os,const Members *m){
-os << m->GetType() << ";" << m->_nev << ";" <<  m->_lakcim<< ";" <<  m->_eler << ";" << m->_kivett.size();
-if (m->_kivett.size()!=0) {
-os <<";";
+ostream& operator<<(ostream &os,const Members *m){ //kiíró operátor
+os << m->GetType() << ";" << m->_nev << ";" <<  m->_lakcim<< ";" <<  m->_eler << ";" << m->_kivett.size(); //;-el elválasztva az alap adatok, és hogy hány kölcsönzés van
+if (m->_kivett.size()!=0) { //ha 0 kész vagyunk
+os <<";"; //ha több felsoroljuk öket
 for(unsigned int i=0;i<m->_kivett.size();i++)
     {
         //cout << "Utolso: " << !(m->_kivett.size()==i) <<" ";
-        os << m->_kivett[i]->GetId()<<";"<<m->_kivett[i]->GetDate();
-        if (i+1<m->_kivett.size()){os <<";";}
+        os << m->_kivett[i]->GetId()<<";"<<m->_kivett[i]->GetDate(); //kiírjuk a könyv id-ját, és a kezdeti dátumot
+        if (i+1<m->_kivett.size()){os <<";";} //ha nem az utolsónál járunk, ;-is írunk
     }
 }
 
-return os;
+return os; //visszatérünk, hogy lehessen << << << halmozni
 }
