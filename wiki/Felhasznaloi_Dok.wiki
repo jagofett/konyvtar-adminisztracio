@@ -1,0 +1,68 @@
+#summary Felhasználói dokumentáció
+#labels Featured,Phase-Deploy
+
+= Felhasználói dokumentáció =
+
+== A program feladata ==
+
+Készítsünk egy egyetemi könyvtár kölcsönzéseit nyilvántartó rendszert. A rendszer feladata a könyvtár tagjainak, könyveinek, illetve könyvtárosainak nyilvántartása
+
+== Funkciók, szolgáltatások ==
+
+    * Új könyv felvétele _(szerző, cím, kiadó, évszám, kiadás, ISBN szám, kölcsönözhető-e)_. A könyvhöz alkalmas, könnyen megjegyezhető azonosítót generál a program.
+    * Könyvek listázása _(a tulajdonságok mellett a kintlévőség)_, könyv törlése, illetve a könyvek közötti keresés. A kereséskor meg kell adni a keresési feltételt _(szerző, cím, azonosító, vagy ISBN szám)_, majd a keresési szöveget.
+    * Könyvtári tag felvétele _(név, lakcím, típus, elérhetőség)_ és törlése.
+    * Tagok listájának, illetve adott tag adatainak megtekintése, módosítása, a tag kölcsönzéseinek listázása _(dátum, könyv, visszahozás dátuma)_.
+    * Könyv kölcsönzése adott dátumú kezdettel, adott tag által _(a tagtípus alapján automatikusan generálja a visszahozás dátumát)_, ügyelve arra, hogy a könyv kölcsönözhető, és a tag még kölcsönözhet könyvet.
+    * Könyv vissza hozatala, amikor is a rendszer figyelmeztet az esetleges késésre.
+
+== Beüzemelés, környezeti feltételek ==
+
+A program nem igényel külön beüzemelést, se különleges környezeti feltételeket. A gépre felmásolva azonnal futtatható.
+
+== A program használata ==
+
+=== A program elindítása ===
+
+  * A szoftver elindításához egyszerűen indítsa el a konyvtar.exe fájlt
+
+=== A program használata ===
+
+  * A program indításakor megjelenik az üdvözlőképernyő, majd a bejelentkezési utasítás. Írjuk be felhasználói nevünket és jelszavunkat, majd ez után az adatok betöltődnek  a memóriába. Ezek a következő fájlokban találhatóak: _pass.dat, konyvek.dat, tagok.dat_. Amennyiben valamely fájl sérült, nem olvasható, nem létezik, illetve az adatok nem megfelelő formátumúak, a program hibaüzenetet ad és leáll.
+
+ * Az adatok betöltése után megjelenik a főmenü, itt választhatunk a funkciók közül (a megfelelő szám megadásával):
+  * _1) Könyvek kezelése_ - Megjelenik a könyvek almenü, ahol a könyvekkel végezhetünk műveleteket:
+   * 1) Listázás - Könyvek, és adataik listázása, itt megjelenik a kölcsönözhetőség is, illetve amennyiben valaki kivette a könyvet, akkor az ő neve, és hogy mikorra jár le.
+   * 2) Új könyv felvétele - Itt tudunk új könyvet felvenni a rendszerbe, a program megkérdezi az összes fontos adatot, ezeket beírva megjelenik az összesítés, és a biztonsági kérdés, hogy tényleg létre akarjuk-e hozni a könyvet. Fontos, hogy ne használjunk ékezeteket, mert a program helytelenül jeleníti meg.
+   * 3) Könyv törlése - Itt tudunk törölni a rendszerből, a program listázza az összes könyvet, nekünk meg kell adni, melyik ID-jú könyvet akarjuk törölni. Ekkor a program kiírja a választott könyvet, és biztonsági kérdés jelenik meg, hogy biztos töröljük-e a könyvet. FIGYELEM! Amennyiben a könyv kölcsönözve van, a program erre figyelmeztet, és felajánlja hogy visszaveszi a könyvet. Amennyiben így döntünk, utána kérdez rá a törlésre.
+   * 4) Könyv keresése - Itt tudunk keresni a könyvek között. A program megkérdezi hogy mi alapján keresünk, majd be kell írnunk a keresendő szöveget, ezután a megfelelő könyvek listázásra kerülnek. Kis és nagybetű nem számít, és a program csak a szöveg elejében keres!
+
+  * _2) Tagok kezelése_ - Megjelenik a tagok almenü, ahol a könyvekkel végezhetünk műveleteket:
+   * 1) Listázás - Tagok, és adataik listázása, itt megjelenik a hogy hány kölcsönzése van az egyes tagoknak.
+   * 2) Új tag felvétele - Itt tudunk új tagot felvenni a rendszerbe, a program megkérdezi az összes fontos adatot, ezeket beírva megjelenik az összesítés, és a biztonsági kérdés, hogy tényleg létre akarjuk-e hozni a könyvet. Fontos, hogy ne használjunk ékezeteket, mert a program helytelenül jeleníti meg.
+   * 3) Tag törlése - Itt tudunk tagot törölni a rendszerből, a program listázza az összes tagot, nekünk meg kell adni, melyik ID-jú könyvet akarjuk törölni. Ekkor a program kiírja a választott tagot, és biztonsági kérdés jelenik meg, hogy biztos töröljük-e. FIGYELEM! Amennyiben a tagnak kölcsönzése(i) van(nak), a program erre figyelmeztet, és felajánlja hogy visszaveszi a könyveket. Amennyiben így döntünk, utána kérdez rá a törlésre.
+   * 4) Tag adatainak listázása - Itt tudjuk egy adott tag adatait megtekinteni, ehhez a rendszer listázza a tagokat, és nekünk választanunk kell egy ID-t. Ha létezik ilyen tag, a részletes adatai megjelennek, az alapadatok mellett a kölcsönzött könyveinek adatai is. ez után lehetőségünk van a tagot szerkeszteni. Ekkor meg kell adnunk hogy mit akarunk átírni, majd azt hogy mire. FIGYELEM! Ha a típust módosítunk, nem lehet a tagnak kölcsönzése!
+
+  * _3) Kölcsönzés_ - Itt tudunk könyvet kölcsönözni. Megjelennek a tagok, közülük kell választanunk, majd az összes nem kölcsönzött könyv jelenik meg, ezek közül is válasszunk. Ekkor egy összesítés jelenik meg a tag eddigi kölcsönzéseiről, és a kiválasztott könyvről, illetve a biztonsági kérdés, hogy biztosan kölcsönzünk-e. Amennyiben a tag elérte a kölcsönzési korlátot, itt kapunk figyelmeztetést. Figyelem! A kölcsönzés csak akkor működik, ha van kölcsönözhető könyv, és jó ID-ket adunk meg, erre természetesen a program is figyelmeztet.
+
+  * _4) Visszavétel- Itt tudunk könyvet visszavenni. Megjelenik  az összes kölcsönzött könyv, ezek közül kell válasszunk. Ekkor egy összesítés jelenik meg a könyvhöz tartozó tag eddigi kölcsönzéseiről, és a kiválasztott könyvről, illetve a biztonsági kérdés, hogy biztosan visszavesszük-e.  Figyelem! A kölcsönzés csak akkor működik, ha van kölcsönzött könyv, és jó ID-ket adunk meg, erre természetesen a program is figyelmeztet.
+
+
+  * Ha ki akarunk lépni a programból, akkor a főmenűből a _"Mentés és kilépés"_ funkció használatával tudunk. Fontos, hogy ha nem így lépünk ki, akkor minden módosítás, amit a végeztünk, elveszik, mivel a kilépéskor mentődnek az adatok fájlokba!
+
+== Korábbi változatok ==
+
+Nincsenek korábbi kiadott változatok, ez az 1.0-ás, első kiadás.
+
+----
+
+== Készítő ==
+
+  * *Név:* Magasvári Ákos
+  * *E-mail:* maataci@inf.elte.hu
+  * *Telefon:* 06-20-252-3958
+
+== Hiba, észrevétel ==
+
+A program hibás működése esetén vegye fel a kapcsolatot a készítővel, és értesítse a probléma pontos leírásáról.
+Hasonlóan, ha bármilyen észrevétele van, a készítő örömmel fogadja, ezért kérem írja meg!
