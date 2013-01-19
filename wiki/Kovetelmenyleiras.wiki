@@ -20,7 +20,7 @@ A rendszer négyféle könyvtári tagot tart nyilván:
 
 === Környezeti követelmény === 
 
-A szoftver Linuxos környezetre optimalizált, de a kód Windows kompatibilissé tehető. A futtatáshoz egyszerű személyi számítógép elegendő, semmilyen egyéb szoftverrel nem kell együttműködni. 
+A szoftver Windowsos környezetre optimalizált, de a kód Linux kompatibilissé tehető. A futtatáshoz egyszerű személyi számítógép elegendő, semmilyen egyéb szoftverrel nem kell együttműködni. 
 
 === Szerkezeti felépítés ===
 
@@ -67,10 +67,10 @@ A szoftver egységei a terv szerint hetente készülnek el, így a szoftverfejle
  # * 2012. december 5.*: A program első teszt verziójának elkészítése, a rendszerterv frissítése, felhasználói dokumentáció elkezdése
   * _Munkaidő_: 30 emberóra
   * _Eredmény_: A program alfa verziója
- # * 2012. december 23.*: A program béta verziója
+ # * 2012. január 15.*: A program béta verziója
   * _Munkaidő_: 30 emberóra
-  * _Eredmény_: A program béta verziója, felhasználói dokumentáció béta verziója
- # * 2013. január 16.*: A program véglegesítése, utolsó hibajavítások; rendszerterv és felhasználói dokumentáció véglegesítése
+  * _Eredmény_: A program béta verziója
+ # * 2013. január 19.*: A program véglegesítése, utolsó hibajavítások; rendszerterv és felhasználói dokumentáció véglegesítése
   * _Munkaidő_: 15 emberóra
   * _Eredmény_: A program végleges verziója, rendszerterv (implementációs fázis), felhasználói dokumentáció
 
