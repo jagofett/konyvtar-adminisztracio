@@ -102,7 +102,7 @@ void Books::list_det(){
 
 }
 
-string Books::ToLower(string mit){
+string Books::ToLower(string mit){ //string kisbetüssé alakítása, kereséshez pl (karakterenként alkalmazzuk a beépített fv-t)
 for(int i=0;i<mit.size();++i)
 {
     mit[i] = tolower(mit[i]);
@@ -113,9 +113,9 @@ return mit;
 /**
  * könyv keresése
  */
-bool Books::Search(int mit, std::string& szoveg)
+bool Books::Search(int mit, std::string& szoveg) //keresés: 1-szerzö, 2-cim, 3-isbn, 4-id
 {
-stringstream sor;
+stringstream sor; //id-hoz szükséges, hogy sztring-é tudjuk alakítani
 bool found = false;
 switch(mit){
 
@@ -137,7 +137,7 @@ return found; //találtunk-e eredményt
 
 }
 
-ostream& operator<<(ostream &os,const Books *b)
+ostream& operator<<(ostream &os,const Books *b) //megfelelö formátumú kiírás
 {
     os << b->_id << ";" <<  b->_szerzo<< ";" <<  b->_cim << ";" <<  b->_kiado << ";" <<  b->_evszam << ";" <<  b->_kiadas << ";" <<  b->_isbn << endl;
 

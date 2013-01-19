@@ -27,7 +27,7 @@ cout << endl << "----Szoftvertechnologia haladó csoport beadando feladat----" <<
 cout << "Név:\t\tMagasvári Ákos" << endl << "ETR-kód:\tMAATACI.ELTE" << endl << "Neptun-kód:\tEGB6EB" << endl << "2012-2013-1, 4-es csoport" << endl;
 cout << "Feladat összefoglalva:" << endl << "Készítsünk egy egyetemi könyvtár kölcsönzéseit nyilvántartó rendszert." << endl;
 cout << "A rendszer feladata a könyvtár tagjainak, könyveinek," << endl <<"illetve  könyvtárosainak nyilvántartása." << endl << endl << "-----------------------------------------------------------------" << endl << endl;
-cout << "Üdvözlöm a Könyvtári Adminisztrációs Rendszerben!" << endl;
+cout << "Üdvözlöm a Könyvtári Adminisztrációs Rendszerben! (KAR)" << endl;
 if(!Login()){
 throw Menu::AUTH_FALIURE;
 }
@@ -37,6 +37,7 @@ cout << "Az adatok betöltése sikeres!" << endl;
 Menu::~Menu(){
 SaveData();
 cout << "Az adatok mentése sikeres volt!" << endl;
+cout << "Kijelentkezés sikeres, köszönöm hogy a programot használtad!" << endl;
 }
 
 
@@ -233,14 +234,41 @@ return str;
 /**
  * könyvek módosítása, paraméterként, hogy milyen muveletet végezzünk.
  */
+
 void Menu::ManageBook(string type){ //kesz (TODO kölcsönzés frissiteni!)
+if (type=="new") //új könyv hozzáadása
+{
+    cout << endl <<  "-- Új könyv felvétele --" << endl;
+    string szerz, cim, kiado, isbn;
+    char vsz;
+    int kiadas, ev;
+Clear();
+    cout << "Adja meg a könyv adatait! (ebben a verzióban az ékezetes betük nem támogatottak!)" << endl; //TODO ékezetes beolvasás!
+
+    cout << "Szerzö: "; getline(cin, szerz);
+    cout  << "A könyv címe: "; getline(cin, cim);
+    cout  << "A kiadó neve: "; getline(cin , kiado) ;
+    ev = GetInteger("A kiadás dátuma: ");
+    kiadas = GetInteger("Hányadik kiadás? ");
+    Clear();
+    cout  << "A könyv ISBN száma: "; getline(cin , isbn) ; //TODO min hossz ISBN. számnak
+    Books* tmp = new Books(prot(szerz), prot(cim), prot(kiado), ev, kiadas, isbn); //prot lecseréli a ;-ket , re fájlhiba elkerülése érdekében
+    cout << endl;
+    tmp->list_f();
+    (tmp)->list();
+    cout << endl;
+    cout << "Helyesek az adatok, létrehozza a könyet? (i - igen, minden más - nem) ";
+    cin >> vsz;
+    if (vsz!='i'){cout << "A müvelet visszavonva!" << endl;delete tmp;}
+    else {_books.push_back(tmp);cout << "A könyv létrehozva!" << endl;}
+}//új könyv vége
 if (_books.size()>0){
 if (type=="list"){ //könyek listázása
 //    cout << "KÖNYVEK"<< endl;
     cout << endl;
     _books[0]->list_f();
     for(unsigned int i=0;i<_books.size();++i){_books[i]->list();}
-    Space(140, "-");
+    Space(160, "-");
     cout<< endl;
 }
 
@@ -285,35 +313,20 @@ Clear();
 }
 
 }else{cout << "Nincs egy könyv se az adatbázisban, ezért nem hajtható végre müvelet!" << endl;}
-if (type=="new") //új könyv hozzáadása
-{
-    cout << endl <<  "-- Új könyv felvétele --" << endl;
-    string szerz, cim, kiado, isbn;
-    char vsz;
-    int kiadas, ev;
-Clear();
-    cout << "Adja meg a könyv adatait! (ebben a verzióban az ékezetes betük nem támogatottak!)" << endl; //TODO ékezetes beolvasás!
 
-    cout << "Szerzö: "; getline(cin, szerz);
-    cout  << "A könyv címe: "; getline(cin, cim);
-    cout  << "A kiadó neve: "; getline(cin , kiado) ;
-    ev = GetInteger("A kiadás dátuma: ");
-    kiadas = GetInteger("Hányadik kiadás? ");
-    Clear();
-    cout  << "A könyv ISBN száma: "; getline(cin , isbn) ; //TODO min hossz ISBN. számnak
-    Books* tmp = new Books(prot(szerz), prot(cim), prot(kiado), ev, kiadas, isbn); //prot lecseréli a ;-ket , re fájlhiba elkerülése érdekében
-    cout << endl;
-    tmp->list_f();
-    (tmp)->list();
-    cout << endl;
-    cout << "Helyesek az adatok, létrehozza a könyet? (i - igen, minden más - nem) ";
-    cin >> vsz;
-    if (vsz!='i'){cout << "A müvelet visszavonva!" << endl;delete tmp;}
-    else {_books.push_back(tmp);cout << "A könyv létrehozva!" << endl;}
-}
 
 }
 
+int Menu::SpecList(bool legyen){
+int db=0;
+cout << endl;
+_books[0]->list_f();
+for(unsigned int i=0;i<_books.size();++i){if(_books[i]->GetSzabad()==legyen){db++;_books[i]->list();}}
+if(db==0){cout << "HIBA! Nincs egy megfelelö könyv se!" << endl;}
+Space(160, "-");
+cout<< endl;
+return db;
+}
 
 /**
  * könyvek keresése
@@ -367,6 +380,40 @@ return i<_books.size();
  * tagok kezelése, paraméterként a muvelet típusa
  */
 void Menu::ManageMember(string type){
+if (type=="new") //új könyv hozzáadása
+{
+    cout <<endl << "-- Új tag felvétele --" << endl;
+    string nev, cim, eler;
+    char vsz;
+    int tp;
+    cin.clear();
+    cin.sync();
+    cout << "Adja meg az új tag adatait! (ebben a verzióban az ékezetes betük nem támogatottak!)" << endl; //TODO ékezetes beolvasás!
+
+//t.push_back(new Citizen("Egyetemi Polgár", "ELTE", "elte@inf.com"));
+
+    cout << "Név: "; getline(cin, nev);
+    cout  << "Lakcím: "; getline(cin, cim);
+    cout  << "Elérhetoség (email/telefon): "; getline(cin , eler) ;
+    cout << "Adja meg, milyen típusu a tag! (1 - Egyetemi Hallgato, 2 - Egyetemi Oktato, 3 - Egyéb Egyetemhez tartozo személy, 4 - Mindenki más)" << endl;
+    cout << "Ha nem megfelelo számot ad meg, 4-es típus fog érvényesülni!"<< endl;
+    tp = GetInteger("A választott típus: ");
+    Members* tmp;
+    prot(nev);prot(cim);prot(eler); //szabálytalan karakter (;) kizárása
+    if (tp == 1){ tmp = new Student(nev, cim, eler);} //hallgato
+    else if (tp == 2){ tmp = new Prof(nev, cim, eler);} // tanár
+    else if (tp == 3){ tmp = new Citizen(nev, cim, eler);} //egyéb egyetem
+    else{ tmp = new Others(nev, cim, eler);} //mindenki más
+    //Books* tmp = new Books(prot(szerz), prot(cim), prot(kiado), ev, kiadas, isbn); //prot lecseréli a ;-ket , re fájlhiba elkerülése érdekében
+    cout << endl;
+    tmp->list_f();
+    (tmp)->list();
+    cout << endl;
+    cout << "Helyesek az adatok, felveszi a tagot? (i - igen, minden más - nem) ";
+    cin >> vsz;
+    if (tolower(vsz)!='i'){cout << "A müvelet visszavonva!" << endl;delete tmp;}
+    else {_members.push_back(tmp);cout << "A tag felvéve!" << endl;}
+}//új tag vége
 if(_members.size()!=0) //ha van tag
 {
 if (type=="list"){ //tagok listázása
@@ -505,7 +552,6 @@ if(vsz>=1 && vsz<=4 && tolower(v)=='i'){ //ha érvéseset választott, és elfogadta
         else if (tp == 2){ tmp = new Prof(nev, cim, eler);} // tanár
         else if (tp == 3){ tmp = new Citizen(nev, cim, eler);} //egyéb egyetem
         else{ tmp = new Others(nev, cim, eler);} //mindenki más
-        if(!tmp->Kolcs()){cout << "Figyelem! A tagnak több könyve van, mint az új típusa engedné!" << endl << "Addig nem lehetséges a kölcsönzés, amíg nem csökken a megengedett alá ez a szám! (" << tmp->MaxKolcs() << " db)" << endl;}
         _members.erase(_members.begin()+_id);
         _members[_id] = tmp;
         cout << "A módosítás sikerült!" << endl;
@@ -518,41 +564,6 @@ _members[_id]->list_det();
 } // módossítás vége
 }else {cout << "Nincs egy tag sem az adatbázisban, kérlek vegyél fel párat!" << endl;} //ha nincs tag
 
-if (type=="new") //új könyv hozzáadása
-{
-    cout <<endl << "-- Új tag felvétele --" << endl;
-    string nev, cim, eler;
-    char vsz;
-    int tp;
-    cin.clear();
-    cin.sync();
-    cout << "Adja meg az új tag adatait! (ebben a verzióban az ékezetes betük nem támogatottak!)" << endl; //TODO ékezetes beolvasás!
-
-//t.push_back(new Citizen("Egyetemi Polgár", "ELTE", "elte@inf.com"));
-
-    cout << "Név: "; getline(cin, nev);
-    cout  << "Lakcím: "; getline(cin, cim);
-    cout  << "Elérhetoség (email/telefon): "; getline(cin , eler) ;
-    cout << "Adja meg, milyen típusu a tag! (1 - Egyetemi Hallgato, 2 - Egyetemi Oktato, 3 - Egyéb Egyetemhez tartozo személy, 4 - Mindenki más)" << endl;
-    cout << "Ha nem megfelelo számot ad meg, 4-es típus fog érvényesülni!"<< endl;
-    tp = GetInteger("A választott típus: ");
-    Members* tmp;
-    prot(nev);prot(cim);prot(eler); //szabálytalan karakter (;) kizárása
-    if (tp == 1){ tmp = new Student(nev, cim, eler);} //hallgato
-    else if (tp == 2){ tmp = new Prof(nev, cim, eler);} // tanár
-    else if (tp == 3){ tmp = new Citizen(nev, cim, eler);} //egyéb egyetem
-    else{ tmp = new Others(nev, cim, eler);} //mindenki más
-    //Books* tmp = new Books(prot(szerz), prot(cim), prot(kiado), ev, kiadas, isbn); //prot lecseréli a ;-ket , re fájlhiba elkerülése érdekében
-    cout << endl;
-    tmp->list_f();
-    (tmp)->list();
-    cout << endl;
-    cout << "Helyesek az adatok, felveszi a tagot? (i - igen, minden más - nem) ";
-    cin >> vsz;
-    if (tolower(vsz)!='i'){cout << "A müvelet visszavonva!" << endl;delete tmp;}
-    else {_members.push_back(tmp);cout << "A tag felvéve!" << endl;}
-}//új tag vége
-
 }
 
 
@@ -561,16 +572,19 @@ if (type=="new") //új könyv hozzáadása
  */
 void Menu::Loan(){
 cout << endl << "-- Könyv kölcsönzése --" << endl;
+if(_members.size()!=0 && _books.size()!=0) //ha van tag és könyv is, és van kölcsönözhetö könyv
+{
+cout << "Kérlek válaszd a tagot, aki kölcsönözni akar! Az ID-jét add meg!" << endl;
+ManageMember("list");
 int i = 0;
 int j = 0; //j - tagazonosito, i - könyvazon
 char biztos;
 _id = -1;
-cout << "Kérlek válaszd a tagot, aki kölcsönözni akar! Az ID-jét add meg!" << endl;
-ManageMember("list");
 if(MemberId(j)){ //ha valós tag
 
 cout << "Kérlek válaszd ki a kölcsönzendö könyvet! Az ID-jét add meg!" << endl;
-ManageBook("list");
+if(SpecList()>0){ //ha van kölcsönözhetö könyv
+
 
 if(BookId(i)){ //valós ID-t adott meg
     if (_books[i]->GetSzabad()){ //ha szabad a könyv
@@ -600,8 +614,14 @@ if(BookId(i)){ //valós ID-t adott meg
 
 }//book Id check vége
 else{cout << "Hiba! Nincs ilyen Könyv-ID, a kölcsönzés nem lehetséges!" << endl;}
+}//kölcsönözhetöség check vége
+else{cout << "Nincs egy kölcsönözhetö könyv az adatbázisban, ezért nem hajtható végre müvelet!" << endl;} //ha nincs könyv
 }//member ID check vége
 else{cout << "Hiba! Nincs ilyen Tag-ID, a kölcsönzés nem lehetséges!" << endl;}
+
+}//van e könyv és tag? vége
+else{cout << "Nincs  könyv vagy  tag  az adatbázisban, ezért nem hajtható végre müvelet! Vegyél fel tagokat vagy könyveket, hogy lehessen kölcsönözni!" << endl;} //ha nincs könyv
+
 }
 
 /**
@@ -610,16 +630,18 @@ else{cout << "Hiba! Nincs ilyen Tag-ID, a kölcsönzés nem lehetséges!" << endl;}
  */
 void Menu::Return(){
 cout << endl << "-- Könyv visszavétele --" << endl;
+cout << "Kérlek válaszd a könyvet, amit visszahoztak! Az ID-jét add meg!" << endl;
+if(_members.size()!=0 && _books.size()!=0 && SpecList(false)>0) //ha van tag és könyv is, és van kölcsönzött könyv
+{
 int i = 0; // i - könyvazon
 _id = -1; //
 char biztos; //megerösítés tárolása
-cout << "Kérlek válaszd a könyvet, amit visszahoztak! Az ID-jét add meg!" << endl;
-ManageBook("list");
-if(BookId(i)){ //ha valós könyv
+
+if(BookId(i) && !_books[i]->GetSzabad()){ //ha valós könyv, és kölcsönzött
     int keses;
     cout << "Részletes adatok a kölcsönzöröl: " << endl;
     _books[i]->GetKi()->list_det();
-    cout << "Rögzíti a visszavételt? (i - igen, minden más  - nem)" << endl;
+    cout << "Rögzíti a(z) ID=" << _id << " könyv visszavételét? (i - igen, minden más  - nem)" << endl;
     Clear();
     cin >> biztos;
     if (tolower(biztos)!='i'){cout << "A müvelet visszavonva! Nem történt visszavétel." << endl;}
@@ -634,9 +656,13 @@ if(BookId(i)){ //ha valós könyv
     }//visszavétel vége
 
 }//member ID check vége
-else{cout << "Hiba! Nincs ilyen Könyv-ID, a visszavétel nem lehetséges!" << endl;}
-}
+else{cout << "Hiba! Nincs ilyen kölcsönzött könyv-ID, a visszavétel nem lehetséges!" << endl;}
 
+} //size check vége
+else{cout << "Nincs egy kölcsönzött könyv vagy egy tag se az adatbázisban, ezért nem hajtható végre müvelet!" << endl;} //ha nincs könyv
+
+
+}
 int Menu::Return(Members* mit){
 int mennyi;
 mennyi = (mit->Return(_id));
@@ -655,18 +681,6 @@ return ok;
 }catch(Admin::Exception ex){throw BAD_AUTHFILE;}
 }
 
-/*Books* Menu::idToPoint(int id){
-//cout << "\n\n--ITERATOROK--\n\n";
-bool talal = false;
-vector<Books*>::iterator it;
-for(it=_books.begin();it!=_books.end();++it)
-{
-    if ((*it)->GetId()==id){ talal = true; break;}
-}
-Books *p = 0;
-if(talal){p=*it;}
-return p;
-}*/
 
 
 

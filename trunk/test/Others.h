@@ -24,8 +24,8 @@ public:
 	_tid = 4;
 	}
 	~Others(){}
-	void spec() {std::cout << "Típus: " << _tipus << " Kölcs. hossza: " << _kolcs_hossz << ", maximális könyvszám: " <<_max_konyv << std::endl;}
-    std::string DateWhen(std::string datum){MyDate date(datum);date +14;return date.getDate();}
+	//void spec() {std::cout << "Típus: " << _tipus << " Kölcs. hossza: " << _kolcs_hossz << ", maximális könyvszám: " <<_max_konyv << std::endl;}
+    std::string DateWhen(std::string datum){MyDate date(datum);date +14;return date.getDate();}//visszahozási dátum számítása (sztring)
 
 };
 #endif // !defined(EA_FF0C5023_C9EF_4aff_97AF_AF32717F92E0__INCLUDED_)

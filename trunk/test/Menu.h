@@ -36,9 +36,9 @@ public:
 	void Return(); //könyv visszavétele, a keretet adja hozzá (szöveg, adatbekérés, ha késés kiírja)
 	int Return(Members* mit); //a konkrét visszavétel, egy könyvre mutató pointerre meghívja a visszavevö fv-t, majd visszatér a késésel napokban
 	bool Login(); //bejelentkezést végzö fv
-	//Books* idToPoint(const int id); //paraméterként áttvett id-t alakít könyvre mutató pointerre (ha talál ilyen könyvet). az adatbetöltésnél használjuk
     enum Exception {MISSING_FILE,BAD_INPUT,AUTH_FALIURE,BAD_AUTHFILE};
     void Space(const int db, const std::string &mit) const{for(int i=0;i<db;i++) {std::cout <<mit;}} //addot számú karakter kiírása. megjelenítéshez szükséges
+    int SpecList(bool legyen=true);//legyen - > kölcsönözhetö könyvek keresése
     std::string prot(std::string& str); //;->, csere hogy ne lehessen tönkretenni a fájlmentést
 
 

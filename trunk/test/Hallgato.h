@@ -11,11 +11,11 @@
 #include "Members.h"
 #include "Date.hpp"
 
-class Student : public Members
+class Student : public Members //Egyetemi hallgatókat  tartalmazó leszármazott osztály
 {
 
 public:
-	Student(std::string nev, std::string cim, std::string eler): Members(nev, cim, eler){
+	Student(std::string nev, std::string cim, std::string eler): Members(nev, cim, eler){//a szülö konstruktora, + a specifikus értékek beállítása
 
     _kolcs_hossz=60;	 // kölcsönzés max hossza hossza napokban
 	_max_konyv = 5;
@@ -23,8 +23,6 @@ public:
 	_tid= 1;
 	}
 	virtual ~Student(){}
-
-	void spec() {std::cout << "Típus: " << _tipus << " Kölcs. hossza: " << _kolcs_hossz << ", maximális könyvszám: " <<_max_konyv << std::endl;}
-    std::string DateWhen(std::string datum){MyDate date(datum);date.addMonth();date.addMonth();return date.getDate();}
+    std::string DateWhen(std::string datum){MyDate date(datum);date.addMonth();date.addMonth();return date.getDate();}//visszahozási dátum számítása (sztring)
 };
 #endif // !defined(EA_DC6545E7_A9DB_4a2f_9FE0_067DC9B1F53E__INCLUDED_)
