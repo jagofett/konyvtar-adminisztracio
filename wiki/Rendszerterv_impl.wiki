@@ -88,7 +88,7 @@ A könyvtárosok adatait tartalmazó fájl
 A könyvek adatait tartalmazó fájl
 <u>*konyvek.dat*</u> felépítése:
 <pre>
-<id>;<szerző>;<cím>;<kiadó>;<kiadási évszám>;<kiadás száma>;<isbn>;<kölcsönzött-e>
+<id>;<szerző>;<cím>;<kiadó>;<kiadási évszám>;<kiadás száma>;<isbn>
 ...
 </pre>
 
