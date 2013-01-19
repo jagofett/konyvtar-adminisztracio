@@ -6,7 +6,7 @@
 
 == A rendszer felépítése ==
 
-A program 8 osztályból áll, ezek részletezése:
+A program 9 osztályból áll, ezek részletezése:
 
  * A program funkcióinak elérése a _Menu_ osztályon keresztül történik. A főmenüből lehet elérni a főbb funkciókat, valamint ezek használatával almenükben történik a további funkciók elérése
 
@@ -19,18 +19,21 @@ A program 8 osztályból áll, ezek részletezése:
    * SearchBook: a keresést végző almenüt meghívó metódus
    * ManageBook: a könyvek kezelését végző almenüt meghívó metódus
    * ManageMember: a tagok kezelését végző almenüt meghívó metódus
-   * Loan: a kölcsönzést végző almenü meghívása
-   * Return: a visszavételt végző almenü meghívása
+   * Loan: kölcsönzési folyamat elindítása
+   * Return: visszavételi folyamat elindítása
+   * MemberId/BookId: segédfüggvény, a felhasználótól bekér egy azonosítót, majd megkeresi az ehhez tartozó tagot/könyvet, ha nem létezik, hamis értékkel tér vissza, ha létezik igazzal
+   * GetInteger: ellenőrzött egész szám beolvasás a konzolról
+
  * A keresés almenüben nyílik lehetőség a könyvek közötti keresésre szerző, cím, azonosító, vagy ISBN szám szerint.
- * A könyv-kezelés almenüben nyílik lehetőség új könyv felvételére, könyvek listázására, szerkesztésére, illetve törlésére.
- * A tag-kezelés almenüben nyílik lehetőség új tag felvételére, tagok listázására, adott tag adatainak szerkesztésére, kölcsönzéseinek listázása, illetve tag törlésére.
+ * A könyv-kezelés almenüben nyílik lehetőség új könyv felvételére, könyvek listázására, illetve törlésére.
+ * A tag-kezelés almenüben nyílik lehetőség új tag felvételére, tagok listázására, adott tag adatainak megtekintésére illetve szerkesztésére, ezenkívül tagok törlésére.
  * A kölcsönzés/visszavétel-almenüben lehetőség nyílik egy könyv kölcsönzésére/visszavételére adott tag által
 
 
 
  * A program a könyvek adatait a _Books_ osztályban, a tagok adatait a _Members_ osztályban tárolja
- * A különböző tagtípusok a _Members_ osztályból vannak származtatva, ezen osztályok: _Student_, _Prof_, _Oth_citizen_, és _Others_. (Amik megfelelnek (sorrendben): Egyetem hallgatói, egyetem tanárai, más egyetem polgára, egyéb ember)
- * A _Members_ osztály gyerekei tehát a tagtípusokat jelölik, ezekben az osztályokban valójában csak a _Loan_ (kölcsönző) és a _Return_ (visszahozó) metódusok vannak felüldefiniálva, hogy a feladat leírásának megfelelően működjön a kölcsönzés illetve a visszavétel ( minden típusra a maximum ideig, és a maximum könyvmennyiséget engedjük kölcsönözni)
+ * A különböző tagtípusok a _Members_ osztályból vannak származtatva, ezen osztályok: _Student_, _Prof_, _Oth_citizen_, és _Others_. (Amik megfelelnek (sorrendben): Egyetem hallgatói, egyetem tanárai, más egyetem polgára, és végül egyéb személy)
+ * A _Members_ osztály gyerekei tehát a tagtípusokat jelölik, ezekben az osztályokban valójában csak a konstruktoruk és a _DateWhen_ metódusuk tér el. Hiszen a konstruktor beállítja a megfelelő kölcsönzésszámot, addig a _DateWhen_ megadja, hogy egy adott könyvet mikor kell visszahozni. A kölcsönzést és visszavételt tehtát a _Member_ osztály metódusai végzik.
 
 
 http://konyvtar-adminisztracio.googlecode.com/svn/branches/Library1.png
