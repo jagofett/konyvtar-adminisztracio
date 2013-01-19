@@ -38,7 +38,10 @@ public:
 	int GetId() const {return _id;}
 	std::string GetEler() const {return _eler;}
 	std::string GetCim() const {return _lakcim;}
-	int GetKolcs()const{return _kivett.size();}
+	int GetKolcsSize()const{return _kivett.size();}
+	Books* FirstKolcs() const {return _kivett.front();}
+	virtual bool Kolcs(){return _kivett.size()<=_max_konyv;} //annak megállapítása, hogy a tag kölcsönözhet-e még könyvet
+	int MaxKolcs()const {return _max_konyv;}
 	enum Exception {INVALID_RETURN,INVALID_LOAN};
 	friend std::ostream& operator<<(std::ostream&,const Members*);
 protected:
