@@ -14,10 +14,6 @@ int napok;
 int _ev, _hnap, _nap;
 public:
 enum Exception {BAD_DATE_FORMAT};
-int getEv(){return _ev;}
-int getHnap(){return _hnap;}
-int getNap(){return _nap;}
-int getNapok(){return napok;}
 
 MyDate(int ev, int hnap, int nap): _ev(ev), _hnap(hnap), _nap(nap)
 {
@@ -127,13 +123,7 @@ napok -= a;
 return *this;
 }
 
-friend ostream& operator<<(ostream &os,const MyDate &b) //kiírés a képernyöre, szinte mint a getDate()
-{
-    string h1, h2;
-    h1 = (b._hnap < 10) ? "0":""; //kitöltõ 0-ák
-    h2 = (b._nap < 10) ? "0":"";
-    return os << b._ev << "." << h1 << b._hnap << "." << h2 << b._nap;
-}
+
 };
 
 
