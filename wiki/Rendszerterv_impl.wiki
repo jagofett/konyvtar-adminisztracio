@@ -36,6 +36,10 @@ A program 9 osztályból áll, ezek részletezése:
  * A _Members_ osztály gyerekei tehát a tagtípusokat jelölik, ezekben az osztályokban valójában csak a konstruktoruk és a _DateWhen_ metódusuk tér el. Hiszen a konstruktor beállítja a megfelelő kölcsönzésszámot, addig a _DateWhen_ megadja, hogy egy adott könyvet mikor kell visszahozni. A kölcsönzést és visszavételt tehtát a _Member_ osztály metódusai végzik.
 
 
+ * Az _Admin_ osztály végzi a felhasználó bejelentkeztetését, konstruktora betölti a megfelelő állományból az azonosító adatokat, majd a _Login_ metódust meghívva, megkezdődik a bejelentkeztetés.
+
+ * A _MyDate_ osztály feladata a kölcsönzés és visszahozás dátumának számolása. Működésének alapja, hogy a dátumot napokra visszaszámolja, majd a különböző műveleteket így végzi el, végül a napokat visszaalakítja dátum formára. A _Menu_ osztály Loan metódusa illetve a _Members_ osztály Return metódusa használja.
+
 http://konyvtar-adminisztracio.googlecode.com/svn/branches/Library1.png
 _<p align="center">A működést bemutató osztálydiagram</p>_
 
@@ -94,3 +98,23 @@ A tagokat tartalmazó fájl
 <tipus>;<nev>;<lakcim>;<elerhetoseg>;<kölcsönzések száma>;<kivett könyv 1>;<könyv 1 kivételi dátuma>; ... ;<kivett könyv N>;<könyv N kivételi dátuma>
 ...
 </pre>
+
+=== A program tesztesetei ===
+
+A helyes működés biztosítása érdekében a program számos tesztelésen átesett, ezek közül a legfontosabbak:
+
+ * Üres fájlok - eredmény:
+  * a pass.dat bejelentkezési adatokat tartalmazó fájl nem lehet üres, a program ekkor hibaüzenettel leáll. Ha csak a könyvek és tagok adatait tartalmazó fájlok üresek, a program helyesen működik.
+ * Hibás fájlok - eredmény: 
+  * a program hibaüzenettel leáll. A helyes futás csak hibátlan adatfájlok esetén garantált!
+ * Bejelentkezés tesztelése
+  * 3 sikertelen kísérlet után a program kilép
+ * Menü funkcióinak tesztelése
+  * a funkciók helyesen működnek, minden menüelem funkcióképes
+ * Különböző tagtípusok tesztelése
+  * minden tagtípus a neki elvárt módon működik, a vissza hozatal ideje helyesen kerül megállapításra, kölcsönözni csak a megengedett számú könyvet lehet
+  * a tag részletes adatai megfelelően működik, tag szerkesztése szintén
+ * Könyvek tesztelése
+  * kölcsönzött könyv nem kölcsönözhető újra, a keresés működik
+ * Kölcsönzés
+  * csak ha van szabad könyv, akkor jeleníti meg őket, csak pontosa adatok esetén működik, biztosra megy (ellenőrző kérdések)
