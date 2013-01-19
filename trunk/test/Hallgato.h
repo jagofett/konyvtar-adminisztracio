@@ -24,7 +24,6 @@ public:
 	}
 	virtual ~Student(){}
 
-	bool Return(Books mit);
 	void spec() {std::cout << "Típus: " << _tipus << " Kölcs. hossza: " << _kolcs_hossz << ", maximális könyvszám: " <<_max_konyv << std::endl;}
     std::string DateWhen(std::string datum){MyDate date(datum);date.addMonth();date.addMonth();return date.getDate();}
 };

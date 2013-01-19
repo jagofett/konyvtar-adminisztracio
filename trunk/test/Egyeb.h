@@ -25,7 +25,6 @@ public:
 	virtual ~Citizen(){}
 		void spec() {std::cout << "Típus: " << _tipus << " Kölcs. hossza: " << _kolcs_hossz << ", maximális könyvszám: " <<_max_konyv << std::endl;}
 
-	bool Return(Books mit);
     std::string DateWhen(std::string datum){MyDate date(datum);date.addMonth();return date.getDate();}
 
 };

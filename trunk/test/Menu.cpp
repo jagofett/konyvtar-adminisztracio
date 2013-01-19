@@ -319,7 +319,7 @@ Clear();
 void Menu::SearchBook(){
 cout << "-- Köny keresése --" << endl;
 cout << "Mi alapján keresel? (1 - Szerzö, 2 - Cím, 3 - ISBN, 4 - azonosító)" << endl;
-int vsz;
+int vsz, db;
 Clear();
 vsz = GetInteger("Keresés alapja: ");
 string mit;
@@ -328,10 +328,12 @@ cout << "Írd be a keresendö szöveget! " << endl;
 cin >> mit;
 if(_books.size()>0){
 _books[0]->list_f();
+db = 0;
 for(int i = 0;i<_books.size();++i)
 {
-   if (_books[i]->Search(vsz,mit)) {_books[i]->list();};
+   if (_books[i]->Search(vsz,mit)) {_books[i]->list();db++;};
 }
+if (db==0) {cout << "FIGYELEM! Nincs találat!" << endl;}
 }else {cout << "Nincs egy könyv se!" << endl;}//nincs könyv
 
 }
