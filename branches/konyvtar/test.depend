@@ -1,0 +1,163 @@
+# depslib dependency file v1.0
+1358293389 source:e:\project\test\konyv.cpp
+	<iostream>
+	"Konyv.h"
+
+1358293374 e:\project\test\konyv.h
+	<string>
+	"Members.h"
+
+1358443868 source:e:\project\test\main.cpp
+	<iostream>
+	<fstream>
+	<vector>
+	<cstdlib>
+	<sstream>
+	"Date.hpp"
+	"Konyv.h"
+	"Admin.h"
+	"Members.h"
+	"Egyeb.h"
+
+1358205027 source:e:\project\test\admin.cpp
+	"Admin.h"
+	<fstream>
+
+1358259873 e:\project\test\admin.h
+	<vector>
+	<iostream>
+
+1358436638 e:\project\test\members.h
+	<iostream>
+	<vector>
+	<string>
+	"Konyv.h"
+
+1358436731 source:e:\project\test\members.cpp
+	<iostream>
+	<cstdlib>
+	"Members.h"
+	"Date.hpp"
+
+1358444355 e:\project\test\date.hpp
+	<iostream>
+	<string>
+	<cstdlib>
+	<time.h>
+	<sstream>
+
+1358296858 source:e:\project\test\egyeb.cpp
+	"Egyeb.h"
+
+1358296152 e:\project\test\egyeb.h
+	"Members.h"
+
+1358295588 source:e:\project\test\hallgato.cpp
+	"Hallgato.h"
+
+1358295578 e:\project\test\hallgato.h
+	"Members.h"
+
+1358295609 source:e:\project\test\oktato.cpp
+	"Oktato.h"
+
+1358295597 e:\project\test\oktato.h
+	"Members.h"
+
+1358295622 source:e:\project\test\others.cpp
+	"Others.h"
+
+1358295616 e:\project\test\others.h
+	"Members.h"
+
+1358623264 source:e:\project\konyvtar-adminisztracio\trunk\test\admin.cpp
+	"Admin.h"
+	<fstream>
+
+1358623315 e:\project\konyvtar-adminisztracio\trunk\test\admin.h
+	<vector>
+	<iostream>
+
+1358459922 source:e:\project\konyvtar-adminisztracio\trunk\test\egyeb.cpp
+	"Egyeb.h"
+
+1358623315 e:\project\konyvtar-adminisztracio\trunk\test\egyeb.h
+	"Members.h"
+	"Date.hpp"
+
+1358623264 e:\project\konyvtar-adminisztracio\trunk\test\members.h
+	<iostream>
+	<vector>
+	<string>
+	"Konyv.h"
+
+1358620065 e:\project\konyvtar-adminisztracio\trunk\test\konyv.h
+	<string>
+	"Members.h"
+
+1358450984 source:e:\project\konyvtar-adminisztracio\trunk\test\hallgato.cpp
+	"Hallgato.h"
+
+1358623264 e:\project\konyvtar-adminisztracio\trunk\test\hallgato.h
+	"Members.h"
+	"Date.hpp"
+
+1358623264 source:e:\project\konyvtar-adminisztracio\trunk\test\konyv.cpp
+	<iostream>
+	<sstream>
+	"Konyv.h"
+
+1358620065 source:e:\project\konyvtar-adminisztracio\trunk\test\main.cpp
+	<iostream>
+	"Menu.h"
+
+1358623315 e:\project\konyvtar-adminisztracio\trunk\test\date.hpp
+	<iostream>
+	<string>
+	<cstdlib>
+	<time.h>
+	<sstream>
+
+1358451025 source:e:\project\konyvtar-adminisztracio\trunk\test\oktato.cpp
+	"Oktato.h"
+
+1358623264 e:\project\konyvtar-adminisztracio\trunk\test\oktato.h
+	"Members.h"
+	"Date.hpp"
+
+1358451036 source:e:\project\konyvtar-adminisztracio\trunk\test\others.cpp
+	"Others.h"
+
+1358623264 e:\project\konyvtar-adminisztracio\trunk\test\others.h
+	"Members.h"
+	"Date.hpp"
+
+1358623558 source:e:\project\konyvtar-adminisztracio\trunk\test\members.cpp
+	<iostream>
+	<cstdlib>
+	"Members.h"
+	"Date.hpp"
+
+1358625529 source:e:\project\konyvtar-adminisztracio\trunk\test\menu.cpp
+	"Menu.h"
+	<iostream>
+	<fstream>
+	<vector>
+	<cstdlib>
+	<sstream>
+	"Date.hpp"
+	"Konyv.h"
+	"Admin.h"
+	"Members.h"
+	"Egyeb.h"
+	"Hallgato.h"
+	"Oktato.h"
+	"Others.h"
+
+1358625132 e:\project\konyvtar-adminisztracio\trunk\test\menu.h
+	<vector>
+	<string>
+	"Konyv.h"
+	"Members.h"
+	"Admin.h"
+
