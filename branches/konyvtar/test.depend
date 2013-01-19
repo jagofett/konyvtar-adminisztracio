@@ -161,3 +161,94 @@
 	"Members.h"
 	"Admin.h"
 
+1358626796 source:e:\project\konyvtar-adminisztracio\branches\konyvtar\admin.cpp
+	"Admin.h"
+	<fstream>
+
+1358626795 e:\project\konyvtar-adminisztracio\branches\konyvtar\admin.h
+	<vector>
+	<iostream>
+
+1358626795 source:e:\project\konyvtar-adminisztracio\branches\konyvtar\egyeb.cpp
+	"Egyeb.h"
+
+1358626795 e:\project\konyvtar-adminisztracio\branches\konyvtar\egyeb.h
+	"Members.h"
+	"Date.hpp"
+
+1358626795 e:\project\konyvtar-adminisztracio\branches\konyvtar\members.h
+	<iostream>
+	<vector>
+	<string>
+	"Konyv.h"
+
+1358626795 e:\project\konyvtar-adminisztracio\branches\konyvtar\konyv.h
+	<string>
+	"Members.h"
+
+1358627921 e:\project\konyvtar-adminisztracio\branches\konyvtar\date.hpp
+	<iostream>
+	<string>
+	<cstdlib>
+	<time.h>
+	<sstream>
+
+1358626796 source:e:\project\konyvtar-adminisztracio\branches\konyvtar\hallgato.cpp
+	"Hallgato.h"
+
+1358626795 e:\project\konyvtar-adminisztracio\branches\konyvtar\hallgato.h
+	"Members.h"
+	"Date.hpp"
+
+1358626795 source:e:\project\konyvtar-adminisztracio\branches\konyvtar\konyv.cpp
+	<iostream>
+	<sstream>
+	"Konyv.h"
+
+1358626795 source:e:\project\konyvtar-adminisztracio\branches\konyvtar\main.cpp
+	<iostream>
+	"Menu.h"
+
+1358626795 e:\project\konyvtar-adminisztracio\branches\konyvtar\menu.h
+	<vector>
+	<string>
+	"Konyv.h"
+	"Members.h"
+	"Admin.h"
+
+1358626795 source:e:\project\konyvtar-adminisztracio\branches\konyvtar\members.cpp
+	<iostream>
+	<cstdlib>
+	"Members.h"
+	"Date.hpp"
+
+1358630402 source:e:\project\konyvtar-adminisztracio\branches\konyvtar\menu.cpp
+	"Menu.h"
+	<iostream>
+	<fstream>
+	<vector>
+	<cstdlib>
+	<sstream>
+	"Date.hpp"
+	"Konyv.h"
+	"Admin.h"
+	"Members.h"
+	"Egyeb.h"
+	"Hallgato.h"
+	"Oktato.h"
+	"Others.h"
+
+1358626795 e:\project\konyvtar-adminisztracio\branches\konyvtar\oktato.h
+	"Members.h"
+	"Date.hpp"
+
+1358626795 e:\project\konyvtar-adminisztracio\branches\konyvtar\others.h
+	"Members.h"
+	"Date.hpp"
+
+1358626795 source:e:\project\konyvtar-adminisztracio\branches\konyvtar\oktato.cpp
+	"Oktato.h"
+
+1358626795 source:e:\project\konyvtar-adminisztracio\branches\konyvtar\others.cpp
+	"Others.h"
+
